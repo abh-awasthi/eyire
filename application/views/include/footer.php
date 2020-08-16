@@ -1,35 +1,12 @@
-  
-                
-<script src="<?=base_url();?>assets/vendor/jquery/dist/jquery.min.js"></script>
-<script src="<?=base_url();?>assets/vendor/popper.js/dist/umd/popper.min.js"></script>
-<script src="<?=base_url();?>assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="<?=base_url();?>assets/vendor/headroom.js/dist/headroom.min.js"></script>
+<!-- Jquery Core Js --> 
+<script src="<?php echo base_url(); ?>assets/aero/assets/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js ( jquery.v3.2.1, Bootstrap4 js) --> 
+<script src="<?php echo base_url(); ?>assets/aero/assets/bundles/vendorscripts.bundle.js"></script> <!-- slimscroll, waves Scripts Plugin Js -->
 
-<!-- Vendor JS -->
-<script src="<?=base_url();?>assets/vendor/onscreen/dist/on-screen.umd.min.js"></script>
-<script src="<?=base_url();?>assets/vendor/nouislider/distribute/nouislider.min.js"></script>
-<script src="<?=base_url();?>assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-<script src="<?=base_url();?>assets/vendor/waypoints/lib/jquery.waypoints.min.js"></script>
-<script src="<?=base_url();?>assets/vendor/jarallax/dist/jarallax.min.js"></script>
-<script src="<?=base_url();?>assets/vendor/jquery.counterup/jquery.counterup.min.js"></script>
-<script src="<?=base_url();?>assets/vendor/jquery-countdown/dist/jquery.countdown.min.js"></script>
-<script src="<?=base_url();?>assets/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
-<script src="<?=base_url();?>assets/vendor/prismjs/prism.js"></script>
+<script src="<?php echo base_url(); ?>assets/aero/assets/bundles/jvectormap.bundle.js"></script> <!-- JVectorMap Plugin Js -->
+<script src="<?php echo base_url(); ?>assets/aero/assets/bundles/sparkline.bundle.js"></script> <!-- Sparkline Plugin Js -->
+<script src="<?php echo base_url(); ?>assets/aero/assets/bundles/c3.bundle.js"></script>
 
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-
-<!-- Neumorphism JS -->
-<script src="<?=base_url();?>assets/js/neumorphism.js"></script>        
- 
-	<div class="footer">
-            <!-- <p>ALL CONCEPTS AND(OR)VISUALS SHALL NOT BE REPRODUCED IN ANY FORM WITHOUT PRIOR WRITTEN CONSENT FROM XPL1 PLTE LTD.</p>-->
-        </div>
-                
-           
+<script src="<?php echo base_url(); ?>assets/aero/assets/bundles/mainscripts.bundle.js"></script>
+<script src="<?php echo base_url(); ?>assets/aero/assets/js/pages/index.js"></script>
 </body>
-<script>
-    
-  
-    
-    </script>
 </html>

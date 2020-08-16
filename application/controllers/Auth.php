@@ -58,6 +58,7 @@ class Auth extends CI_Controller
 			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'index', $this->data);
 		}
 	}
+	
 
 	/**
 	 * Log the user in
@@ -110,9 +111,9 @@ class Auth extends CI_Controller
 				'type' => 'password',
 			];
 			
-			$this->_render_page('include' . DIRECTORY_SEPARATOR . 'header', $this->data);
+			//$this->_render_page('include' . DIRECTORY_SEPARATOR . 'header', $this->data);
 			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'login', $this->data);
-			$this->_render_page('include' . DIRECTORY_SEPARATOR . 'footer', $this->data);
+			//$this->_render_page('include' . DIRECTORY_SEPARATOR . 'footer', $this->data);
 		}
 	}
 

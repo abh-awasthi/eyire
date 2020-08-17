@@ -1,3 +1,4 @@
+
 <script src="<?php echo base_url(); ?>assets/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js --> 
 <script src="<?php echo base_url(); ?>assets/bundles/vendorscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js --> 
 <script src="<?php echo base_url(); ?>assets/plugins/jquery-validation/jquery.validate.js"></script>

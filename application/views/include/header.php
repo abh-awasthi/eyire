@@ -33,6 +33,8 @@
 <div class="overlay"></div>
 
 <!-- Main Search -->
+<?php if($this->ion_auth->logged_in()){ ?>
+	
 <div id="search">
     <button id="close" type="button" class="close btn btn-primary btn-icon btn-icon-mini btn-round">x</button>
     <form>
@@ -580,3 +582,4 @@
         </div>
     </div>
 </aside>
+<?php } ?>

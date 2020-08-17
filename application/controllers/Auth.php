@@ -97,9 +97,9 @@ class Auth extends CI_Controller {
                 'type' => 'password',
             ];
 
-            //$this->_render_page('include' . DIRECTORY_SEPARATOR . 'header', $this->data);
+            $this->_render_page('include' . DIRECTORY_SEPARATOR . 'header', $this->data);
             $this->_render_page('auth' . DIRECTORY_SEPARATOR . 'login', $this->data);
-            //$this->_render_page('include' . DIRECTORY_SEPARATOR . 'footer', $this->data);
+            $this->_render_page('include' . DIRECTORY_SEPARATOR . 'footer', $this->data);
         }
     }
 
@@ -208,7 +208,9 @@ class Auth extends CI_Controller {
 
             // set any errors and display the form
             $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+            $this->_render_page('include' . DIRECTORY_SEPARATOR . 'header');
             $this->_render_page('auth' . DIRECTORY_SEPARATOR . 'forgot_password', $this->data);
+            $this->_render_page('include' . DIRECTORY_SEPARATOR . 'footer');
         } else {
             $identity_column = $this->config->item('identity', 'ion_auth');
             $identity = $this->ion_auth->where($identity_column, $this->input->post('identity'))->users()->row();
@@ -486,8 +488,9 @@ class Auth extends CI_Controller {
                 'type' => 'password',
                 'value' => $this->form_validation->set_value('password_confirm'),
             ];
-
+            $this->_render_page('include' . DIRECTORY_SEPARATOR . 'header');
             $this->_render_page('auth' . DIRECTORY_SEPARATOR . 'create_user', $this->data);
+            $this->_render_page('include' . DIRECTORY_SEPARATOR . 'footer');
         }
     }
 

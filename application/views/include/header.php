@@ -5,16 +5,18 @@
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
-<title>:: Aero Bootstrap4 Admin :: Home</title>
+<title>:: <?php echo $title;?></title>
 <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets/aero/assets/plugins/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets/aero/assets/plugins/jvectormap/jquery-jvectormap-2.0.3.min.css"/>
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets/aero/assets/plugins/charts-c3/plugin.css"/>
+<link  rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap.min.css">
+<!-- Bootstrap Select Css -->
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/bootstrap-select/css/bootstrap-select.css" />
 
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets/aero/assets/plugins/morrisjs/morris.min.css" />
+<!-- Select2 -->
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/select2/select2.css" />
 
 <!-- Custom Css -->
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets/aero/assets/css/style.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.min.css">
+
 </head>
 
 <body class="theme-blush">
@@ -22,7 +24,7 @@
 <!-- Page Loader -->
 <div class="page-loader-wrapper">
     <div class="loader">
-        <div class="m-t-30"><img class="zmdi-hc-spin" src="<?php echo base_url(); ?>assets/aero/assets/images/loader.svg" width="48" height="48" alt="Aero"></div>
+        <div class="m-t-30"><img class="zmdi-hc-spin" src="<?php echo base_url(); ?>assets/images/loader.svg" width="48" height="48" alt="EyeRie"></div>
         <p>Please wait...</p>
     </div>
 </div>
@@ -184,13 +186,13 @@
                                 <ul class="list-unstyled team-info">
                                     <li class="m-r-15"><small>Team</small></li>
                                     <li>
-                                        <img src="<?php echo base_url(); ?>assets/aero/assets/images/xs/avatar2.jpg" alt="Avatar">
+                                        <img src="<?php echo base_url(); ?>assets/images/xs/avatar2.jpg" alt="Avatar">
                                     </li>
                                     <li>
-                                        <img src="<?php echo base_url(); ?>assets/aero/assets/images/xs/avatar3.jpg" alt="Avatar">
+                                        <img src="<?php echo base_url(); ?>assets/images/xs/avatar3.jpg" alt="Avatar">
                                     </li>
                                     <li>
-                                        <img src="<?php echo base_url(); ?>assets/aero/assets/images/xs/avatar4.jpg" alt="Avatar">
+                                        <img src="<?php echo base_url(); ?>assets/images/xs/avatar4.jpg" alt="Avatar">
                                     </li>                            
                                 </ul>
                             </div>
@@ -206,19 +208,19 @@
                                 <ul class="list-unstyled team-info">
                                     <li class="m-r-15"><small>Team</small></li>
                                     <li>
-                                        <img src="<?php echo base_url(); ?>assets/aero/assets/images/xs/avatar10.jpg" alt="Avatar">
+                                        <img src="<?php echo base_url(); ?>assets/images/xs/avatar10.jpg" alt="Avatar">
                                     </li>
                                     <li>
-                                        <img src="<?php echo base_url(); ?>assets/aero/assets/images/xs/avatar9.jpg" alt="Avatar">
+                                        <img src="<?php echo base_url(); ?>assets/images/xs/avatar9.jpg" alt="Avatar">
                                     </li>
                                     <li>
-                                        <img src="<?php echo base_url(); ?>assets/aero/assets/images/xs/avatar8.jpg" alt="Avatar">
+                                        <img src="<?php echo base_url(); ?>assets/images/xs/avatar8.jpg" alt="Avatar">
                                     </li>
                                     <li>
-                                        <img src="<?php echo base_url(); ?>assets/aero/assets/images/xs/avatar7.jpg" alt="Avatar">
+                                        <img src="<?php echo base_url(); ?>assets/images/xs/avatar7.jpg" alt="Avatar">
                                     </li>
                                     <li>
-                                        <img src="<?php echo base_url(); ?>assets/aero/assets/images/xs/avatar6.jpg" alt="Avatar">
+                                        <img src="<?php echo base_url(); ?>assets/images/xs/avatar6.jpg" alt="Avatar">
                                     </li>
                                 </ul>
                             </div>
@@ -234,13 +236,13 @@
                                 <ul class="list-unstyled team-info">
                                     <li class="m-r-15"><small>Team</small></li>
                                     <li>
-                                        <img src="<?php echo base_url(); ?>assets/aero/assets/images/xs/avatar5.jpg" alt="Avatar">
+                                        <img src="<?php echo base_url(); ?>assets/images/xs/avatar5.jpg" alt="Avatar">
                                     </li>
                                     <li>
-                                        <img src="<?php echo base_url(); ?>assets/aero/assets/images/xs/avatar2.jpg" alt="Avatar">
+                                        <img src="<?php echo base_url(); ?>assets/images/xs/avatar2.jpg" alt="Avatar">
                                     </li>
                                     <li>
-                                        <img src="<?php echo base_url(); ?>assets/aero/assets/images/xs/avatar7.jpg" alt="Avatar">
+                                        <img src="<?php echo base_url(); ?>assets/images/xs/avatar7.jpg" alt="Avatar">
                                     </li>                            
                                 </ul>
                             </div>
@@ -261,13 +263,13 @@
 <aside id="leftsidebar" class="sidebar">
     <div class="navbar-brand">
         <button class="btn-menu ls-toggle-btn" type="button"><i class="zmdi zmdi-menu"></i></button>
-        <a href="index.html"><img src="<?php echo base_url(); ?>assets/aero/assets/images/logo.svg" width="25" alt="Aero"><span class="m-l-10">Aero</span></a>
+        <a href="index.html"><img src="<?php echo base_url(); ?>assets/images/logo.svg" width="25" alt="EyeRie"><span class="m-l-10">EyeRie</span></a>
     </div>
     <div class="menu">
         <ul class="list">
             <li>
                 <div class="user-info">
-                    <a class="image" href="profile.html"><img src="<?php echo base_url(); ?>assets/aero/assets/images/profile_av.jpg" alt="User"></a>
+                    <a class="image" href="profile.html"><img src="<?php echo base_url(); ?>assets/images/profile_av.jpg" alt="User"></a>
                     <div class="detail">
                         <h4>Michael</h4>
                         <small>Super Admin</small>                        
@@ -276,10 +278,10 @@
             </li>
             <li class="active open"><a href="index.html"><i class="zmdi zmdi-home"></i><span>Dashboard</span></a></li>
             <li><a href="my-profile.html"><i class="zmdi zmdi-account"></i><span>Our Profile</span></a></li>
-            <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-apps"></i><span>App</span></a>
+            <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-apps"></i><span>Master</span></a>
                 <ul class="ml-menu">
-                    <li><a href="mail-inbox.html">Email</a></li>
-                    <li><a href="chat.html">Chat Apps</a></li>
+                    <li><a href="<?php echo base_url();?>master/addDistrict">District Entry</a></li>
+                    <li><a href="chat.html">Branch Entry</a></li>
                     <li><a href="events.html">Calendar</a></li>
                     <li><a href="contact.html">Contact</a></li>                    
                 </ul>
@@ -515,7 +517,7 @@
                         <li class="online">
                             <a href="javascript:void(0);">
                                 <div class="media">
-                                    <img class="media-object " src="<?php echo base_url(); ?>assets/aero/assets/images/xs/avatar4.jpg" alt="">
+                                    <img class="media-object " src="<?php echo base_url(); ?>assets/images/xs/avatar4.jpg" alt="">
                                     <div class="media-body">
                                         <span class="name">Sophia <small class="float-right">11:00AM</small></span>
                                         <span class="message">There are many variations of passages of Lorem Ipsum available</span>
@@ -527,7 +529,7 @@
                         <li class="online">
                             <a href="javascript:void(0);">
                                 <div class="media">
-                                    <img class="media-object " src="<?php echo base_url(); ?>assets/aero/assets/images/xs/avatar5.jpg" alt="">
+                                    <img class="media-object " src="<?php echo base_url(); ?>assets/images/xs/avatar5.jpg" alt="">
                                     <div class="media-body">
                                         <span class="name">Grayson <small class="float-right">11:30AM</small></span>
                                         <span class="message">All the Lorem Ipsum generators on the</span>
@@ -539,7 +541,7 @@
                         <li class="offline">
                             <a href="javascript:void(0);">
                                 <div class="media">
-                                    <img class="media-object " src="<?php echo base_url(); ?>assets/aero/assets/images/xs/avatar2.jpg" alt="">
+                                    <img class="media-object " src="<?php echo base_url(); ?>assets/images/xs/avatar2.jpg" alt="">
                                     <div class="media-body">
                                         <span class="name">Isabella <small class="float-right">11:31AM</small></span>
                                         <span class="message">Contrary to popular belief, Lorem Ipsum</span>
@@ -551,7 +553,7 @@
                         <li class="me">
                             <a href="javascript:void(0);">
                                 <div class="media">
-                                    <img class="media-object " src="<?php echo base_url(); ?>assets/aero/assets/images/xs/avatar1.jpg" alt="">
+                                    <img class="media-object " src="<?php echo base_url(); ?>assets/images/xs/avatar1.jpg" alt="">
                                     <div class="media-body">
                                         <span class="name">John <small class="float-right">05:00PM</small></span>
                                         <span class="message">It is a long established fact that a reader</span>
@@ -563,7 +565,7 @@
                         <li class="online">
                             <a href="javascript:void(0);">
                                 <div class="media">
-                                    <img class="media-object " src="<?php echo base_url(); ?>assets/aero/assets/images/xs/avatar3.jpg" alt="">
+                                    <img class="media-object " src="<?php echo base_url(); ?>assets/images/xs/avatar3.jpg" alt="">
                                     <div class="media-body">
                                         <span class="name">Alexander <small class="float-right">06:08PM</small></span>
                                         <span class="message">Richard McClintock, a Latin professor</span>

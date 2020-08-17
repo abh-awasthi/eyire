@@ -4,7 +4,7 @@
             <div class="col-lg-4 col-sm-12">
                 <form class="card auth_form" action="<?php  echo base_url(); ?>auth/login" method="POST" >
                     <div class="header">
-                        <img class="logo" src="<?php echo base_url(); ?>assets/aero/assets/images/logo.svg" alt="">
+                        <img class="logo" src="<?php echo base_url(); ?>assets/images/logo.svg" alt="">
                         <h5>Log in</h5>
                     </div>
                     <div class="body">
@@ -35,7 +35,7 @@
             </div>
             <div class="col-lg-8 col-sm-12">
                 <div class="card">
-                    <img src="<?php echo base_url(); ?>assets/aero/assets/images/logo2.svg" alt="Sign In"/>
+                    <img src="<?php echo base_url(); ?>assets/images/logo2.svg" alt="Sign In"/>
                 </div>
             </div>
         </div>

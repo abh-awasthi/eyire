@@ -60,6 +60,71 @@ class Auth extends CI_Controller
 		}
 	}
 	
+	private function get_post_data(){
+        $post['length'] = $this->input->post('length');
+        $post['start'] = $this->input->post('start');
+        $search = $this->input->post('search');
+        $post['search_value'] = $search['value'];
+        $post['order'] = $this->input->post('order');
+        $post['draw'] = $this->input->post('draw');
+
+        return $post;
+    }
+	
+	
+	function usersList(){
+		
+		
+	   
+		$post = $this->get_post_data();
+        $post['column_order'] = array();
+        $post['column_search'] = array('first_name', 'last_name', 'email');
+        $select = "*";
+        $users = $this->ion_auth->users()->result();
+		 foreach ($users as $k => $user)
+			{
+				$users[$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
+		 }
+        $data = array();
+        $no = $post['start'];
+
+        foreach ($users as $vendor_list) {
+            $no++;
+            $row = $this->get_users_table($vendor_list, $no);
+            $data[] = $row;
+        }
+
+        $post['length'] = -1;
+        $output = array(
+            "draw" => $this->input->post('draw'),
+            "recordsTotal" => 500,
+            "recordsFiltered" => 50,
+            "data" => $data,
+        );
+
+        echo json_encode($output);
+		
+	}
+	
+	
+	
+	
+	    function get_users_table($user, $no) {
+ 
+
+        $row[] =  $user->first_name;
+        $row[] =  $user->last_name;
+		$row[] =  $user->email;
+		$groups= '';
+		   foreach ($user->groups as $group){ 
+					$groups = $groups.     anchor("auth/edit_group/".$group->id, htmlspecialchars($group->name,ENT_QUOTES,'UTF-8'));
+           }
+         $row[] =  $groups;
+		  $row[] =  ($user->active) ? anchor("auth/deactivate/".$user->id, lang('index_active_link')) : anchor("auth/activate/". $user->id, lang('index_inactive_link'));
+        $row[] =  anchor("auth/edit_user/".$user->id, 'Edit') ;
+        return $row;
+    }
+	
 
 	/**
 	 * Log the user in

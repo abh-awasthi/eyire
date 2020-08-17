@@ -94,10 +94,19 @@
     //Exportable table
     $('.js-exportable').DataTable({
         dom: 'Bfrtip',
+		"ajax": '<?php echo base_url(); ?>auth/usersList',
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'
         ]
     });
+	
+	
+	
+	
+	
+	
+	
+
 });
 
 </script>

@@ -1,3 +1,5 @@
+<link src="<?php echo base_url(); ?>assets/plugins/jquery-datatable/dataTables.bootstrap4.min.css"> 
+
 <script src="<?php echo base_url(); ?>assets/bundles/datatablescripts.bundle.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/jquery-datatable/buttons/dataTables.buttons.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/jquery-datatable/buttons/buttons.bootstrap4.min.js"></script>
@@ -18,10 +20,10 @@
     <div class="block-header">
         <div class="row">
             <div class="col-lg-7 col-md-6 col-sm-12">
-                <h2>Create User</h2>
+                <h2>User List</h2>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#"><i class="zmdi zmdi-home"></i> User</a></li>
-                    <li class="breadcrumb-item active">Create User</li>
+                    <li class="breadcrumb-item active">User List</li>
                 </ul>
                 <button class="btn btn-primary btn-icon mobile_menu" type="button"><i class="zmdi zmdi-sort-amount-desc"></i></button>
             </div>
@@ -30,10 +32,9 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid">
+	<div class="body">
+    <div class="table-responsive">
  
-		
-		 
 <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                     <thead>
                                         <tr>
@@ -78,6 +79,7 @@
  
  
     </div>
+	</div>
 </section>
 
 
@@ -89,8 +91,7 @@
 <script>
 
  $(function () {
-    $('.js-basic-example').DataTable();
-
+    
     //Exportable table
     $('.js-exportable').DataTable({
         dom: 'Bfrtip',

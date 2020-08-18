@@ -16,7 +16,7 @@
 
 <!-- Custom Css -->
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.min.css">
-<link src="<?php echo base_url(); ?>assets/plugins/jquery-datatable/dataTables.bootstrap4.min"> 
+
 
 
 

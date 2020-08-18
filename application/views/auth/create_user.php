@@ -84,6 +84,26 @@
 								
 							</div>	
 							
+							
+						 <div class="row">
+								<div class="col-md-6">							
+								<div class="form-group form-float">
+							 
+                                    <select class="form-control show-tick" name="role">
+									<option value=''>Select Role</option>
+									<?php foreach($groups as $group){ ?>
+									
+										<option value='<?php echo $group['id'] ?>'><?php echo $group['description'] ?></option>
+										
+									<?php } ?>
+									</select>                      
+                                </div>
+								</div>
+								
+								
+			 
+								
+							</div>	
 
 
 							<div class="row">

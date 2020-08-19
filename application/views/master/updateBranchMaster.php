@@ -14,7 +14,7 @@
         </div>
         <div class="container-fluid">
             <div class="alert alert-success removeDisplay">
-                New Branch Added <strong>Successfully!</strong>
+                Branch Updated <strong>Successfully!</strong>
             </div>
             <div class="alert alert-danger removeDisplay">
 
@@ -23,7 +23,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="card">
                         <div class="header">
-                            <h2><strong>Branch</strong> Entry</h2>
+                            <h2><strong>Update</strong> Branch</h2>
                         </div>
                         <div class="body">
                             <form id="addbranch" action="javascript:void(0)" method="POST" novalidate="novalidate">
@@ -35,7 +35,7 @@
                                                 <select class="form-control show-tick ms search-select" name="district" data-placeholder="Select" id="district" required aria-required="true">
                                                     <option value=""  selected="">Select District</option>
                                                     <?php foreach ($district as $key => $value) { ?>
-                                                        <option value="<?php echo $value['id']; ?>"><?php echo $value['district']; ?></option>
+                                                        <option <?php if($branch_details[0]['district'] == $value['id']){ echo 'selected';}?>  value="<?php echo $value['id']; ?>"><?php echo $value['district']; ?></option>
                                                     <?php } ?>
                                                 </select>
 
@@ -47,7 +47,7 @@
                                         <div class="mb-3 ">
                                             <label>Branch Name *</label>
 
-                                            <input type="text" class="form-control" value="" name="branch_name" placeholder="Enter Branch Name" id="branch_name" required aria-required="true">
+                                            <input type="text" class="form-control" value="<?php echo $branch_details[0]['name'];?>" name="branch_name" placeholder="Enter Branch Name" id="branch_name" required aria-required="true">
 
                                         </div>
                                         <label id="name-branch-name" class="removeDisplay" for="Branch Name">This field is required.</label>
@@ -59,7 +59,7 @@
                                             <select class="form-control show-tick ms search-select" name="contact_person" placeholder="Enter Contact Person" id="contact_person" required aria-required="true">
                                                     <option value=""  selected="">Select Contact Person</option>
                                                     <?php foreach ($agent as $key => $value) { ?>
-                                                        <option value="<?php echo $value['id']; ?>"><?php echo ucwords($value['first_name']." ".$value['last_name']); ?></option>
+                                                        <option <?php if($branch_details[0]['contact_person'] == $value['id']){ echo 'selected';}?> value="<?php echo $value['id']; ?>"><?php echo ucwords($value['first_name']." ".$value['last_name']); ?></option>
                                                     <?php } ?>
                                                 </select>
 
@@ -71,7 +71,8 @@
                                         <div class="mb-3 ">
                                             <label>Credit Limit Amount  *</label>
 
-                                            <input type="text" class="form-control" value="" name="credit_limit_amount" placeholder="Enter Credit Limit Amount" id="credit_limit_amount" required aria-required="true">
+                                            <input type="text" class="form-control" value="<?php echo $branch_details[0]['credit_limit_amount']; ?>" name="credit_limit_amount" placeholder="Enter Credit Limit Amount" id="credit_limit_amount" required aria-required="true">
+                                            <input type="hidden" class="form-control" value="<?php echo $branch_details[0]['branch_id']; ?>" name="branch_id" >
                                         </div>
                                         <label id="name-credit-limit-amount" class="removeDisplay" for="District">This field is required.</label>
                                     </div>
@@ -80,7 +81,7 @@
                                         <div class="mb-3">
                                             <label>Branch Address *</label>
 
-                                            <textarea rows="3" class="form-control no-resize" name="branch_address" placeholder="Enter Branch Address" required aria-required="true"></textarea>
+                                            <textarea rows="3" class="form-control no-resize" name="branch_address" placeholder="Enter Branch Address" required aria-required="true"><?php echo $branch_details[0]['credit_limit_amount']; ?></textarea>
 
 
                                         </div>
@@ -89,7 +90,7 @@
 
                                     <div class="col-md-12">
                                         <center>
-                                            <input type="submit" class="btn btn-raised btn-primary waves-effect" onclick="addBranchEntry()" value="Submit">
+                                            <input type="submit" class="btn btn-raised btn-primary waves-effect" onclick="addBranchEntry('<?php echo $branch_details[0]['branch_id']; ?>')" value="Submit">
                                         </center>
                                     </div>
                                 </div>

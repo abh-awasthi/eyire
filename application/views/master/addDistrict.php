@@ -32,7 +32,7 @@
                                     <div class="mb-3">
                                         <label>State *</label>
                                         <div class="input-group">
-                                            <select class="form-control show-tick ms search-select" name="state" data-placeholder="Select" id="state">
+                                            <select class="form-control show-tick ms search-select" name="state" data-placeholder="Select" id="state" required aria-required="true">
                                                 <option value=""  selected="">Select State</option>
                                             <?php foreach ($states as $key => $value) { ?>
                                                 <option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option>
@@ -47,7 +47,7 @@
                                     <div class="mb-3 ">
                                         <label>District  *</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" value="" placeholder="Enter District" id="district">
+                                            <input type="text" class="form-control" value="" placeholder="Enter District" id="district" required aria-required="true">
                                             
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><span class="input-group-addon"> <i class="zmdi zmdi-hc-fw"></i> </span></span>

@@ -572,10 +572,14 @@ class Auth extends CI_Controller
 				'company' => $this->input->post('company'),
 				'phone' => $this->input->post('phone'),
 			];
+			
+			 $group_ids = [
+				'id'=>$this->input->post('role')
+			 ];
 		}
 		if ($this->form_validation->run() === TRUE && $this->ion_auth->register($identity, $password, $email, $additional_data))
 		{
-			// check to see if we are creating the user
+			 // check to see if we are creating the user
 			// redirect them back to the admin page
 			$this->session->set_flashdata('message', $this->ion_auth->messages());
 			redirect("auth", 'refresh');
@@ -634,6 +638,7 @@ class Auth extends CI_Controller
 				'type' => 'password',
 				'value' => $this->form_validation->set_value('password_confirm'),
 			];
+			$this->data['groups'] = $this->ion_auth->groups()->result_array();
             $this->_render_page('include' . DIRECTORY_SEPARATOR . 'header');
 			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'create_user', $this->data);
 			$this->_render_page('include' . DIRECTORY_SEPARATOR . 'footer');

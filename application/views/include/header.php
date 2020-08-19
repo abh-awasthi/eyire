@@ -15,8 +15,9 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/select2/select2.css" />
 
 <!-- Custom Css -->
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.min.css">
 
+
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/jquery-steps/jquery.steps.css">
 
 
 
@@ -27,10 +28,16 @@
 <script src="<?php echo base_url(); ?>assets/plugins/select2/select2.min.js"></script> <!-- Select2 Js -->
 
 <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-notify/bootstrap-notify.js"></script> 
-<script src="<?php echo base_url(); ?>assets/bundles/mainscripts.bundle.js"></script><!-- Custom Js --> 
+<script src="<?php echo base_url(); ?>assets/bundles/mainscripts.bundle.js"></script><!-- Custom Js -->
+
+ <script src="<?php echo base_url(); ?>assets/plugins/jquery-steps/jquery.steps.js"></script> <!-- JQuery Steps Plugin Js -->
+ 
+ <script src="<?php echo base_url(); ?>assets/js/pages/forms/form-wizard.js"></script>
+
+
 <script src="<?php echo base_url(); ?>assets/js/pages/forms/advanced-form-elements.js"></script> 
 
-
+<script src="<?php echo base_url(); ?>assets/plugins/select2/select2.min.js"></script> <!-- Select2 Js -->
 
 </head>
 

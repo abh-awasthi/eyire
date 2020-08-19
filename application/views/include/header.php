@@ -13,9 +13,12 @@
 
 <!-- Select2 -->
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/select2/select2.css" />
+<!-- JQuery DataTable Css -->
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/jquery-datatable/dataTables.bootstrap4.min.css">
 
 <!-- Custom Css -->
 
+<<<<<<< HEAD
 
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/jquery-steps/jquery.steps.css">
 
@@ -27,17 +30,27 @@
 <script src="<?php echo base_url(); ?>assets/plugins/jquery-steps/jquery.steps.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/select2/select2.min.js"></script> <!-- Select2 Js -->
 
+
 <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-notify/bootstrap-notify.js"></script> 
 <script src="<?php echo base_url(); ?>assets/bundles/mainscripts.bundle.js"></script><!-- Custom Js -->
 
- <script src="<?php echo base_url(); ?>assets/plugins/jquery-steps/jquery.steps.js"></script> <!-- JQuery Steps Plugin Js -->
- 
+
  <script src="<?php echo base_url(); ?>assets/js/pages/forms/form-wizard.js"></script>
 
 
-<script src="<?php echo base_url(); ?>assets/js/pages/forms/advanced-form-elements.js"></script> 
+<script>
+var base_url = '<?php echo base_url();?>';
+</script>
 
-<script src="<?php echo base_url(); ?>assets/plugins/select2/select2.min.js"></script> <!-- Select2 Js -->
+<script src="<?php echo base_url(); ?>assets/js/pages/forms/advanced-form-elements.js"></script> 
+<!-- Jquery DataTable Plugin Js --> 
+<script src="<?php echo base_url(); ?>assets/bundles/datatablescripts.bundle.js"></script>
+<script src="<?php echo base_url(); ?>assets/plugins/jquery-datatable/buttons/dataTables.buttons.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/plugins/jquery-datatable/buttons/buttons.bootstrap4.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/plugins/jquery-datatable/buttons/buttons.colVis.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/plugins/jquery-datatable/buttons/buttons.flash.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/plugins/jquery-datatable/buttons/buttons.html5.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/plugins/jquery-datatable/buttons/buttons.print.min.js"></script>
 
 </head>
 
@@ -305,7 +318,7 @@
             <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-apps"></i><span>Master</span></a>
                 <ul class="ml-menu">
                     <li><a href="<?php echo base_url();?>master/addDistrict">District Entry</a></li>
-                    <li><a href="chat.html">Branch Entry</a></li>
+                    <li><a href="<?php echo base_url();?>master/addBranchEntry">Branch Entry</a></li>
                     <li><a href="events.html">Calendar</a></li>
                     <li><a href="contact.html">Contact</a></li>                    
                 </ul>

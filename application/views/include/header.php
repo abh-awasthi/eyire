@@ -17,9 +17,7 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/jquery-datatable/dataTables.bootstrap4.min.css">
 
 <!-- Custom Css -->
-
-<<<<<<< HEAD
-
+ 
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/jquery-steps/jquery.steps.css">
 
 
@@ -323,10 +321,10 @@ var base_url = '<?php echo base_url();?>';
                     <li><a href="contact.html">Contact</a></li>                    
                 </ul>
             </li>
-            <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-assignment"></i><span>Projects</span></a>
+            <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-assignment"></i><span>Members</span></a>
                 <ul class="ml-menu">
-                    <li><a href="project-list.html">Projects List</a></li>
-                    <li><a href="taskboard.html">Taskboard</a></li>
+                    <li><a href="<?php echo base_url(); ?>member/create">Create Member</a></li>
+                    <li><a href="<?php echo base_url(); ?>member/memberslist">Members List</a></li>
                     <li><a href="ticket-list.html">Ticket List</a></li>
                     <li><a href="ticket-detail.html">Ticket Detail</a></li>
                 </ul>

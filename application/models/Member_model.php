@@ -12,6 +12,16 @@ class Member_model extends CI_Model {
         return $query->result_array();
         
     }
+	
+	
+	function get_master_mebers_users($select){
+		$this->db->select($select);
+		$this->db->join('users','members.member_user_id=users.id');
+        $query = $this->db->get('members');
+        return $query->result();
+		
+	}
+	
     
     function insert_row($table, $data){
         $this->db->insert($table, $data);

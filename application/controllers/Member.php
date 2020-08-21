@@ -151,6 +151,74 @@ class Member extends CI_Controller {
 
         
     }
+	
+	
+	
+    private function get_post_data(){
+        $post['length'] = $this->input->post('length');
+        $post['start'] = $this->input->post('start');
+        $search = $this->input->post('search');
+        $post['search_value'] = $search['value'];
+        $post['order'] = $this->input->post('order');
+        $post['draw'] = $this->input->post('draw');
+        return $post;
+    }
+	
+	
+	
+	function memberslist(){
+			$this->data['title'] = 'Members List';
+			$this->_render_page('include' . DIRECTORY_SEPARATOR . 'header', $this->data);
+			$this->_render_page('member' . DIRECTORY_SEPARATOR . 'memberslist', $this->data);
+			$this->_render_page('include' . DIRECTORY_SEPARATOR . 'footer', $this->data);
+	}
+	
+	
+	
+	function get_member_list(){
+		
+		$post = $this->get_post_data();
+        $post['column_order'] = array();
+        $post['column_search'] = array('first_name', 'last_name', 'email');
+        $select = "members.*,users.first_name,users.last_name,users.phone,users.dob,users.age,users.email";
+        $members = $this->Member_model->get_master_mebers_users($select);
+ 
+        $data = array();
+        $no = $post['start'];
+
+        foreach ($members as $member) {
+            $no++;
+            $row = $this->get_members_table($member, $no);
+            $data[] = $row;
+        }
+
+        $post['length'] = -1;
+        $output = array(
+            "draw" => $this->input->post('draw'),
+            "recordsTotal" => 500,
+            "recordsFiltered" => 50,
+            "data" => $data,
+        );
+
+        echo json_encode($output);
+	
+	}
+	
+	
+	
+	function get_members_table($member, $no) {
+ 
+		$row[] =  $member->member_user_id;
+        $row[] =  $member->first_name;
+        $row[] =  $member->last_name;
+		$row[] =  $member->email;
+        $row[] =  $member->phone;
+		$row[] =  $member->reg_date; 
+        $row[] =  $member->gurdian_name;
+		$row[] = '<button>Action</button>';
+		
+        return $row;
+    }
     
 
     /**

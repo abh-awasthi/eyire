@@ -20,25 +20,27 @@
 	<div class="body">
     <div class="table-responsive">
  
-<table class="table table-bordered table-striped table-hover dataTable js-exportableusers">
+<table class="table table-bordered table-striped table-hover dataTable js-exportableusersmembers">
                                     <thead>
-                                        <tr>
+                                         <tr>
+										    <th>Member ID</th>
                                             <th>First Name</th>
                                             <th>Last Name</th>
                                             <th>Email</th>
-                                            <th>Groups</th>
-                                            <th>Activate/Deactivate</th>
-                                            <th>Edit</th>
+                                            <th>Phone</th>
+                                            <th>Reg Date</th>
+                                            <th>Gurdian Name</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
+											 <th>Member ID</th>
                                             <th>First Name</th>
                                             <th>Last Name</th>
                                             <th>Email</th>
-                                            <th>Groups</th>
-                                            <th>Activate/Deactivate</th>
-                                            <th>Edit</th>
+                                            <th>Phone</th>
+                                            <th>Reg Date</th>
+                                            <th>Gurdian Name</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -65,9 +67,9 @@
  $(function () {
     
     //Exportable table
-    $('.js-exportableusers').DataTable({
+    $('.js-exportableusersmembers').DataTable({
         dom: 'Bfrtip',
-		"ajax": '<?php echo base_url(); ?>auth/usersList',
+		"ajax": '<?php echo base_url(); ?>member/get_member_list',
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'
         ]

@@ -317,8 +317,8 @@ var base_url = '<?php echo base_url();?>';
                 <ul class="ml-menu">
                     <li><a href="<?php echo base_url();?>master/addDistrict">District Entry</a></li>
                     <li><a href="<?php echo base_url();?>master/addBranchEntry">Branch Entry</a></li>
-                    <li><a href="events.html">Calendar</a></li>
-                    <li><a href="contact.html">Contact</a></li>                    
+                   <!-- <li><a href="events.html">Calendar</a></li>
+                    <li><a href="contact.html">Contact</a></li>     -->               
                 </ul>
             </li>
             
@@ -332,7 +332,7 @@ var base_url = '<?php echo base_url();?>';
                 <ul class="ml-menu">
                     <li><a href="<?php echo base_url(); ?>member/create">Create Member</a></li>
                     <li><a href="<?php echo base_url(); ?>member/memberslist">Members List</a></li>
-                    <li><a href="ticket-list.html">Ticket List</a></li>
+                 <!--   <li><a href="ticket-list.html">Ticket List</a></li>
                     <li><a href="ticket-detail.html">Ticket Detail</a></li>
                 </ul>
             </li>
@@ -472,7 +472,7 @@ var base_url = '<?php echo base_url();?>';
                     </div>
                 </div>
             </li>
-        </ul>
+        </ul> -->
     </div>
 </aside>
 

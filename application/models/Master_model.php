@@ -42,6 +42,26 @@ class Master_model extends CI_Model {
         return $query->result_array();
         
     }
+	
+	
+	function get_matser_interest_plan($select, $where = array(), $order_by = array()){
+		
+	    $this->db->distinct();
+        $this->db->select($select);
+        $this->db->from('interest_types');
+        if(!empty($where)){
+            $this->db->where($where);
+        }
+        
+        $this->db->join('plan_duration_interest', 'plan_duration_interest.interest_type = interest_types.id');
+        if(!empty($order_by)){
+            $this->db->order_by($order_by[0], $order_by[1]);
+        }
+        $query = $this->db->get();
+        return $query->result_array();	
+		
+	}
+	
     
     function getBranchList($post){
         $this->_getBranchList($post);

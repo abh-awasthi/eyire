@@ -16,7 +16,7 @@ class Account extends CI_Controller {
     function addNewAccountType(){
         $this->load->view('include/header', array('title' => "Chart of Account"));
         $this->load->view('account/addAccountType');
-        //$this->load->view('include/footer');
+        $this->load->view('include/footer');
     }
     
     function processAddAccount(){

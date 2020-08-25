@@ -2,10 +2,6 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Class Admin
-
- */
 class Master extends CI_Controller {
 
     public $data = [];
@@ -16,8 +12,6 @@ class Master extends CI_Controller {
         $this->load->library('ion_auth');
         $this->load->helper(array('form','url', 'array'));
         $this->load->library('form_validation');
-        
-
      
     }
     
@@ -201,9 +195,7 @@ class Master extends CI_Controller {
         $row[] = $branch_list->email;
         $row[] = $branch_list->credit_limit_amount;
         $row[] = "<a href='". base_url()."master/processUpdateBranch/".$branch_list->branch_id."' class='btn btn-success btn-md'>Edit</a>";
-       
 
-       
         return $row;
     }
 	

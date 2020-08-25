@@ -321,6 +321,13 @@ var base_url = '<?php echo base_url();?>';
                     <li><a href="contact.html">Contact</a></li>     -->               
                 </ul>
             </li>
+            
+            <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-assignment"></i><span>Account</span></a>
+                <ul class="ml-menu">
+                    <li><a href="<?php echo base_url();?>account/addNewAccountType">Chart Of Account</a></li>
+                </ul>
+            </li>
+
             <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-assignment"></i><span>Members</span></a>
                 <ul class="ml-menu">
                     <li><a href="<?php echo base_url(); ?>member/create">Create Member</a></li>

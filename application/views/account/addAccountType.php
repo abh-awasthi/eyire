@@ -13,9 +13,9 @@
             </div>
         </div>
         <div class="container-fluid">
-<!--            <div class="alert alert-success removeDisplay">
-               New District Added <strong>Successfully!</strong>
-            </div>-->
+            <div class="alert alert-success removeDisplay">
+               New Ledger Account added <strong>Successfully!</strong>
+            </div>
             <div class="alert alert-danger removeDisplay">
                 
             </div>
@@ -44,9 +44,9 @@
                             <ul class="header-dropdown">
                                 <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="zmdi zmdi-more"></i> </a>
                                     <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else</a></li>
+                                        <li><a href="javascript:void(0);">Edit</a></li>
+                                        <li><a href="javascript:void(0);">Activate</a></li>
+                                        <li><a href="javascript:void(0);">Deactivate</a></li>
                                     </ul>
                                 </li>
                                 <li class="remove">
@@ -68,25 +68,17 @@
                                         </div>
                                     </div>
                                 </div>
-<!--                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 form-control-label">
-                                        <label for="password_2">General Ledger A/C Name</label>
-                                    </div>
-                                    <div class="col-lg-8 col-md-8 col-sm-8">
-                                        <div class="form-group">
-                                            <input type="password" id="password_2" class="form-control" placeholder="Enter your password">
-                                        </div>
-                                    </div>
-                                </div>-->
                                 <div class="row clearfix">
                                     <div class="col-lg-3 col-md-3 col-sm-4 form-control-label">
                                         <label for="Sub Ledger">Sub Ledger A/C No</label>
                                     </div>
                                     <div class="col-lg-8 col-md-8 col-sm-8">
                                         <div class="form-group">
-                                            <input type="text" name="account_no" class="form-control" placeholder="Sub Ledger A/C No">
+                                            <input type="text" name="account_no"  id="account_no"class="form-control" placeholder="Sub Ledger A/C No">
                                         </div>
+                                        <label id="name-account-no" class="removeDisplay" for="Account">This field is required.</label>
                                     </div>
+                                    
                                 </div>
                                 <div class="row clearfix">
                                     <div class="col-lg-3 col-md-3 col-sm-4 form-control-label">
@@ -94,8 +86,9 @@
                                     </div>
                                     <div class="col-lg-8 col-md-8 col-sm-8">
                                         <div class="form-group">
-                                            <input type="text" name="account_name" class="form-control" placeholder="Sub Ledger A/C Name">
+                                            <input type="text" name="account_name" id="account_name" class="form-control" placeholder="Sub Ledger A/C Name">
                                         </div>
+                                        <label id="name-account-name" class="removeDisplay" for="Account">This field is required.</label>
                                     </div>
                                 </div>
 
@@ -212,17 +205,50 @@ $(document).ready(function (){
     
     $("#treeview_account").on('submit', function(event){
           event.preventDefault();
+          var sub_account_no = $("#account_no").val();
+          var sub_account_name = $("#account_name").val();
+          if(sub_account_no === ""){
+              $("#name-account-no").addClass("error");
+              $("#name-account-no").removeClass('removeDisplay');
+
+              return false;
+          } else if(sub_account_name ==""){
+              $("#name-account-name").addClass("error");
+              $("#name-account-name").removeClass('removeDisplay');
+              return false
+
+          }
           $.ajax({
               url:'<?php echo base_url();?>account/processAddAccount',
               method:"POST",
+              beforeSend: function () {
+                
+                $(".page-loader-wrapper").fadeIn();
+
+            },
               data:$(this).serialize(),
-              success:function(data){
-                  fill_parent_category();
-                  fill_treeview();
-                  $( '#treeview_form' ).each(function(){
-                    this.reset();
-                });
+              success:function(response){
+                   console.log(response);
+                var data = jQuery.parseJSON(response);
+                if (data.status) {
+                    fill_parent_category();
+                    fill_treeview();
+                    $( '#treeview_form' ).each(function(){
+                      this.reset();
+                    });
+                    $('.alert-success').removeClass('removeDisplay');
+                    $(".alert-danger").addClass("removeDisplay");
+                    //location.reload();
+                } else {
+                    $('.alert-success').addClass('removeDisplay');
+                    $(".alert-danger").html(data.message);
+                    $(".alert-danger").removeClass("removeDisplay");
+                }
+                  
 //                  $('#treeview_form')[0].reset();
+              },
+              complete: function () {
+                $(".page-loader-wrapper").fadeOut();
               }
           });
     });

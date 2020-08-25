@@ -20,13 +20,32 @@ class Account extends CI_Controller {
     }
     
     function processAddAccount(){
-//        $this->form_validation->set_rules('parent_id', 'General Ledger A/C No', 'trim|required');
-//        $this->form_validation->set_rules('account_no', 'Sub Ledger A/C No', 'trim|required');
-//        $this->form_validation->set_rules('account_name', 'Sub Ledger A/C Name', 'trim|required');
-        $post = $this->input->post();
-        $this->master_model->insert_row('account_type', array('parent_id' => $post['parent_id'], 'account_no' => $post['account_no'],
+        $this->form_validation->set_rules('account_no', 'Sub Ledger A/C No', 'trim|required');
+        $this->form_validation->set_rules('account_name', 'Sub Ledger A/C Name', 'trim|required');
+        $this->form_validation->set_rules('account_no', 'Sub Ledger A/C No', 'callback_checkUniqueAccountNo');
+        if ($this->form_validation->run() == FALSE) {
+            echo json_encode(array('status' => false, 'message' => validation_errors()));
+        } else {
+            $post = $this->input->post();
+            $this->master_model->insert_row('account_type', array('parent_id' => $post['parent_id'], 'account_no' => trim($post['account_no']),
                 'account_name' => ucwords(trim($post['account_name']))));
-        
+            echo json_encode(array('status' => true, 'message' => "New Account Added Successfully"));
+        }
+    }
+    
+    function checkUniqueAccountNo(){
+        $account = $this->master_model->get_matser('account_type', '*', array('parent_id' => $this->input->post('parent_id'), 'account_no' => $this->input->post('account_no')), array('account_name', 'asc'));
+        if(!empty($account)){
+            if($account[0]['active'] ==0){
+                $this->form_validation->set_message('checkUniqueAccountNo', 'This Account No is De-actived');
+                return false;
+            } else {
+               $this->form_validation->set_message('checkUniqueAccountNo', 'This Account No has already exist');
+                return false; 
+            }
+        } else {
+            return true;
+        }
     }
     
     
@@ -60,7 +79,7 @@ class Account extends CI_Controller {
            if(!empty($treeView[$i]['nodes'])){
               $html .= $this->printNodes($treeView[$i], $i);
            } else {
-               $html .= '<li style="color:#e47297">'.$treeView[$i]['account_name']. ' - '.$treeView[$i]['account_no'].'</li>';
+               $html .= '<li style="color:#e47297">'.$treeView[$i]['account_name']. ' - '.$treeView[$i]['account_no'].' </li>';
            }
            
        }

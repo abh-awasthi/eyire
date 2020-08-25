@@ -40,14 +40,14 @@
                     </div>
                     <div class="body">
 
-                        <form id="wizard_with_validation_plan_master" action="<?php echo base_url(); ?>member/processCreateMember" method="POST" class="wizard clearfix">
+                        <form id="wizard_with_validation_plan_master" action="<?php echo base_url(); ?>master/processCreatePlanMaster" method="POST" class="wizard clearfix">
                             <h5>Form No</h5>
                           
                                 <div class="row">
 								<div class="col-md-4">
 								    <div class="form-group form-float">
                                             <label>Plan Type : *</label>
-                                            <select class="form-control  show-tick ms select2" id="plan_type" name="plan_type" required>
+                                            <select class="form-control  show-tick ms select2" id="plan_type" name="plan_type" >
                                                 <option value=''>Select Plan</option>
 													<?php foreach($plan_types as $plan_type){ ?>				
 														<option value='<?php  echo $plan_type['id']; ?>'><?php  echo $plan_type['plan_type']; ?></option>
@@ -78,7 +78,7 @@
 								<div class="col-md-4">
 								    <div class="form-group form-float">
                                             <label>Deposit Term : *</label>
-                                            <select class="form-control  show-tick ms select2" id="plan_year" name="plan_year" required>
+                                            <select class="form-control  show-tick ms select2" id="plan_year" name="plan_year" >
                                                 <option value=''>Select Term</option>				
                                                  <?php for($i=1;$i<16;$i++){ ?>
 													 
@@ -94,7 +94,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group form-float">
                                             <label>Months</label>
-                                                <select class="form-control  show-tick ms select2" name="plan_months" required>
+                                                <select class="form-control  show-tick ms select2" name="plan_months" >
                                                 <option value=''>Select Months</option>				
                                                 <?php for($i=1;$i<13;$i++){ ?>
 													 
@@ -107,7 +107,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group form-float">
                                             <label>Days</label>
-                                               <select class="form-control  show-tick ms select2" name="plan_days" required>
+                                               <select class="form-control  show-tick ms select2" name="plan_days" >
                                                 <option value=''>Select Days</option>				
                                                  <?php for($i=1;$i<366;$i++){ ?>
 													 
@@ -134,14 +134,14 @@
                                     <div class="col-md-4">
                                         <div class="form-group form-float">
                                             <label>Pre Maturity(%): * </label>
-                                             <input type="number" class="form-control  " placeholder="Pre Maturity(%)" name="plan_pre_maturity_plan"  id="plan_pre_maturity_plan"  required>                                
+                                             <input type="number" class="form-control  " placeholder="Pre Maturity(%)" name="plan_pre_maturity_percent"  id="plan_pre_maturity_percent"  required>                                
                       
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group form-float">
                                             <label>Multiple:</label>
-                                            <input type="text" class="form-control  " placeholder="Multiple" name="plan_multiple"  id="plan_multiple"  required>                                
+                                            <input type="text" class="form-control  "  placeholder="Multiple" name="plan_multiple"  id="plan_multiple"  required>                                
                                
 
                                         </div>
@@ -154,21 +154,30 @@
 								<div class="col-md-4">
 								    <div class="form-group form-float">
                                             <label>Minimum Amount: *</label>
-                                           <input type="number" class="form-control  " placeholder="Minimum Amount" name="minimum_amount"  id="minimum_amount"  required>                                
+                                           <input type="number" class="form-control  "   placeholder="Minimum Amount" name="minimum_amount"  id="minimum_amount"  required>                                
                                         
                                     </div>
 								</div>
+								
+																    <div class="col-md-4">
+								    <div class="form-group form-float">
+												 <label>Interest Type: *</label>
+                                         		<select class="form-control  show-tick ms select2" id="interest_types" name="interest_types" >
+                                               				
+                                            </select> 
+                                    </div>
+                                    </div>
 						
                                 </div>
 								
 <!--  FD OPTIONAL --->
 
 
-								<div class="row">
+								<div class="row hide" id="fd">
 								<div class="col-md-4">
 								    <div class="form-group form-float">
                                             <label>Interest Rate General: *</label>
-                                           <input type="number" class="form-control  " placeholder="Interest Rate General" name="integrest_rate_general"  id="integrest_rate_general"  required>                                
+                                           <input type="number" class="form-control  "  value="0" placeholder="Interest Rate General" name="integrest_rate_general"  id="integrest_rate_general"  required>                                
                                         
                                     </div>
 								</div>
@@ -176,31 +185,91 @@
                                     <div class="col-md-4">
 								    <div class="form-group form-float">
                                             <label>Interest Rate SLP: *</label>
-                                           <input type="number" class="form-control  " placeholder="Interest Rate SLP" name="interest_rate_slp"  id="interest_rate_slp"  required>                                
+                                           <input type="number" class="form-control  " value="0"  placeholder="Interest Rate SLP" name="interest_rate_slp"  id="interest_rate_slp"  required>                                
                                         
                                     </div>
                                     </div>
 									
-								    <div class="col-md-4">
-								    <div class="form-group form-float">
-												 <label>Interest Type: *</label>
-                                         		<select class="form-control  show-tick ms select2" id="interest_types" name="interest_types" required>
-                                               				
-                                            </select> 
-                                    </div>
-                                    </div>	
+
 									
 									
 
 
                                 </div>
+								
+									
+								
 
 <!--FD OPTIONAL END -->
 
+<!--  RD -->
+
+								<div class="row hide" id="rd">
+								<div class="col-md-3">
+								    <div class="form-group form-float">
+                                            <label> Monthly Amount : *</label>
+                                           <input type="number" class="form-control  " value="0" placeholder="Monthly Amount" name="monthly_amount"  id="monthly_amount"  required>                                
+                                        
+                                    </div>
+								</div>
+								
+                                    <div class="col-md-3">
+								    <div class="form-group form-float">
+                                            <label>Quarterly Amount: *</label>
+                                           <input type="number" class="form-control  " value="0" placeholder="Quarterly Amount" name="quarterly_amount"  id="quarterly_amount"  required>                                
+                                        
+                                    </div>
+                                    </div>
+									
+								    <div class="col-md-3">
+								    <div class="form-group form-float">
+												 <label>Half Yearly Amount: *</label>
+                                         		<input type="number" class="form-control  " value="0" placeholder="Half Yearly Amount" name="half_yr_amount"  id="half_yr_amount"  required>                                
+                                        
+                                    </div>
+                                    </div>
+
+
+								    <div class="col-md-3">
+								    <div class="form-group form-float">
+												 <label>Yearly Amount: *</label>
+                                         		<input type="number" class="form-control  " value="0" placeholder="Yearly Amount" name="yearly_amount"  id="yearly_amount"  required>                                
+                                         
+                                    </div>
+                                    </div>									
+								
+                                </div>
 
 
 
+<!-- END RD -->
+<!-- DAILY AMOUNT -->
+                                <div class="row hide " id="daily">
+                                    <div class="col-md-3">
+                                        <div class="form-group form-float">
+                                            <label>Daily Amount: * </label>
+                                                <input type="number" class="form-control  " value="0" placeholder="Daily Amount" name="daily_amount"  id="daily_amount"  required>                                
+                                                      
+                                        </div>
+                                    </div>
+                                </div>
 
+
+<!-- DAILY END -->
+
+<!-- MIS -->
+                                <div class="row hide" id="mis">
+                                    <div class="col-md-3">
+                                        <div class="form-group form-float">
+                                            <label>Monthly(%): * </label>
+                                                <input type="number" class="form-control  " value="0" placeholder="Monthly %" name="monthly_percent_mis"  id="monthly_percent_mis"  required>                                
+                                                      
+                                        </div>
+                                    </div>
+                                </div>
+
+
+<!-- MIS END -->
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group form-float">
@@ -217,7 +286,7 @@
 							<div class="row">
   
 							<div class="col-md-4">
-							<button class="btn btn-raised btn-success waves-effect" type="submit">SUBMIT</button>	
+							<button class="btn btn-raised btn-success waves-effect" id="create_plan_master" type="submit">SUBMIT</button>	
 							</div>
  							
 							</div>
@@ -246,6 +315,9 @@
         width: 15% !important;
         float: left;
     }
+	.hide{
+		display : none;
+	}
 
 </style>
 </style>
@@ -257,6 +329,47 @@
     $(document).ready(function () {
 
 $('.select2').select2();
+
+
+$("#plan_type").change(function(){
+	
+let plan_type = $(this).val();
+if(plan_type==1){
+	
+	$('#fd').removeClass('hide');
+	$('#rd').addClass('hide');
+	$('#daily').addClass('hide');
+	$('#mis').addClass('hide');
+	
+	
+}else if(plan_type==2){
+	
+	$('#rd').removeClass('hide');
+	$('#fd').addClass('hide');
+	$('#daily').addClass('hide');
+	$('#mis').addClass('hide');
+}else if(plan_type==3){
+	
+	$('#daily').removeClass('hide');
+	$('#rd').addClass('hide');
+	$('#fd').addClass('hide');
+	$('#mis').addClass('hide');
+}else if(plan_type==4){
+	$('#mis').removeClass('hide');
+	$('#rd').addClass('hide');
+	$('#daily').addClass('hide');
+	$('#fd').addClass('hide');
+	
+}else{
+	$('#mis').addClass('hide');
+	$('#rd').addClass('hide');
+	$('#daily').addClass('hide');
+	$('#fd').addClass('hide');	
+}	
+	
+	
+});
+
 
 $("#plan_year").change(function(){
 
@@ -292,57 +405,39 @@ if(plan_type==''){
 });
 
 
-
-$("a[href='#finish']").click(function(){
+  
 	
-	showConfirmMessage(); 
-	
-});
-
-
-
-
- 
-
-//    $('.datepicker').bootstrapMaterialDatePicker({
-//        format: 'DD-MM-YYYY',
-//        clearButton: true,
-//        weekStart: 1,
-//        time: false
-//    });
-
-    /*    $('#form_advanced_validationmember').validate({
-            rules: {
-                'first_name': {
-                    required: true
-                },
-                'last_name': {
-                    required: true
-                }
+	//Advanced Form Validation
+    $('#wizard_with_validation_plan_master').validate({
+        rules: {
+            'date': {
+                customdate: true
             },
-            highlight: function (input) {
-                $(input).parents('.form-line').addClass('error');
-            },
-            unhighlight: function (input) {
-                $(input).parents('.form-line').removeClass('error');
-            },
-            errorPlacement: function (error, element) {
-                $(element).parents('.form-group').append(error);
-            },
-            submitHandler: function (form) {
-                // do other things for a valid form
-                showConfirmMessage();
+            'creditcard': {
+                creditcard: true
             }
-        }); */
-
-
+        },
+        highlight: function (input) {
+            $(input).parents('.form-line').addClass('error');
+        },
+        unhighlight: function (input) {
+            $(input).parents('.form-line').removeClass('error');
+        },
+        errorPlacement: function (error, element) {
+            $(element).parents('.form-group').append(error);
+        },
+		submitHandler: function(form) {
+    // do other things for a valid form
+        showConfirmMessage(); 
+  }
+    });
 
 
 
         function showConfirmMessage() {
             swal({
-                title: "Create Member",
-                text: "By Clicking ok the member will be created .",
+                title: "Create Plan Master",
+                text: "By Clicking ok the plan will be created .",
                 icon: "info",
                 buttons: true,
 
@@ -351,7 +446,7 @@ $("a[href='#finish']").click(function(){
                         if (willDelete) {
 
 
-                            var form = $('#wizard_with_validation');
+                            var form = $('#wizard_with_validation_plan_master');
                             var url = form.attr('action');
 
                             $.ajax({
@@ -368,10 +463,10 @@ $("a[href='#finish']").click(function(){
                                     var result = JSON.parse(data);
                                    
                                     if (result.status) {
-										$('#wizard_with_validation').trigger("reset");
+										$('#wizard_with_validation_plan_master').trigger("reset");
                                         swal(result.message, {
                                             icon: "success",
-                                            text: "Member ID :" + result.data.member_id,
+                                            text: "Member ID :" + result.data.plan_id,
                                         });
                                     } else {
                                         swal(result.message, {
@@ -386,7 +481,7 @@ $("a[href='#finish']").click(function(){
 
 
                         } else {
-                            swal("You cancelled the member creation process!");
+                            swal("You cancelled the plan creation process!");
                         }
                     });
         }

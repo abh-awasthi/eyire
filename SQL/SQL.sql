@@ -99,3 +99,48 @@ CREATE TABLE `login_attempts` (
   `time` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+---20-08-2020 Abhishek
+ALTER TABLE `users` ADD `gender` VARCHAR(16) NULL DEFAULT NULL AFTER `phone`;
+ALTER TABLE `users` ADD `dob` VARCHAR(16) NULL DEFAULT NULL AFTER `gender`, ADD `age` INT(5) NULL DEFAULT NULL AFTER `dob`;
+ALTER TABLE `members` ADD `member_user_id` INT(11) NOT NULL AFTER `id`;
+CREATE TABLE `members` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `member_user_id` int(11) NOT NULL,
+ `form_no` varchar(32) DEFAULT NULL,
+ `reg_date` varchar(16) NOT NULL,
+ `gurdian_type` varchar(8) NOT NULL,
+ `gurdian_name` varchar(62) NOT NULL,
+ `address` text,
+ `state` int(11) NOT NULL,
+ `district` int(11) NOT NULL,
+ `city` varchar(32) NOT NULL,
+ `village` varchar(32) NOT NULL,
+ `pincode` int(11) NOT NULL,
+ `alt_number` varchar(16) NOT NULL,
+ `idproof` varchar(32) NOT NULL,
+ `id_number` varchar(32) NOT NULL,
+ `address_proof` varchar(32) NOT NULL,
+ `add_id_number` varchar(32) DEFAULT NULL,
+ `n_name` varchar(32) NOT NULL,
+ `n_relation` varchar(16) NOT NULL,
+ `n_gender` varchar(16) NOT NULL,
+ `ndob` varchar(16) NOT NULL,
+ `n_age` int(5) NOT NULL,
+ `n_address` text,
+ `bank_name` varchar(64) DEFAULT NULL,
+ `ifsc` varchar(16) DEFAULT NULL,
+ `account_no` varchar(32) DEFAULT NULL,
+ `pan_no` varchar(15) DEFAULT NULL,
+ `branch` int(11) NOT NULL,
+ `branch_address` varchar(128) DEFAULT NULL,
+ `member_type` varchar(16) NOT NULL,
+ `num_share` int(11) NOT NULL,
+ `applicant_charge` int(11) NOT NULL,
+ `total_payable` int(11) NOT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1
+
+
+

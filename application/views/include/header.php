@@ -17,7 +17,10 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/jquery-datatable/dataTables.bootstrap4.min.css">
 
 <!-- Custom Css -->
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.min.css">
+ 
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/jquery-steps/jquery.steps.css">
+
+
 
 <script src="<?php echo base_url(); ?>assets/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js --> 
 <script src="<?php echo base_url(); ?>assets/bundles/vendorscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js --> 
@@ -26,14 +29,18 @@
 <script src="<?php echo base_url(); ?>assets/plugins/select2/select2.min.js"></script> <!-- Select2 Js -->
 
 
-<script src="<?php echo base_url(); ?>assets/bundles/mainscripts.bundle.js"></script><!-- Custom Js --> 
+<script src="<?php echo base_url(); ?>assets/plugins/bootstrap-notify/bootstrap-notify.js"></script> 
+<script src="<?php echo base_url(); ?>assets/bundles/mainscripts.bundle.js"></script><!-- Custom Js -->
+
+
+ <script src="<?php echo base_url(); ?>assets/js/pages/forms/form-wizard.js"></script>
+
 
 <script>
 var base_url = '<?php echo base_url();?>';
 </script>
 
 <script src="<?php echo base_url(); ?>assets/js/pages/forms/advanced-form-elements.js"></script> 
-<script src="<?php echo base_url(); ?>assets/plugins/bootstrap-notify/bootstrap-notify.js"></script> 
 <!-- Jquery DataTable Plugin Js --> 
 <script src="<?php echo base_url(); ?>assets/bundles/datatablescripts.bundle.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/jquery-datatable/buttons/dataTables.buttons.min.js"></script>
@@ -314,10 +321,17 @@ var base_url = '<?php echo base_url();?>';
                     <li><a href="contact.html">Contact</a></li>                    
                 </ul>
             </li>
+            
             <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-assignment"></i><span>Account</span></a>
                 <ul class="ml-menu">
                     <li><a href="<?php echo base_url();?>account/addNewAccountType">Chart Of Account</a></li>
-                    <li><a href="taskboard.html">Taskboard</a></li>
+                </ul>
+            </li>
+
+            <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-assignment"></i><span>Members</span></a>
+                <ul class="ml-menu">
+                    <li><a href="<?php echo base_url(); ?>member/create">Create Member</a></li>
+                    <li><a href="<?php echo base_url(); ?>member/memberslist">Members List</a></li>
                     <li><a href="ticket-list.html">Ticket List</a></li>
                     <li><a href="ticket-detail.html">Ticket Detail</a></li>
                 </ul>

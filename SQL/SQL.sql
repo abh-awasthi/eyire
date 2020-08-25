@@ -144,15 +144,49 @@ CREATE TABLE `members` (
 
 
 ---Abhishek 22-08-2020
-CREATE TABLE `eyire`.`plan_types` ( `id` INT(11) NOT NULL AUTO_INCREMENT ,  `plan_type` VARCHAR(16) NOT NULL ,  `created_on` DATETIME NULL DEFAULT NULL ,    PRIMARY KEY  (`id`)) ENGINE = InnoDB;
+CREATE TABLE plan_types ( `id` INT(11) NOT NULL AUTO_INCREMENT ,  `plan_type` VARCHAR(16) NOT NULL ,  `created_on` DATETIME NULL DEFAULT NULL ,    PRIMARY KEY  (`id`)) ENGINE = InnoDB;
+
 INSERT INTO `plan_types` (`id`, `plan_type`, `created_on`) VALUES (NULL, 'FD', NULL);
+
 INSERT INTO `plan_types` (`id`, `plan_type`, `created_on`) VALUES (NULL, 'RD', NULL);
+
 INSERT INTO `plan_types` (`id`, `plan_type`, `created_on`) VALUES (NULL, 'DAILY', NULL);
+
 INSERT INTO `plan_types` (`id`, `plan_type`, `created_on`) VALUES (NULL, 'MIS', NULL);
 
-CREATE TABLE `eyire`.`plan_duration_interest` ( `id` INT(11) NOT NULL AUTO_INCREMENT ,  `plan_type_id` INT(11) NOT NULL ,  `plan_year` INT(5) NOT NULL ,  `interest_type` INT(11) NOT NULL ,    PRIMARY KEY  (`id`)) ENGINE = InnoDB;
+CREATE TABLE plan_duration_interest ( `id` INT(11) NOT NULL AUTO_INCREMENT ,  `plan_type_id` INT(11) NOT NULL ,  `plan_year` INT(5) NOT NULL ,  `interest_type` INT(11) NOT NULL ,    PRIMARY KEY  (`id`)) ENGINE = InnoDB;
 
-CREATE TABLE `eyire`.`interest_types` ( `id` INT(11) NOT NULL AUTO_INCREMENT ,  `interest_type` VARCHAR(32) NOT NULL ,    PRIMARY KEY  (`id`)) ENGINE = InnoDB;
+CREATE TABLE interest_types ( `id` INT(11) NOT NULL AUTO_INCREMENT ,  `interest_type` VARCHAR(32) NOT NULL ,    PRIMARY KEY  (`id`)) ENGINE = InnoDB;
+
+---Abhishek 25-08-2020---
+CREATE TABLE `plan_master` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `plan_type` int(11) NOT NULL,
+ `plan_no` varchar(32) NOT NULL,
+ `plan_name` varchar(64) NOT NULL,
+ `plan_year` int(5) NOT NULL,
+ `plan_months` int(5) NOT NULL,
+ `plan_days` int(5) NOT NULL,
+ `plan_pre_maturity_month` int(5) NOT NULL,
+ `plan_pre_maturity_percent` int(5) NOT NULL,
+ `plan_multiple` int(11) NOT NULL,
+ `minimum_amount` int(5) NOT NULL,
+ `interest_types` varchar(8) NOT NULL,
+ `integrest_rate_general` int(5) NOT NULL,
+ `interest_rate_slp` int(5) NOT NULL,
+ `monthly_amount` int(5) NOT NULL DEFAULT '0',
+ `quarterly_amount` int(5) NOT NULL DEFAULT '0',
+ `half_yr_amount` int(5) NOT NULL DEFAULT '0',
+ `yearly_amount` int(5) NOT NULL DEFAULT '0',
+ `daily_amount` int(5) NOT NULL DEFAULT '0',
+ `monthly_percent_mis` int(5) NOT NULL DEFAULT '0',
+ `plan_status` int(2) NOT NULL DEFAULT '1',
+ `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ `created_by` int(11) NOT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2
+
+
 
 
 

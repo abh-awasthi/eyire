@@ -202,11 +202,53 @@ class Master extends CI_Controller {
 	
 	
 	function planMaster(){
+		//echo $this->session->userdata('user_id'); exit;
 		$this->data['message'] = '';
 		$this->data['plan_types'] = $this->master_model->get_matser('plan_types','*');
 		$this->load->view('include/header', array('title' => "Plan Master"));
         $this->load->view('master/createPlanMaster',$this->data);
         $this->load->view('include/footer');
+		
+	}
+	
+	
+	function processCreatePlanMaster(){
+		
+	
+		$data = array(
+		'plan_type' => $this->input->post('plan_type'),
+		'plan_no' => $this->input->post('plan_no'),
+		'plan_name' => $this->input->post('plan_name'),
+		'plan_year' => $this->input->post('plan_year'),
+		'plan_months' => $this->input->post('plan_months'),
+		'plan_days' => $this->input->post('plan_days'),
+		'plan_pre_maturity_month' => $this->input->post('plan_pre_maturity_month'),
+		'plan_pre_maturity_percent' => $this->input->post('plan_pre_maturity_percent'),
+		'plan_multiple' => $this->input->post('plan_multiple'),
+		'minimum_amount' => $this->input->post('minimum_amount'),
+		'interest_types' => $this->input->post('interest_types'),
+		'integrest_rate_general' => $this->input->post('integrest_rate_general'),
+		'interest_rate_slp' => $this->input->post('interest_rate_slp'),
+		'monthly_amount' => $this->input->post('monthly_amount'),
+		'quarterly_amount' => $this->input->post('quarterly_amount'),
+		'half_yr_amount' => $this->input->post('half_yr_amount'),
+		'yearly_amount' => $this->input->post('yearly_amount'),
+		'daily_amount' => $this->input->post('daily_amount'),
+		'monthly_percent_mis' => $this->input->post('monthly_percent_mis'),
+		'plan_status' => $this->input->post('plan_status'),
+		'created_by' =>$this->session->userdata('user_id') 
+		
+		);
+		
+		$plan_id = $this->master_model->insert_row('plan_master',$data);
+		if($plan_id){
+			echo json_encode(array('status'=>TRUE,'message'=>'Plan Added Succesfully !','data'=>array('plan_id'=>$plan_id)));
+			
+		}else{
+			
+			echo json_encode(array('status'=>FALSE,'message'=>'Plan Not Added!. Network problem','data'=>array('plan_id'=>0)));
+		}
+		
 		
 	}
 	

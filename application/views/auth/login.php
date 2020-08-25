@@ -15,7 +15,7 @@
                             </div>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" name="password" placeholder="Password">
+                            <input type="password" class="form-control" name="password" placeholder="Password">
                             <div class="input-group-append">                                
                                 <span class="input-group-text"><a href="<?php echo base_url(); ?>auth/forgot_password" class="forgot" title="Forgot Password"><i class="zmdi zmdi-lock"></i></a></span>
                             </div>                            

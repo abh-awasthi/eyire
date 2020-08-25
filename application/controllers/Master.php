@@ -206,5 +206,43 @@ class Master extends CI_Controller {
        
         return $row;
     }
+	
+	
+	
+	function planMaster(){
+		$this->data['message'] = '';
+		$this->data['plan_types'] = $this->master_model->get_matser('plan_types','*');
+		$this->load->view('include/header', array('title' => "Plan Master"));
+        $this->load->view('master/createPlanMaster',$this->data);
+        $this->load->view('include/footer');
+		
+	}
+	
+	
+	function getInterestTypesvailable(){
+		
+		$plan_type = $this->input->post('plan_type');
+		$year =  $this->input->post('year');
+		$select = 'plan_duration_interest.*,interest_types.short_tag,interest_types.interest_type';
+		$interest_types = $this->master_model->get_matser_interest_plan($select, array('plan_year' => $year,'plan_type_id'=>$plan_type));
+		 
+		 $options = '';
+		 foreach($interest_types as $type){
+			$options = $options.'<option value="'.$type['short_tag'].'" >'.$type['interest_type'].'</option>'; 
+			 
+		 }
+		 echo $options;
+		
+		
+		
+		
+		//print_r($_POST);  exit;
+		
+	}
+	
+	
+	
+	
+	
     
 }

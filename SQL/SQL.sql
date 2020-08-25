@@ -143,4 +143,34 @@ CREATE TABLE `members` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1
 
 
+---Abhishek 22-08-2020
+CREATE TABLE `eyire`.`plan_types` ( `id` INT(11) NOT NULL AUTO_INCREMENT ,  `plan_type` VARCHAR(16) NOT NULL ,  `created_on` DATETIME NULL DEFAULT NULL ,    PRIMARY KEY  (`id`)) ENGINE = InnoDB;
+INSERT INTO `plan_types` (`id`, `plan_type`, `created_on`) VALUES (NULL, 'FD', NULL);
+INSERT INTO `plan_types` (`id`, `plan_type`, `created_on`) VALUES (NULL, 'RD', NULL);
+INSERT INTO `plan_types` (`id`, `plan_type`, `created_on`) VALUES (NULL, 'DAILY', NULL);
+INSERT INTO `plan_types` (`id`, `plan_type`, `created_on`) VALUES (NULL, 'MIS', NULL);
+
+CREATE TABLE `eyire`.`plan_duration_interest` ( `id` INT(11) NOT NULL AUTO_INCREMENT ,  `plan_type_id` INT(11) NOT NULL ,  `plan_year` INT(5) NOT NULL ,  `interest_type` INT(11) NOT NULL ,    PRIMARY KEY  (`id`)) ENGINE = InnoDB;
+
+CREATE TABLE `eyire`.`interest_types` ( `id` INT(11) NOT NULL AUTO_INCREMENT ,  `interest_type` VARCHAR(32) NOT NULL ,    PRIMARY KEY  (`id`)) ENGINE = InnoDB;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

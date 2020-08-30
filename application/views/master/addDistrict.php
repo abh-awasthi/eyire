@@ -1,3 +1,4 @@
+<script src="<?php echo base_url(); ?>assets/js/pages/forms/advanced-form-elements.js"></script> 
 <section class="content">
     <div class="body_scroll">
         <div class="block-header">

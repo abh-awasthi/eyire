@@ -187,6 +187,44 @@ CREATE TABLE `plan_master` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2
 
 
+-- ABhay 30 Aug
+--
+-- Table structure for table `voucher_receipt_entry`
+--
+
+CREATE TABLE `voucher_receipt_entry` (
+  `receipt_id` int NOT NULL,
+  `voucher_id` int NOT NULL,
+  `cr_account_id` int NOT NULL,
+  `dr_account_id` int NOT NULL,
+  `is_same_branch` int NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `voucher_receipt_entry`
+--
+ALTER TABLE `voucher_receipt_entry`
+  ADD PRIMARY KEY (`receipt_id`),
+  ADD UNIQUE KEY `voucher_id` (`voucher_id`),
+  ADD KEY `cr_account_id` (`cr_account_id`),
+  ADD KEY `dr_account_id` (`dr_account_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `voucher_receipt_entry`
+--
+ALTER TABLE `voucher_receipt_entry`
+  MODIFY `receipt_id` int NOT NULL AUTO_INCREMENT;
+COMMIT;
 
 
 
@@ -194,6 +232,50 @@ CREATE TABLE `plan_master` (
 
 
 
+
+
+
+
+
+CREATE TABLE `voucher_details` (
+  `id` int NOT NULL,
+  `voucher_date` date NOT NULL,
+  `cr_branch_id` int NOT NULL,
+  `dr_branch_id` int NOT NULL,
+  `type_id` int NOT NULL,
+  `transfer_amount` decimal(10,2) NOT NULL,
+  `narration` varchar(256) DEFAULT NULL,
+  `cheque_no` varchar(28) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `transaction_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `transaction_date` date DEFAULT NULL,
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` int NOT NULL,
+  `approved_by` int NOT NULL DEFAULT '0',
+  `approved_date` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `voucher_details`
+--
+ALTER TABLE `voucher_details`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `dr_branch_id` (`dr_branch_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `voucher_details`
+--
+ALTER TABLE `voucher_details`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+COMMIT;
 
 
 

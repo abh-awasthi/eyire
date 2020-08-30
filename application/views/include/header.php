@@ -40,7 +40,6 @@
 var base_url = '<?php echo base_url();?>';
 </script>
 
-<script src="<?php echo base_url(); ?>assets/js/pages/forms/advanced-form-elements.js"></script> 
 <!-- Jquery DataTable Plugin Js --> 
 <script src="<?php echo base_url(); ?>assets/bundles/datatablescripts.bundle.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/jquery-datatable/buttons/dataTables.buttons.min.js"></script>
@@ -317,18 +316,16 @@ var base_url = '<?php echo base_url();?>';
                 <ul class="ml-menu">
                     <li><a href="<?php echo base_url();?>master/addDistrict">District Entry</a></li>
                     <li><a href="<?php echo base_url();?>master/addBranchEntry">Branch Entry</a></li>
-					<li><a href="<?php echo base_url();?>master/planMaster">Plan Master</a></li>
-					
-					
-					
-                   <!-- <li><a href="events.html">Calendar</a></li>
-                    <li><a href="contact.html">Contact</a></li>     -->               
+		    <li><a href="<?php echo base_url();?>master/planMaster">Plan Master</a></li>
+					              
                 </ul>
             </li>
             
             <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-assignment"></i><span>Account</span></a>
                 <ul class="ml-menu">
                     <li><a href="<?php echo base_url();?>account/addNewAccountType">Chart Of Account</a></li>
+                    <li><a href="<?php echo base_url();?>account/addJournalvoucher">Journal / Payment Voucher</a></li>
+                    <li><a href="<?php echo base_url();?>account/voucherDetails">Voucher Details</a></li>
                 </ul>
             </li>
 

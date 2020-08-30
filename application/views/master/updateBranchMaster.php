@@ -71,7 +71,7 @@
                                         <div class="mb-3 ">
                                             <label>Credit Limit Amount  *</label>
 
-                                            <input type="text" class="form-control" value="<?php echo $branch_details[0]['credit_limit_amount']; ?>" name="credit_limit_amount" placeholder="Enter Credit Limit Amount" id="credit_limit_amount" required aria-required="true">
+                                            <input type="number" min="0" class="form-control" value="<?php echo $branch_details[0]['credit_limit_amount']; ?>" name="credit_limit_amount" placeholder="Enter Credit Limit Amount" id="credit_limit_amount" required aria-required="true">
                                             <input type="hidden" class="form-control" value="<?php echo $branch_details[0]['branch_id']; ?>" name="branch_id" >
                                         </div>
                                         <label id="name-credit-limit-amount" class="removeDisplay" for="District">This field is required.</label>
@@ -81,7 +81,7 @@
                                         <div class="mb-3">
                                             <label>Branch Address *</label>
 
-                                            <textarea rows="3" class="form-control no-resize" name="branch_address" placeholder="Enter Branch Address" required aria-required="true"><?php echo $branch_details[0]['credit_limit_amount']; ?></textarea>
+                                            <textarea rows="3" class="form-control no-resize" name="branch_address" placeholder="Enter Branch Address" required aria-required="true"><?php echo $branch_details[0]['address']; ?></textarea>
 
 
                                         </div>

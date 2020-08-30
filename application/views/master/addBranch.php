@@ -1,3 +1,4 @@
+<script src="<?php echo base_url(); ?>assets/js/pages/forms/advanced-form-elements.js"></script> 
 <section class="content">
     <div class="body_scroll">
         <div class="block-header">
@@ -71,7 +72,7 @@
                                         <div class="mb-3 ">
                                             <label>Credit Limit Amount  *</label>
 
-                                            <input type="text" class="form-control" value="" name="credit_limit_amount" placeholder="Enter Credit Limit Amount" id="credit_limit_amount" required aria-required="true">
+                                            <input type="number" min="0" step="1" class="form-control" value="" name="credit_limit_amount" placeholder="Enter Credit Limit Amount" id="credit_limit_amount" required aria-required="true">
                                         </div>
                                         <label id="name-credit-limit-amount" class="removeDisplay" for="District">This field is required.</label>
                                     </div>

@@ -150,10 +150,16 @@
         });
     
     });
+   
 
     function getVoucherDetails(){
         //Exportable table
-        var voucherlist = $('.js-exportable').DataTable({
+        //var voucherlist;
+        if ($.fn.DataTable.isDataTable('.js-exportable')) {
+             $('.js-exportable').dataTable().fnClearTable();
+              $('.js-exportable').dataTable().fnDestroy();
+        }
+        $('.js-exportable').DataTable({
             dom: 'Bfrtip',
             processing: true, //Feature control the processing indicator.
             serverSide: true,
@@ -163,7 +169,8 @@
             ajax: {
                 url: base_url + "account/getVoucherDetails",
                 type: "POST",
-                data: {'getBranch': 'getBranch'}
+                data: {'from_date': $("#from_date").val(),'to_date': $('#to_date').val(), 'branch_id': $("#branch_id").val(), 'voucher_id': $('#voucher_id').val(), 
+                    'credit_account_id': $('#credit_account_id').val(), 'debit_account_id': $('#debit_account_id').val()}
             },
             //Set column definition initialisation properties.
             columnDefs: [

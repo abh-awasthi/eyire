@@ -34,8 +34,14 @@
 
                                             <select class="form-control show-tick ms search-select" name="voucher_type_id" data-placeholder="Select" id="voucher_type_id" required aria-required="true">
                                                 <option value=""  selected="">Select Voucher</option>
-                                                <option value="1"  >Journal Voucher</option>
-                                                <option value="2"  >Payment Voucher</option>
+                                                <?php if (!$this->ion_auth->is_admin()){ ?>
+                                                   
+                                                <option value="2" selected="selected">Payment Voucher</option>
+                                                <?php } else { ?>
+                                                    <option value="1"  >Journal Voucher</option>
+                                                    <option value="2"  >Payment Voucher</option>
+                                               <?php }?>
+                                                
                                                 
                                             </select>
                                         </div>

@@ -1,3 +1,5 @@
+<link href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"></script>
 <section class="content">
     <div class="body_scroll">
         <div class="block-header">
@@ -106,9 +108,10 @@
                         </div>
                         <div class="body">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                                <table class="table table-bordered table-striped table-hover dataTable js-exportable dt-responsive nowrap">
                                     <thead>
                                         <tr>
+                                            <th></th>
                                             <th>Voucher ID</th>
                                             <th>Branch</th>
                                             <th>Debit Account</th>
@@ -160,9 +163,10 @@
               $('.js-exportable').dataTable().fnDestroy();
         }
         $('.js-exportable').DataTable({
-            dom: 'Bfrtip',
+            dom: 'lBfrtip',
             processing: true, //Feature control the processing indicator.
             serverSide: true,
+            responsive:true,
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'
             ],

@@ -324,7 +324,7 @@ var base_url = '<?php echo base_url();?>';
             <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-assignment"></i><span>Account</span></a>
                 <ul class="ml-menu">
                     <li><a href="<?php echo base_url();?>account/addNewAccountType">Chart Of Account</a></li>
-                    <li><a href="<?php echo base_url();?>account/addJournalvoucher">Journal / Payment Voucher</a></li>
+                    <li><a href="<?php echo base_url();?>account/addJournalvoucher"><?php if (!$this->ion_auth->is_admin()){ echo "Payment Voucher"; } else { echo "Journal / Payment Voucher";}?></a></li>
                     <li><a href="<?php echo base_url();?>account/voucherDetails">Voucher Details</a></li>
                 </ul>
             </li>

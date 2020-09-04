@@ -123,8 +123,11 @@ class Account extends CI_Controller {
     function addJournalvoucher(){
         $branchDeatils = $this->master_model->get_matser('branch_details', '*', array(), array('name','desc'));
         $account = $this->master_model->get_matser('account_type', '*', array('active' => 1, 'parent_id != 0 '=> NULL), array('account_name', 'asc'));
+        
+        $is_admin = $this->ion_auth->is_admin();
+                
         $this->load->view('include/header', array('title' => "Journal Voucher"));
-        $this->load->view('account/addJournalVoucher', array('branchDeatils' => $branchDeatils, 'account' => $account));
+        $this->load->view('account/addJournalVoucher', array('branchDeatils' => $branchDeatils, 'account' => $account, 'is_admin' =>$is_admin));
         $this->load->view('include/footer');
     }
     
@@ -246,6 +249,7 @@ class Account extends CI_Controller {
     
     function voucher_list_table_data($data, $no){
         $row = array();
+        $row[] = "";
         $row[] = $data->id;
         $row[] = $data->branch_name;
         $row[] = $data->dr_account_name;

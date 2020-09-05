@@ -123,8 +123,11 @@ class Account extends CI_Controller {
     function addJournalvoucher(){
         $branchDeatils = $this->master_model->get_matser('branch_details', '*', array(), array('name','desc'));
         $account = $this->master_model->get_matser('account_type', '*', array('active' => 1, 'parent_id != 0 '=> NULL), array('account_name', 'asc'));
+        
+        $is_admin = $this->ion_auth->is_admin();
+                
         $this->load->view('include/header', array('title' => "Journal Voucher"));
-        $this->load->view('account/addJournalVoucher', array('branchDeatils' => $branchDeatils, 'account' => $account));
+        $this->load->view('account/addJournalVoucher', array('branchDeatils' => $branchDeatils, 'account' => $account, 'is_admin' =>$is_admin));
         $this->load->view('include/footer');
     }
     
@@ -172,9 +175,9 @@ class Account extends CI_Controller {
     }
     
     function getVoucherDetails(){
-       // log_message('info', __METHOD__. " ". json_encode($_POST, true));
-       $str = '{"draw":"1","columns":[{"data":"0","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"1","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"2","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"3","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"4","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"5","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"6","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"7","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"8","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"9","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"10","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}}],"order":[{"column":"0","dir":"asc"}],"start":"0","length":"10","search":{"value":"","regex":"false"},"getBranch":"getBranch"}';
-       $_POST = json_decode($str, true);
+        log_message('info', __METHOD__. " ". json_encode($_POST, true));
+       //$str = '{"draw":"1","columns":[{"data":"0","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"1","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"2","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"3","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"4","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"5","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"6","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"7","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"8","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"9","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"10","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}}],"order":[{"column":"0","dir":"asc"}],"start":"0","length":"10","search":{"value":"","regex":"false"},"getBranch":"getBranch"}';
+       //$_POST = json_decode($str, true);
         $post = $this->_getDatatableData();
         $post['select'] = "voucher_details.*, voucher_receipt_entry.receipt_id, cr.account_no as cr_account_no, cr.account_name as cr_account_name, dr.account_no,"
                 . "dr.account_name as dr_account_name,dr_branch.name as branch_name";
@@ -246,6 +249,7 @@ class Account extends CI_Controller {
     
     function voucher_list_table_data($data, $no){
         $row = array();
+        $row[] = "";
         $row[] = $data->id;
         $row[] = $data->branch_name;
         $row[] = $data->dr_account_name;

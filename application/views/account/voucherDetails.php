@@ -1,3 +1,5 @@
+<link href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"></script>
 <section class="content">
     <div class="body_scroll">
         <div class="block-header">
@@ -106,9 +108,10 @@
                         </div>
                         <div class="body">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                                <table class="table table-bordered table-striped table-hover dataTable js-exportable dt-responsive nowrap">
                                     <thead>
                                         <tr>
+                                            <th></th>
                                             <th>Voucher ID</th>
                                             <th>Branch</th>
                                             <th>Debit Account</th>
@@ -150,20 +153,28 @@
         });
     
     });
+   
 
     function getVoucherDetails(){
         //Exportable table
-        var voucherlist = $('.js-exportable').DataTable({
-            dom: 'Bfrtip',
+        //var voucherlist;
+        if ($.fn.DataTable.isDataTable('.js-exportable')) {
+             $('.js-exportable').dataTable().fnClearTable();
+              $('.js-exportable').dataTable().fnDestroy();
+        }
+        $('.js-exportable').DataTable({
+            dom: 'lBfrtip',
             processing: true, //Feature control the processing indicator.
             serverSide: true,
+            responsive:true,
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'
             ],
             ajax: {
                 url: base_url + "account/getVoucherDetails",
                 type: "POST",
-                data: {'getBranch': 'getBranch'}
+                data: {'from_date': $("#from_date").val(),'to_date': $('#to_date').val(), 'branch_id': $("#branch_id").val(), 'voucher_id': $('#voucher_id').val(), 
+                    'credit_account_id': $('#credit_account_id').val(), 'debit_account_id': $('#debit_account_id').val()}
             },
             //Set column definition initialisation properties.
             columnDefs: [

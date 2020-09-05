@@ -74,7 +74,7 @@ class Notify {
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($requestData));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post_data));
         $data = $curl_response = curl_exec($ch);
         curl_close($ch);
 

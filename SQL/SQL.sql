@@ -277,6 +277,9 @@ ALTER TABLE `voucher_details`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 COMMIT;
 
+-- Abhishek 05-september--
+ALTER TABLE `users` ADD `is_member` INT(2) NOT NULL DEFAULT '0' AFTER `age`;
+ALTER TABLE `users` ADD `is_employee` INT(2) NOT NULL DEFAULT '0' AFTER `is_member`;
 
 
 

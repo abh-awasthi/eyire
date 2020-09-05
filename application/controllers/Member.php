@@ -13,9 +13,11 @@ class Member extends CI_Controller {
         $this->load->database();
 		$this->load->model('master_model');
         $this->load->library(['ion_auth', 'form_validation']);
+        $this->load->library('notify');
         $this->load->helper(['url', 'language']);
         $this->load->model('Bank_model');
-		$this->load->model('Member_model');
+	$this->load->model('Member_model');
+        $this->load->model('Master_model');
 		
 		
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
@@ -82,15 +84,15 @@ class Member extends CI_Controller {
 		   'phone'=>$this->input->post('phone'),
 		   'gender'=>$this->input->post('gender'),
 		   'dob' => $this->input->post('dob'),
-		   'age' => $this->input->post('dob')
+		   'age' => $this->input->post('dob'),
+                   'is_member' =>1
 		);
 		$identity =  $this->input->post('identity');
 		$email = $identity ; 
-	    $password = $this->input->post('phone');
+	        $password = $this->input->post('phone');
 		$user_id = $this->ion_auth->register($identity, $password, $email, $data_user_table);
 		
 		if($user_id){
-		
 		if($this->input->post('reg_date')){
 			$reg_date = $this->input->post('reg_date');
 		}else{
@@ -135,6 +137,14 @@ class Member extends CI_Controller {
 		
 		$member_table_id = $this->Member_model->insert_row('members',$member_data);
 		if($member_table_id){
+                    $sms_data['phone_no'] = $this->input->post('phone');
+                    $sms_data['tag'] = MEMBER_CREATE_SMS;
+                    $sms_data['smsData']['name'] = $this->input->post('first_name');
+                    $sms_data['smsData']['member_id'] = $user_id;
+                    $sms_data['smsData']['amount'] =  $this->input->post('total_payable');
+                    $sms_data['smsData']['branch'] =  $this->input->post('branch');
+                    
+                    $this->notify->send_sms($sms_data);
 			echo json_encode(array('status'=>TRUE,'message'=>'Member Added Succesfully !','data'=>array('member_id'=>$user_id)));
 			
 		}else{

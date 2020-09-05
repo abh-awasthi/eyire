@@ -334,18 +334,18 @@ var base_url = '<?php echo base_url();?>';
                     <li><a href="<?php echo base_url(); ?>member/create">Create Member</a></li>
                     <li><a href="<?php echo base_url(); ?>member/memberslist">Members List</a></li>
                  <!--   <li><a href="ticket-list.html">Ticket List</a></li>
-                    <li><a href="ticket-detail.html">Ticket Detail</a></li>
+                    <li><a href="ticket-detail.html">Ticket Detail</a></li> -->
                 </ul>
             </li>
-            <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-folder"></i><span>File Manager</span></a>
+           <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-folder"></i><span>Plan Registration</span></a>
                 <ul class="ml-menu">
-                    <li><a href="file-dashboard.html">All File</a></li>
-                    <li><a href="file-documents.html">Documents</a></li>
+                    <li><a href="file-dashboard.html">Register Plan</a></li>
+<!--                    <li><a href="file-documents.html">Documents</a></li>
                     <li><a href="file-images.html">Images</a></li>
-                    <li><a href="file-media.html">Media</a></li>
+                    <li><a href="file-media.html">Media</a></li>-->
                 </ul>
             </li>
-            <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-blogger"></i><span>Blog</span></a>
+       <!--     <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-blogger"></i><span>Blog</span></a>
                 <ul class="ml-menu">
                     <li><a href="blog-dashboard.html">Dashboard</a></li>
                     <li><a href="blog-post.html">Blog Post</a></li>

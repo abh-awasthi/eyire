@@ -92,7 +92,7 @@
 
 
                                 <div class="row">
-								
+
                                     <div class="col-md-6">
                                         <div class="form-group form-float">
                                             <label>Email : *</label>
@@ -100,7 +100,7 @@
 
                                         </div>
                                     </div>								
-								
+
                                     <div class="col-md-6">
                                         <div class="form-group form-float">
                                             <label>Gender : *</label>
@@ -114,10 +114,10 @@
                                         </div>
                                     </div>
                                 </div> 
-								
-								
-								<div class="row">
-								   <div class="col-md-4">
+
+
+                                <div class="row">
+                                    <div class="col-md-4">
                                         <div class="form-group form-float">
                                             <label>C/O :  *</label>
                                             <select class="form-control show-tick ms select2" name="gurdian_type" required>
@@ -136,7 +136,7 @@
 
                                         </div>
                                     </div>
-								</div>
+                                </div>
 
 
                                 <div class="row">
@@ -157,9 +157,9 @@
                                             <select class="form-control show-tick ms select2" id="states" name="state" required>
                                                 <option value=''>Select</option>
 
-													<?php foreach($states as $state){ ?>	
-														<option value='<?php echo $state['id']; ?>'><?php echo $state['name']; ?></option>
-													<?php } ?>
+                                                <?php foreach ($states as $state) { ?>	
+                                                    <option value='<?php echo $state['id']; ?>'><?php echo $state['name']; ?></option>
+                                                <?php } ?>
                                             </select>
 
 
@@ -172,7 +172,7 @@
 
                                             <select class="form-control show-tick ms select2" id="district" name="district" required>
                                                 <option value=''>Select</option>				
-                                                
+
                                             </select>
                                         </div>
                                     </div>
@@ -227,15 +227,15 @@
                                             <label>ID Proof : *</label>
 
                                             <select class="form-control show-tick ms select2"  name="idproof" required>
-                                                    <option value=''>Select ID</option>				
-                                               		<option value="Pan Card">Pan Card</option>
-		                                            <option value="Passport">Passport</option>
-		                                            <option value="Driving Licence">Driving Licence</option>
-	                                             	<option value="Ration Card">Ration Card</option>
-	                                            	<option value="Voter Id">Voter Id</option>
-		                                            <option value="Domicile Certificate">Domicile Certificate</option>
-	                                             	<option value="Aadhar Card">Aadhar Card</option>
-	                                               	<option value="Others">Others</option>
+                                                <option value=''>Select ID</option>				
+                                                <option value="Pan Card">Pan Card</option>
+                                                <option value="Passport">Passport</option>
+                                                <option value="Driving Licence">Driving Licence</option>
+                                                <option value="Ration Card">Ration Card</option>
+                                                <option value="Voter Id">Voter Id</option>
+                                                <option value="Domicile Certificate">Domicile Certificate</option>
+                                                <option value="Aadhar Card">Aadhar Card</option>
+                                                <option value="Others">Others</option>
                                             </select>       
                                         </div>
                                     </div>
@@ -256,15 +256,15 @@
                                             <label>Address Proof : *</label>
 
                                             <select class="form-control show-tick ms select2" name="address_proof" required>
-											        <option value=''>Select ID</option>	
-                                               		<option value="Pan Card">Pan Card</option>
-		                                            <option value="Passport">Passport</option>
-		                                            <option value="Driving Licence">Driving Licence</option>
-	                                             	<option value="Ration Card">Ration Card</option>
-	                                            	<option value="Voter Id">Voter Id</option>
-		                                            <option value="Domicile Certificate">Domicile Certificate</option>
-	                                             	<option value="Aadhar Card">Aadhar Card</option>
-	                                               	<option value="Others">Others</option>
+                                                <option value=''>Select ID</option>	
+                                                <option value="Pan Card">Pan Card</option>
+                                                <option value="Passport">Passport</option>
+                                                <option value="Driving Licence">Driving Licence</option>
+                                                <option value="Ration Card">Ration Card</option>
+                                                <option value="Voter Id">Voter Id</option>
+                                                <option value="Domicile Certificate">Domicile Certificate</option>
+                                                <option value="Aadhar Card">Aadhar Card</option>
+                                                <option value="Others">Others</option>
                                             </select>       
                                         </div>
                                     </div>
@@ -283,7 +283,7 @@
                                         <div class="form-group form-float">
                                             <label>Date Of Birth : *</label>
 
-                                            <input type="text" class="form-control" placeholder="Enter DOB" name="dob"  id="dob"  required>                                     
+                                            <input type="text" class="form-control datepickerdob" placeholder="Enter DOB" name="dob"  id="dob"  required>                                     
 
                                         </div>
                                     </div>
@@ -361,7 +361,7 @@
                                         <div class="form-group form-float">
                                             <label>Nominee (D.O.B.) : *</label>
 
-                                            <input type="text" class="form-control" placeholder="Enter DOB" name="ndob"  id="ndob"  required>                                     
+                                            <input type="text" class="form-control datepickerdob" placeholder="Enter DOB" name="ndob"  id="ndob"  required>                                     
 
                                         </div>
                                     </div>
@@ -390,28 +390,28 @@
 
                             <h5>Bank Details</h5>
                             <fieldset>
-                                
-                                
-                                
-                                
-    
+
+
+
+
+
                                 <div class="row">
-                                
+
                                     <div class="col-md-4">
                                         <div class="form-group form-float">
                                             <label>Bank Name  : *</label>
                                             <select class="form-control show-tick ms select2" name="bank_name" required>
-                                                    <?php foreach ($banks as $bank){ ?>
-                                                        
-                                                <option value="<?php echo $bank['BANK']; ?>"><?php echo $bank['BANK']; ?></option>  
-                                                    <?php }  ?>
+                                                <?php foreach ($banks as $bank) { ?>
+
+                                                    <option value="<?php echo $bank['BANK']; ?>"><?php echo $bank['BANK']; ?></option>  
+                                                <?php } ?>
                                             </select>                                      
                                         </div>
                                     </div>
-                                    
-                                    
-                                    
-                                       <div class="col-md-4">
+
+
+
+                                    <div class="col-md-4">
                                         <div class="form-group form-float">
                                             <label>Branch Name  : *</label>
                                             <input type="text" class="form-control" placeholder="Enter Branch Name" name="n_name"  id="branch_name" >                                     
@@ -429,8 +429,8 @@
 
                                 </div> 
 
-                                 <div class="row">    
-                                       <div class="col-md-6">
+                                <div class="row">    
+                                    <div class="col-md-6">
                                         <div class="form-group form-float">
                                             <label>Account No  : *</label>
                                             <input type="number" class="form-control" placeholder="Enter Account No" name="account_no"  id="account_no" >                                     
@@ -447,27 +447,27 @@
                                     </div>
 
                                 </div>                                    
-                                    
+
                             </fieldset>
 
 
                             <h5>Branch Details</h5>
                             <fieldset>
                                 <div class="row">
-                                
+
                                     <div class="col-md-6">
                                         <div class="form-group form-float">
                                             <label>Branch Name  : *</label>
                                             <select class="form-control show-tick ms select2" name="branch" required>
                                                 <option value=''>Select Branch</option>				
-                                                
+
                                             </select>                                      
                                         </div>
                                     </div>
-                                    
-                                    
-                                    
-                                       <div class="col-md-6">
+
+
+
+                                    <div class="col-md-6">
                                         <div class="form-group form-float">
                                             <label>Branch Address  : *</label>
                                             <input type="text" class="form-control" placeholder="Enter Branch Address" name="branch_address"  id="branch_address" >                                     
@@ -475,7 +475,7 @@
                                         </div>
                                     </div>
 
- 
+
 
                                 </div> 
                             </fieldset>
@@ -483,20 +483,20 @@
 
                             <h5>Payment Info</h5>
                             <fieldset>
-                                           <div class="row">
-                                
+                                <div class="row">
+
                                     <div class="col-md-6">
                                         <div class="form-group form-float ">
                                             <label>Member Type  : *</label>
                                             <select class="form-control show-tick ms select2" name="member_type"  >
-                                                               <option value='ORDINARY'>ORDINARY</option> 
+                                                <option value='ORDINARY'>ORDINARY</option> 
                                             </select>                                      
                                         </div>
                                     </div>
-                                    
-                                    
-                                    
-                                       <div class="col-md-6">
+
+
+
+                                    <div class="col-md-6">
                                         <div class="form-group form-float">
                                             <label>No of Share  : *</label>
                                             <input type="number" class="form-control" placeholder="Enter No of shares" name="num_share"  id="num_share" >                                     
@@ -504,25 +504,25 @@
                                         </div>
                                     </div>
 
- 
+
 
                                 </div> 
-                                
-                                
-                                
-                     <div class="row">
-                                
+
+
+
+                                <div class="row">
+
                                     <div class="col-md-6">
                                         <div class="form-group form-float">
                                             <label>Applicant Charge  : *</label>
-                                           <input type="number" class="form-control" placeholder="Applicant Charge" name="applicant_charge"  id="applicant_charge" >                                     
-                                    
+                                            <input type="number" class="form-control" placeholder="Applicant Charge" name="applicant_charge"  id="applicant_charge" >                                     
+
                                         </div>
                                     </div>
-                                    
-                                    
-                                    
-                                       <div class="col-md-6">
+
+
+
+                                    <div class="col-md-6">
                                         <div class="form-group form-float">
                                             <label>Total Payble   : *</label>
                                             <input type="number" class="form-control" placeholder="Total Payble" name="total_payable"  id="branch_address" >                                     
@@ -530,12 +530,12 @@
                                         </div>
                                     </div>
 
- 
+
 
                                 </div> 
-                                
-                                
-                                
+
+
+
                             </fieldset>
                         </form>
                     </div>
@@ -571,47 +571,67 @@
 
     $(document).ready(function () {
 
-$('.select2').select2();
 
-$("#states").change(function(){
-
-let state = $(this).val();
-
-        $.ajax({
-            method: 'POST',
-            url: '<?php echo base_url(); ?>member/getStateDistrict/'+state,
-            data: {},
-            beforeSend: function () {
-                
-                $(".page-loader-wrapper").fadeIn();
-
-            },
-            success: function (response) {
-				
-				$("#district").append(response);
-                
-            },
-            complete: function () {
-                $(".page-loader-wrapper").fadeOut();
-            }
+        $('.datepicker').bootstrapMaterialDatePicker({
+            format: 'YYYY-MM-DD',
+            clearButton: true,
+            weekStart: 1,
+            time: false
         });
-	
-	
-	
-});
 
-
-
-$("a[href='#finish']").click(function(){
-	
-	showConfirmMessage(); 
-	
-});
+        $('.datepickerdob').bootstrapMaterialDatePicker({
+            format: 'YYYY-MM-DD',
+            clearButton: true,
+            weekStart: 1,
+            year: true,
+            time: false
+        });
 
 
 
 
- 
+
+        $('.select2').select2();
+
+        $("#states").change(function () {
+
+            let state = $(this).val();
+
+            $.ajax({
+                method: 'POST',
+                url: '<?php echo base_url(); ?>member/getStateDistrict/' + state,
+                data: {},
+                beforeSend: function () {
+
+                    $(".page-loader-wrapper").fadeIn();
+
+                },
+                success: function (response) {
+
+                    $("#district").append(response);
+
+                },
+                complete: function () {
+                    $(".page-loader-wrapper").fadeOut();
+                }
+            });
+
+
+
+        });
+
+
+
+        $("a[href='#finish']").click(function () {
+
+            showConfirmMessage();
+
+        });
+
+
+
+
+
 
 //    $('.datepicker').bootstrapMaterialDatePicker({
 //        format: 'DD-MM-YYYY',
@@ -620,29 +640,29 @@ $("a[href='#finish']").click(function(){
 //        time: false
 //    });
 
-    /*    $('#form_advanced_validationmember').validate({
-            rules: {
-                'first_name': {
-                    required: true
-                },
-                'last_name': {
-                    required: true
-                }
-            },
-            highlight: function (input) {
-                $(input).parents('.form-line').addClass('error');
-            },
-            unhighlight: function (input) {
-                $(input).parents('.form-line').removeClass('error');
-            },
-            errorPlacement: function (error, element) {
-                $(element).parents('.form-group').append(error);
-            },
-            submitHandler: function (form) {
-                // do other things for a valid form
-                showConfirmMessage();
-            }
-        }); */
+        /*    $('#form_advanced_validationmember').validate({
+         rules: {
+         'first_name': {
+         required: true
+         },
+         'last_name': {
+         required: true
+         }
+         },
+         highlight: function (input) {
+         $(input).parents('.form-line').addClass('error');
+         },
+         unhighlight: function (input) {
+         $(input).parents('.form-line').removeClass('error');
+         },
+         errorPlacement: function (error, element) {
+         $(element).parents('.form-group').append(error);
+         },
+         submitHandler: function (form) {
+         // do other things for a valid form
+         showConfirmMessage();
+         }
+         }); */
 
 
 
@@ -667,17 +687,17 @@ $("a[href='#finish']").click(function(){
                                 type: "POST",
                                 url: url,
                                 data: form.serialize(), // serializes the form's elements.
-								beforeSend: function () {
-                                 $(".page-loader-wrapper").fadeIn();
+                                beforeSend: function () {
+                                    $(".page-loader-wrapper").fadeIn();
                                 },
                                 success: function (data)
                                 {
-									console.log(data);
+                                    console.log(data);
                                     // show response from the php script.
                                     var result = JSON.parse(data);
-                                   
+
                                     if (result.status) {
-										$('#wizard_with_validation').trigger("reset");
+                                        $('#wizard_with_validation').trigger("reset");
                                         swal(result.message, {
                                             icon: "success",
                                             text: "Member ID :" + result.data.member_id,
@@ -688,8 +708,8 @@ $("a[href='#finish']").click(function(){
                                         });
                                     }
                                 },
-								complete: function () {
-                                 $(".page-loader-wrapper").fadeOut();
+                                complete: function () {
+                                    $(".page-loader-wrapper").fadeOut();
                                 }
                             });
 

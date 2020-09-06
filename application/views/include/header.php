@@ -20,6 +20,7 @@
  
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/jquery-steps/jquery.steps.css">
 
+<link href="<?php echo base_url(); ?>assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
 
 
 <script src="<?php echo base_url(); ?>assets/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js --> 
@@ -39,6 +40,12 @@
 <script>
 var base_url = '<?php echo base_url();?>';
 </script>
+
+
+<script src="<?php echo base_url(); ?>assets/plugins/momentjs/moment.js"></script> <!-- Moment Plugin Js --> 
+<!-- Bootstrap Material Datetime Picker Plugin Js -->
+<script src="<?php echo base_url(); ?>assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script> 
+
 
 <!-- Jquery DataTable Plugin Js --> 
 <script src="<?php echo base_url(); ?>assets/bundles/datatablescripts.bundle.js"></script>

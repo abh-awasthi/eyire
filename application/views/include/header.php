@@ -342,7 +342,7 @@ var base_url = '<?php echo base_url();?>';
                 <ul class="ml-menu">
                     <li><a href="<?php echo base_url();?>master/addVendor">Add Vendor</a></li>
                     <li><a href="<?php echo base_url();?>master/addCategory">Add Category</a></li>
-                    <li><a href="<?php echo base_url();?>stock/stockReceived">Stock Received</a></li>
+                    <li><a href="<?php echo base_url();?>inventory/stockReceived">Stock Received</a></li>
                     
                 </ul>
             </li>

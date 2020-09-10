@@ -121,7 +121,11 @@
                                             <th>Voucher Date</th>
                                             <th>Cheque Number</th>
                                             <th>Transaction ID</th>
-                                            <th>Description</th>
+                                            <th>Narration</th>
+                                            <th>Created By</th>
+                                            <th>Created Date</th>
+                                            <th>Approved By</th>
+                                            <th>Approved Date</th>
                                         </tr>
                                     </thead>
                                     
@@ -174,7 +178,7 @@
                 url: base_url + "account/getVoucherDetails",
                 type: "POST",
                 data: {'from_date': $("#from_date").val(),'to_date': $('#to_date').val(), 'branch_id': $("#branch_id").val(), 'voucher_id': $('#voucher_id').val(), 
-                    'credit_account_id': $('#credit_account_id').val(), 'debit_account_id': $('#debit_account_id').val()}
+                    'credit_account_id': $('#credit_account_id').val(), 'debit_account_id': $('#debit_account_id').val(), type:2}
             },
             //Set column definition initialisation properties.
             columnDefs: [
@@ -190,4 +194,6 @@
     //        }
         });
     }
+    
+    
 </script>

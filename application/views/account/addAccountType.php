@@ -91,6 +91,46 @@
                                         <label id="name-account-name" class="removeDisplay" for="Account">This field is required.</label>
                                     </div>
                                 </div>
+                                
+                                
+                                
+                                <div class="row clearfix">
+                                    <div class="col-lg-3 col-md-3 col-sm-4 form-control-label">
+                                        <label for="Sub ledger A/c">Cash / Bank Account</label>
+                                    </div>
+                                    <div class="col-lg-8 col-md-8 col-sm-8">
+                                        <div class="form-group">
+                                            <select name="account_type" id="account_type" class="form-control" onchange="is_c_bank()">
+                                                <option selected="selected" value="">None</option>
+                                                <option value="1">Bank Account</option>
+                                                <option value="2">Cash In Hand</option>
+                                                
+                                            </select>
+                                            
+                                        </div>
+                                        <label id="name-c_bank" class="removeDisplay" for="Account">This field is required.</label>
+                                    </div>
+                                </div>
+                                
+                                <div class="row clearfix removeDisplay" id="branchDiv" >
+                                    <div class="col-lg-3 col-md-3 col-sm-4 form-control-label">
+                                        <label for="Sub ledger A/c">Branch</label>
+                                    </div>
+                                    <div class="col-lg-8 col-md-8 col-sm-8" >
+                                        <div class="form-group">
+                                            <select name="branch_id" id="branch_id" class="form-control">
+                                                <option selected="selected" value="">None</option>
+                                                <?php foreach($branch as $value){ ?>
+                                                    <option value="<?php echo $value['branch_id']?>"><?php echo $value['name'];?></option>
+                                                <?php }?>
+                                                
+                                                
+                                                
+                                            </select>
+                                        </div>
+                                        <label id="name-branch_id" class="removeDisplay" for="Account">This field is required.</label>
+                                    </div>
+                                </div>
 
                                   <div class="row clearfix">
                                     <div class="col-lg-3 col-md-3 col-sm-4 form-control-label">
@@ -207,6 +247,8 @@ $(document).ready(function (){
           event.preventDefault();
           var sub_account_no = $("#account_no").val();
           var sub_account_name = $("#account_name").val();
+          var is_c_bank = $("#account_type").val();
+          var branch = $("#branch_id").val();
           if(sub_account_no === ""){
               $("#name-account-no").addClass("error");
               $("#name-account-no").removeClass('removeDisplay');
@@ -217,6 +259,14 @@ $(document).ready(function (){
               $("#name-account-name").removeClass('removeDisplay');
               return false
 
+          }
+          
+          if(is_c_bank !=""){
+              if(branch == ""){
+                  $("#name-branch_id").addClass("error");
+                  $("#name-branch_id").removeClass('removeDisplay');
+                  return false;
+              }
           }
           $.ajax({
               url:'<?php echo base_url();?>account/processAddAccount',
@@ -254,4 +304,14 @@ $(document).ready(function (){
     });
     
 });
+
+function is_c_bank(){
+var is_c_bank = $("#account_type").val();
+
+if(is_c_bank == ''){
+    $('#branchDiv').addClass('removeDisplay');
+} else {
+   $('#branchDiv').removeClass('removeDisplay'); 
+}
+}
 </script>

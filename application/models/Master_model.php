@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Master_model extends CI_Model {
 
     function get_matser($table, $select, $where = array(), $order_by = array()) {
-        $this->db->select($select);
+        $this->db->select($select, false);
         if (!empty($where)) {
             $this->db->where($where);
         }

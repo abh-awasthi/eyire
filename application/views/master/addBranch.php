@@ -58,11 +58,11 @@
                                         <div class="mb-3 ">
                                             <label>Contact Person *</label>
                                             <select class="form-control show-tick ms search-select" name="contact_person" placeholder="Enter Contact Person" id="contact_person" required aria-required="true">
-                                                    <option value=""  selected="">Select Contact Person</option>
-                                                    <?php foreach ($agent as $key => $value) { ?>
-                                                        <option value="<?php echo $value['id']; ?>"><?php echo ucwords($value['first_name']." ".$value['last_name']); ?></option>
-                                                    <?php } ?>
-                                                </select>
+                                                <option value=""  selected="">Select Contact Person</option>
+                                                <?php foreach ($agent as $key => $value) { ?>
+                                                    <option value="<?php echo $value['id']; ?>"><?php echo ucwords($value['first_name'] . " " . $value['last_name']); ?></option>
+                                                <?php } ?>
+                                            </select>
 
                                         </div>
                                         <label id="name-contact-person" class="removeDisplay" for="Contact Person">This field is required.</label>
@@ -100,7 +100,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Exportable Table -->
             <div class="row clearfix">
                 <div class="col-lg-12">
@@ -135,9 +135,9 @@
                                             <th></th>
                                         </tr>
                                     </thead>
-                                    
+
                                     <tbody>
-                                        
+
                                     </tbody>
                                 </table>
                             </div>

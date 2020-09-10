@@ -3,7 +3,7 @@
         <div class="block-header">
             <div class="row">
                 <div class="col-lg-7 col-md-6 col-sm-12">
-                    <h2>Journal Voucher</h2>
+                    <h2>Payment Voucher</h2>
 
                     <button class="btn btn-primary btn-icon mobile_menu" type="button"><i class="zmdi zmdi-sort-amount-desc"></i></button>
                 </div>
@@ -23,7 +23,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="card">
                         <div class="header">
-                            <h2><strong>Add Journal</strong> Voucher</h2>
+                            <h2><strong>Add Payment</strong> Voucher</h2>
                         </div>
                         <div class="body">
                             <form id="addJournalVoucher" action="javascript:void(0)" method="POST" novalidate="novalidate">
@@ -34,15 +34,8 @@
 
                                             <select class="form-control show-tick ms search-select" name="voucher_type_id" data-placeholder="Select" id="voucher_type_id" required aria-required="true">
                                                 <option value=""  selected="">Select Voucher</option>
-                                                <?php if (!$this->ion_auth->is_admin()){ ?>
                                                    
-                                                <option value="2" selected="selected">Payment Voucher</option>
-                                                <?php } else { ?>
-                                                    <option value="1"  selected>Journal Voucher</option>
-<!--                                                    <option value="2"  >Payment Voucher</option>-->
-                                               <?php }?>
-                                                
-                                                
+                                                <option value="2" selected="selected">Payment Voucher</option>  
                                             </select>
                                         </div>
                                         <label id="error-voucher_type_id" class="removeDisplay" for="Branch Name">This field is required.</label>
@@ -78,7 +71,7 @@
                                         <div class="mb-3 ">
                                             <label>Branch *</label>
 
-                                            <select class="form-control show-tick ms search-select" name="branch_id" data-placeholder="Select" id="branch_id" required aria-required="true">
+                                            <select class="form-control show-tick ms search-select" name="branch_id" data-placeholder="Select" id="branch_id" onchange="credit_entry()" required aria-required="true">
                                                 <option value=""  selected="">Select Branch</option>
                                                 <?php foreach ($branchDeatils as $key => $value) { ?>
                                                     <option value="<?php echo $value['branch_id']; ?>" data-limit ='<?php echo $value['credit_limit_amount'] ?>'><?php echo $value['name']; ?></option>
@@ -105,7 +98,7 @@
                                     <div class="col-md-6 form-group form-float">
                                         <div class="mb-3 ">
                                             <label>Debit Entry *</label>
-                                            <select class="form-control show-tick ms search-select" onchange="credit_entry()" name="debit_account_id"  id="debit_account_id" required aria-required="true">
+                                            <select class="form-control show-tick ms search-select"  name="debit_account_id"  id="debit_account_id" required aria-required="true">
                                                 <option value=""  selected="">Select Debit</option>
                                                 <?php foreach ($account as $key => $value) { ?>
                                                     <option value="<?php echo $value['id']; ?>" data-key='<?php echo $key; ?>' ><?php echo ucwords($value['account_name']); ?></option>
@@ -183,12 +176,18 @@ $(function () {
 });
 
     function credit_entry() {
+        
         var key = $('#debit_account_id').find(':selected').attr('data-key');
+        var branch_id = $("#branch_id").val();
         var array = JSON.parse('<?php echo json_encode($account, true); ?>');
         delete array[key];
         var html = '<option value=""  selected="">Select Credit Entry</option>';
         array.forEach((item, index) => {
-            html += '<option value="' + index + '" >' + item.account_name + '</option>';
+            
+            if((item.branch_id == branch_id) && (Number(item.account_type) == 1 || Number(item.account_type) == 2)){
+                html += '<option value="' + index + '" >' + item.account_name + '</option>';
+            }
+            
         });
 
         $("#credit_account_id").html(html).change();

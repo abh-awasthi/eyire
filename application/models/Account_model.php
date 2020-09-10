@@ -4,14 +4,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Account_model extends CI_Model {
 
-    function insert_voucher($postData1, $crData) {
+    function insert_voucher($postData1, $crData, $transData) {
 
         $this->db->trans_start();
         $this->db->insert('voucher_details', $postData1);
 
         $id = $this->db->insert_id();
-        $crData['voucher_id'] = $id;
+        
+        $crData['voucher_id'] = $transData['voucher_id'] = $id;
         $this->db->insert('voucher_receipt_entry', $crData);
+        $this->db->insert('voucher_transaction_details', $transData);
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {
             return false;
@@ -34,9 +36,12 @@ class Account_model extends CI_Model {
         $this->db->select($post['select'], FALSE);
         $this->db->from('voucher_details');
         $this->db->join('voucher_receipt_entry', 'voucher_receipt_entry.voucher_id = voucher_details.id');
+        $this->db->join('voucher_transaction_details', 'voucher_transaction_details.voucher_id = voucher_details.id');
         $this->db->join('branch_details as dr_branch', 'dr_branch.branch_id = branch_id');
         $this->db->join('account_type as cr', 'cr.id = cr_account_id');
         $this->db->join('account_type as dr', 'dr.id = dr_account_id');
+        $this->db->join('users as approved', 'approved.id = voucher_details.approved_by', 'left');
+        $this->db->join('users as created', 'created.id = voucher_details.created_by', 'left');
 
         if (!empty($post['where'])) {
             $this->db->where($post['where'], FALSE);
@@ -80,9 +85,12 @@ class Account_model extends CI_Model {
         $this->db->select($post['select'], FALSE);
         $this->db->from('voucher_details');
         $this->db->join('voucher_receipt_entry', 'voucher_receipt_entry.voucher_id = voucher_details.id');
+        $this->db->join('voucher_transaction_details', 'voucher_transaction_details.voucher_id = voucher_details.id');
         $this->db->join('branch_details as dr_branch', 'dr_branch.branch_id = branch_id');
         $this->db->join('account_type as cr', 'cr.id = cr_account_id');
         $this->db->join('account_type as dr', 'dr.id = dr_account_id');
+        $this->db->join('users as approved', 'approved.id = voucher_details.approved_by', 'left');
+        $this->db->join('users as created', 'created.id = voucher_details.created_by', 'left');
         if (isset($post['where'])) {
             $this->db->where($post['where']);
         }

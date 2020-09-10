@@ -277,6 +277,9 @@ ALTER TABLE `voucher_details`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 COMMIT;
 
+--Abhay sep-10
+ALTER TABLE `account_type` ADD `account_tye` INT(11) NULL AFTER `account_name`, ADD `branch_id` INT(11) NULL DEFAULT NULL AFTER `account_tye`;
+
 
 
 

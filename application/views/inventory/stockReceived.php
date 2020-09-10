@@ -3,7 +3,7 @@
         <div class="block-header">
             <div class="row">
                 <div class="col-lg-7 col-md-6 col-sm-12">
-                    <h2>Journal Voucher</h2>
+                    <h2>Stock Received</h2>
 
                     <button class="btn btn-primary btn-icon mobile_menu" type="button"><i class="zmdi zmdi-sort-amount-desc"></i></button>
                 </div>
@@ -14,7 +14,7 @@
         </div>
         <div class="container-fluid">
             <div class="alert alert-success removeDisplay">
-                New Voucher Added <strong>Successfully!</strong>
+                New Stock Updated <strong>Successfully!</strong>
             </div>
             <div class="alert alert-danger removeDisplay">
 
@@ -23,133 +23,83 @@
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="card">
                         <div class="header">
-                            <h2><strong>Add Journal</strong> Voucher</h2>
+                            <h2><strong>Update Stock</strong> Received</h2>
                         </div>
                         <div class="body">
                             <form id="addJournalVoucher" action="javascript:void(0)" method="POST" novalidate="novalidate">
                                 <div class="row clearfix">
                                     <div class="col-md-6 form-group form-float">
                                         <div class="mb-3 ">
-                                            <label>Voucher Type *</label>
+                                            <label>Category *</label>
 
-                                            <select class="form-control show-tick ms search-select" name="voucher_type_id" data-placeholder="Select" id="voucher_type_id" required aria-required="true">
-                                                <option value=""  selected="">Select Voucher</option>
-                                                <?php if (!$this->ion_auth->is_admin()){ ?>
-                                                   
-                                                <option value="2" selected="selected">Payment Voucher</option>
-                                                <?php } else { ?>
-                                                    <option value="1"  selected>Journal Voucher</option>
-<!--                                                    <option value="2"  >Payment Voucher</option>-->
-                                               <?php }?>
-                                                
-                                                
+                                            <select class="form-control show-tick ms search-select" name="category" onchange="getCategoryItem()" data-placeholder="Select" id="category" required aria-required="true">
+                                                <option value=""  selected="">Select Category</option>
+                                                <?php foreach ($category as $value) { ?>
+                                                    <option value="<?php echo $value['category_name'];?>"  ><?php echo $value['category_name'];?></option>
+                                              <?php  }?>
+ 
                                             </select>
                                         </div>
-                                        <label id="error-voucher_type_id" class="removeDisplay" for="Branch Name">This field is required.</label>
+                                        <label id="error-category" class="removeDisplay" for="Branch Name">This field is required.</label>
                                     </div>
                                     <div class="col-md-6 form-group form-float">
                                         <div class="mb-3 ">
-                                            <label>Narration *</label>
+                                            <label>Item Name *</label>
 
-                                            <input type="text" class="form-control" value="" name="narration" placeholder="Enter Narration" id="narration" required aria-required="true">
+                                            <select class="form-control show-tick ms search-select" name="item_name" data-placeholder="Select" id="item_name" required aria-required="true">
+                                                
+                                            </select>
                                         </div>
-                                        <label id="error-narration" class="removeDisplay" for="Narration">This field is required.</label>
+                                        <label id="error-item_name" class="removeDisplay" for="Narration">This field is required.</label>
                                     </div>
                                     
                                     <div class="col-md-6 form-group form-float">
                                         <div class="mb-3">
-                                            <label>Voucher Date *</label>
+                                            <label>Stock Location *</label>
                                             <div class="input-group">
-                                                <input type="date" class="form-control" value="" name="voucher_date" min="<?php echo date('d-m-Y', strtotime('-31 days'))?>" max="<?php echo date('d-m-Y');?>" placeholder="Enter Date" id="voucher_date" required aria-required="true">
+                                                <input type="text" class="form-control" value="" name="stock_location" placeholder="Enter Date" id="stock_location" required aria-required="true">
                                             </div>
                                         </div>
-                                        <label id="error-voucher-date" class="removeDisplay" for="voucher date">This field is required.</label>
+                                        <label id="error-stock_location" class="removeDisplay" for="voucher date">This field is required.</label>
                                     </div>
                                     <div class="col-md-6 form-group form-float">
                                         <div class="mb-3">
-                                            <label>Cheque No. </label>
+                                            <label>Rate * </label>
 
-                                            <input type="text" class="form-control" value="" name="cheque_number" placeholder="Enter Cheque Number" id="cheque_number" >
+                                            <input type="number" step="1" class="form-control" value="" name="rate" placeholder="Enter Cheque Number" id="rate" >
 
                                         </div>
-                                        <label id="error-cheque_number" class="removeDisplay" for="cheque_number">This field is required.</label>
+                                        <label id="error-rate" class="removeDisplay" for="cheque_number">This field is required.</label>
                                     </div>
                                     <div class="col-md-6 form-group form-float">
-                                        <div class="mb-3 ">
-                                            <label>Branch *</label>
+                                        <div class="mb-3">
+                                            <label>Quantity *</label>
 
-                                            <select class="form-control show-tick ms search-select" name="branch_id" data-placeholder="Select" id="branch_id" required aria-required="true">
-                                                <option value=""  selected="">Select Branch</option>
-                                                <?php foreach ($branchDeatils as $key => $value) { ?>
-                                                    <option value="<?php echo $value['branch_id']; ?>" data-limit ='<?php echo $value['credit_limit_amount'] ?>'><?php echo $value['name']; ?></option>
-                                                <?php } ?>
-                                            </select>
+                                            <input type="number" class="form-control" value="" name="quantity" placeholder="Enter Quantity" id="quantity" >
+
                                         </div>
-                                        <label id="error-branch" class="removeDisplay" for="Branch Name">This field is required.</label>
+                                        <label id="error-quantity" class="removeDisplay" for="cheque_number">This field is required.</label>
                                     </div>
                                     
                                     <div class="col-md-6 form-group form-float">
                                         <div class="mb-3">
-                                            <label>Transaction ID</label>
+                                            <label>Amount *</label>
 
-                                            <input type="text" class="form-control" value="" name="transaction_id" placeholder="Enter Transaction ID " id="transaction_id" >
-
-
-                                        </div>
-                                        <label id="error-transaction_id" class="removeDisplay" for="transaction_id">This field is required.</label>
-                                    </div>
-
-                                    
-
-
-                                    <div class="col-md-6 form-group form-float">
-                                        <div class="mb-3 ">
-                                            <label>Debit Entry *</label>
-                                            <select class="form-control show-tick ms search-select" onchange="credit_entry()" name="debit_account_id"  id="debit_account_id" required aria-required="true">
-                                                <option value=""  selected="">Select Debit</option>
-                                                <?php foreach ($account as $key => $value) { ?>
-                                                    <option value="<?php echo $value['id']; ?>" data-key='<?php echo $key; ?>' ><?php echo ucwords($value['account_name']); ?></option>
-                                                <?php } ?>
-                                            </select>
+                                            <input type="number" step="1" class="form-control" value="" name="amount" placeholder="Enter Amount" id="amount" >
 
                                         </div>
-                                        <label id="error-debit_account_id" class="removeDisplay" for="debit_account_id">This field is required.</label>
+                                        <label id="error-amount" class="removeDisplay" for="cheque_number">This field is required.</label>
                                     </div>
-                                    
-                                    <div class="col-md-6 form-group form-float">
+                                    <div class="col-md-12 form-group form-float">
                                         <div class="mb-3">
-                                            <label>Transaction Date</label>
-                                            <div class="input-group">
-                                                <input type="date" class="form-control" value="" name="transaction_date" min="<?php echo date('d-m-Y', strtotime('-31 days'))?>" max="<?php echo date('d-m-Y');?>" placeholder="Enter Date" id="transaction_date" >
-                                            </div>
-                                        </div>
-                                        <label id="error-transaction-date" class="removeDisplay" for="voucher date">This field is required.</label>
-                                    </div>
-                                    <div class="col-md-6 form-group form-float">
-                                        <div class="mb-3 ">
-                                            <label>Credit Entry *</label>
-                                            <select class="form-control show-tick ms search-select" name="credit_account_id" placeholder="Enter Credit Account" id="credit_account_id" required aria-required="true">
-                                                <option value=""  selected="">Select Credit Entry</option>
-                                            </select>
+                                            <label>Description *</label>
+
+                                            <textarea rows="3" class="form-control no-resize" name="description" placeholder="Enter Description" required aria-required="true"></textarea>
 
 
                                         </div>
-                                        <label id="name-credit-account_id" class="removeDisplay" for="District">This field is required.</label>
+                                        <label id="name-branch-address" class="removeDisplay" for="District">This field is required.</label>
                                     </div>
-
-                                    <div class="col-md-6 form-group form-float">
-                                        <div class="mb-3">
-                                            <label>Amount Transfer *</label>
-
-                                            <input type="number" min="0" step="1"  class="form-control" value="" name="amount" placeholder="Enter Balance Amount" id="amount" required aria-required="true">
-
-
-                                        </div>
-                                        <label id="error-amount" class="removeDisplay" for="District">This field is required.</label>
-                                    </div>
-
-                                    
-                                    
 
                                     <div class="col-md-12">
                                         <center>
@@ -182,19 +132,42 @@ $(function () {
     
 });
 
-    function credit_entry() {
-        var key = $('#debit_account_id').find(':selected').attr('data-key');
-        var array = JSON.parse('<?php echo json_encode($account, true); ?>');
-        delete array[key];
-        var html = '<option value=""  selected="">Select Credit Entry</option>';
-        array.forEach((item, index) => {
-            html += '<option value="' + index + '" >' + item.account_name + '</option>';
-        });
+    function getCategoryItem(){
+        var category = $('#category').val();
+        var url = base_url+'master/getCategoryItem';
+        $.ajax({
+            method: 'POST',
+            url: url,
+            data:{category: category},
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                
+                $(".page-loader-wrapper").fadeIn();
 
-        $("#credit_account_id").html(html).change();
-
-
+            },
+            success: function (response) {
+                console.log(response);
+                $("#item_name").html(response).change();
+               // var data = jQuery.parseJSON(response);
+//                if (data.status) {
+//                    $('.alert-success').removeClass('removeDisplay');
+//                    $(".alert-danger").addClass("removeDisplay");
+//                    document.getElementById("addJournalVoucher").reset();
+//                    //location.reload();
+//                } else {
+//                    $('.alert-success').addClass('removeDisplay');
+//                    $(".alert-danger").html(data.message);
+//                    $(".alert-danger").removeClass("removeDisplay");
+//                }
+                
+            },
+            complete: function () {
+                $(".page-loader-wrapper").fadeOut();
+            }
+        });  
     }
+
     
     function addJournalVoucher(){
         var voucher_type_id = $("#voucher_type_id").val();

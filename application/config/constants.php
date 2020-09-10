@@ -85,3 +85,9 @@ defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automat
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
 define('BRANCH_HANDLER_GROUP', 3);
+
+/* Abhishek Member Create Constant */
+define('MEMBER_CREATE_SMS', 'new_member_creation');
+
+define('SMS_API_KEY', '1fd03871-6d92-4fb8-9633-eaa861454fe3');
+define('SMS_SENDER_NAME', 'MPSEDU');

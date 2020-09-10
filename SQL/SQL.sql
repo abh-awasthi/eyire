@@ -280,6 +280,9 @@ COMMIT;
 --Abhay sep-10
 ALTER TABLE `account_type` ADD `account_tye` INT(11) NULL AFTER `account_name`, ADD `branch_id` INT(11) NULL DEFAULT NULL AFTER `account_tye`;
 
+-- Abhishek 05-september--
+ALTER TABLE `users` ADD `is_member` INT(2) NOT NULL DEFAULT '0' AFTER `age`;
+ALTER TABLE `users` ADD `is_employee` INT(2) NOT NULL DEFAULT '0' AFTER `is_member`;
 
 
 

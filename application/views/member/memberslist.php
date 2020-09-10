@@ -17,72 +17,67 @@
             </div>
         </div>
     </div>
-	<div class="body">
-    <div class="table-responsive">
- 
-<table class="table table-bordered table-striped table-hover dataTable js-exportableusersmembers">
-                                    <thead>
-                                         <tr>
-										    <th>Member ID</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Reg Date</th>
-                                            <th>Gurdian Name</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-											 <th>Member ID</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Reg Date</th>
-                                            <th>Gurdian Name</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
- 
-                                    </tbody>
-                                </table>
+    <div class="body">
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-striped table-hover dataTable js-exportableusersmembers">
+                <thead>
+                    <tr>
+                        <th>Member ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Reg Date</th>
+                        <th>Gurdian Name</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Member ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Reg Date</th>
+                        <th>Gurdian Name</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+
+                </tbody>
+            </table>
 
 
-     
- 
- 
+
+
+
+        </div>
     </div>
-	</div>
 </section>
 
 
 
- 
 
 
- 
+
+
 <script>
 
- $(function () {
-    
-    //Exportable table
-    $('.js-exportableusersmembers').DataTable({
-        dom: 'Bfrtip',
-		"ajax": '<?php echo base_url(); ?>member/get_member_list',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-    });
-	
-	
-	
-	
-	
-	
-	
+    $(function () {
 
-});
+        //Exportable table
+        $('.js-exportableusersmembers').DataTable({
+            dom: 'Bfrtip',
+            "ajax": '<?php echo base_url(); ?>member/get_member_list',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+
+
+
+    });
 
 </script>
 

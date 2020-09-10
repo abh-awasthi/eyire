@@ -26,7 +26,7 @@
                                         <div class="mb-3">
                                             <label>From Date</label>
                                             <div class="input-group">
-                                                <input type="date" class="form-control" value="" name="from_date" placeholder="Enter Date" id="from_date">
+                                                <input type="date" class="form-control datepicker" value="" name="from_date" placeholder="Enter Date" id="from_date">
                                             </div>
                                         </div>
                                     </div>
@@ -34,7 +34,7 @@
                                         <div class="mb-3">
                                             <label>To Date</label>
                                             <div class="input-group">
-                                                <input type="date" class="form-control" value="" name="to_date" placeholder="Enter Date" id="to_date">
+                                                <input type="date" class="form-control datepicker " value="" name="to_date" placeholder="Enter Date" id="to_date">
                                             </div>
                                         </div>
                                     </div>
@@ -156,6 +156,13 @@
             allowClear: true
         });
     
+    });
+	
+		$('.datepicker').bootstrapMaterialDatePicker({
+        format: 'DD-MM-YYYY',
+        clearButton: true,
+        weekStart: 1,
+        time: false
     });
    
 

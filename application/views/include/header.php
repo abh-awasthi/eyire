@@ -20,6 +20,7 @@
  
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/jquery-steps/jquery.steps.css">
 
+<link href="<?php echo base_url(); ?>assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
 
 
 <script src="<?php echo base_url(); ?>assets/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js --> 
@@ -39,6 +40,12 @@
 <script>
 var base_url = '<?php echo base_url();?>';
 </script>
+
+
+<script src="<?php echo base_url(); ?>assets/plugins/momentjs/moment.js"></script> <!-- Moment Plugin Js --> 
+<!-- Bootstrap Material Datetime Picker Plugin Js -->
+<script src="<?php echo base_url(); ?>assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script> 
+
 
 <!-- Jquery DataTable Plugin Js --> 
 <script src="<?php echo base_url(); ?>assets/bundles/datatablescripts.bundle.js"></script>
@@ -345,18 +352,18 @@ var base_url = '<?php echo base_url();?>';
                     <li><a href="<?php echo base_url(); ?>member/create">Create Member</a></li>
                     <li><a href="<?php echo base_url(); ?>member/memberslist">Members List</a></li>
                  <!--   <li><a href="ticket-list.html">Ticket List</a></li>
-                    <li><a href="ticket-detail.html">Ticket Detail</a></li>
+                    <li><a href="ticket-detail.html">Ticket Detail</a></li> -->
                 </ul>
             </li>
-            <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-folder"></i><span>File Manager</span></a>
+           <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-folder"></i><span>Plan Registration</span></a>
                 <ul class="ml-menu">
-                    <li><a href="file-dashboard.html">All File</a></li>
-                    <li><a href="file-documents.html">Documents</a></li>
+                    <li><a href="file-dashboard.html">Register Plan</a></li>
+<!--                    <li><a href="file-documents.html">Documents</a></li>
                     <li><a href="file-images.html">Images</a></li>
-                    <li><a href="file-media.html">Media</a></li>
+                    <li><a href="file-media.html">Media</a></li>-->
                 </ul>
             </li>
-            <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-blogger"></i><span>Blog</span></a>
+       <!--     <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-blogger"></i><span>Blog</span></a>
                 <ul class="ml-menu">
                     <li><a href="blog-dashboard.html">Dashboard</a></li>
                     <li><a href="blog-post.html">Blog Post</a></li>

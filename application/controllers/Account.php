@@ -201,7 +201,7 @@ class Account extends CI_Controller {
        //$_POST = json_decode($str, true);
         $post = $this->_getDatatableData();
         $post['select'] = "voucher_details.*, concat(approved.first_name,approved.last_name) as approved_user,concat(created.first_name,created.last_name) as created_user, voucher_receipt_entry.receipt_id, cr.account_no as cr_account_no, cr.account_name as cr_account_name, dr.account_no,"
-                . "voucher_transaction_details.transaction_id, voucher_transaction_details.transaction_date, voucher_transaction_details.cheque_no, voucher_transaction_details.amount, dr.account_name as dr_account_name,dr_branch.name as branch_name";
+                . "voucher_transaction_details.transaction_id as txnid, voucher_transaction_details.transaction_date, voucher_transaction_details.cheque_no, voucher_transaction_details.amount, dr.account_name as dr_account_name,dr_branch.name as branch_name";
         $post['column_order'] = array('voucher_details.id', 'dr_branch.name');
         $post['column_search'] = array('voucher_details.id', 'dr_branch.name', 'cr.account_no','cr.account_name', 'dr.account_no', 'dr.account_name' );
        
@@ -286,7 +286,7 @@ class Account extends CI_Controller {
             $row[] = "<button class='btn btn-md btn-primary' onclick ='approve_voucher(".$data->id.")'>Approve </button>";
         }
         $row[] = $data->cheque_no;
-        $row[] = (!empty($data->transaction_date)) ? $data->transaction_id. " <br/><br/> <strong> ". date('Y-m-d', strtotime($data->transaction_date)). "</strong>": $data->transaction_id;
+        $row[] = (!empty($data->transaction_date)) ? $data->txnid. " <br/><br/> <strong> ". date('Y-m-d', strtotime($data->transaction_date)). "</strong>": $data->transaction_id;
         $row[] = $data->narration;
         $row[] = $data->created_user;
         $row[] = $data->create_date;

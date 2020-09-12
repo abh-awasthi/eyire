@@ -100,9 +100,9 @@
                                             <label>Debit Entry *</label>
                                             <select class="form-control show-tick ms search-select"  name="debit_account_id"  id="debit_account_id" required aria-required="true">
                                                 <option value=""  selected="">Select Debit</option>
-                                                <?php foreach ($account as $key => $value) { ?>
+                                                <?php foreach ($account as $key => $value) { if(empty($value['account_type'])){ ?>
                                                     <option value="<?php echo $value['id']; ?>" data-key='<?php echo $key; ?>' ><?php echo ucwords($value['account_name']); ?></option>
-                                                <?php } ?>
+                                                <?php } } ?>
                                             </select>
 
                                         </div>

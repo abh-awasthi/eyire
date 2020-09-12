@@ -335,7 +335,7 @@ var base_url = '<?php echo base_url();?>';
                     <li><a href="<?php echo base_url();?>account/approveVoucher">Approve Voucher</a></li>
                     <?php }?>
                     <li><a href="<?php echo base_url();?>account/paymentVoucher">Payment Voucher</a></li>
-                    <li><a href="<?php echo base_url();?>account/voucherDetails">Voucher Details</a></li>
+                    <li><a href="<?php echo base_url();?>account/dayBook">Day Book</a></li>
                 </ul>
             </li>
              <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-assignment"></i><span>Stock</span></a>

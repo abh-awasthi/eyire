@@ -5,7 +5,7 @@
         <div class="block-header">
             <div class="row">
                 <div class="col-lg-7 col-md-6 col-sm-12">
-                    <h2>Voucher Details</h2>
+                    <h2>Day Book</h2>
 
                     <button class="btn btn-primary btn-icon mobile_menu" type="button"><i class="zmdi zmdi-sort-amount-desc"></i></button>
                 </div>
@@ -24,17 +24,17 @@
                                     
                                     <div class="col-md-6 form-group form-float">
                                         <div class="mb-3">
-                                            <label>From Date</label>
+                                            <label>Voucher From Date</label>
                                             <div class="input-group">
-                                                <input type="date" class="form-control datepicker" value="" name="from_date" placeholder="Enter Date" id="from_date">
+                                                <input type="text" class="form-control datepicker" value="" name="from_date" placeholder="Enter Date" id="from_date">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 form-group form-float">
                                         <div class="mb-3">
-                                            <label>To Date</label>
+                                            <label>Voucher To Date</label>
                                             <div class="input-group">
-                                                <input type="date" class="form-control datepicker " value="" name="to_date" placeholder="Enter Date" id="to_date">
+                                                <input type="text" class="form-control datepicker " value="" name="to_date" placeholder="Enter Date" id="to_date">
                                             </div>
                                         </div>
                                     </div>
@@ -57,32 +57,6 @@
 
                                             <input type="text" class="form-control" value="" name="voucher_id" placeholder="Enter Voucher ID " id="voucher_id" >
                                         </div>
-                                    </div>
-                                    <div class="col-md-6 form-group form-float">
-                                        <div class="mb-3 ">
-                                            <label>Received A/c</label>
-                                            <select class="form-control show-tick ms search-select" name="credit_account_id"  id="received_account">
-                                                <option value=""  selected="">Select Receiver Account</option>
-                                                <?php foreach ($account as $key => $value) { ?>
-                                                    <option value="<?php echo $value['id']; ?>" data-key='<?php echo $key; ?>' ><?php echo ucwords($value['account_name']); ?></option>
-                                                <?php } ?>
-                                            </select>
-
-                                        </div>
-                                       
-                                    </div>
-                                    <div class="col-md-6 form-group form-float">
-                                        <div class="mb-3 ">
-                                            <label>Payment A/c</label>
-                                            <select class="form-control show-tick ms search-select" name="debit_account_id"  id="payment_account">
-                                                <option value=""  selected="">Select Payment Account</option>
-                                                <?php foreach ($account as $key => $value) { ?>
-                                                    <option value="<?php echo $value['id']; ?>" data-key='<?php echo $key; ?>' ><?php echo ucwords($value['account_name']); ?></option>
-                                                <?php } ?>
-                                            </select>
-
-                                        </div>
-                                        
                                     </div>
 
                                     <div class="col-md-12">
@@ -112,20 +86,21 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th>Voucher ID</th>
+                                            <th>Date</th>
                                             <th>Branch</th>
-                                            <th>Debit Account</th>
-                                            <th>Credit Account</th>
-                                            <th>Payment Title</th>
-                                            <th>Payment Amount</th>
-                                            <th>Voucher Date</th>
-                                            <th>Cheque Number</th>
-                                            <th>Transaction ID</th>
+                                            <th>Voucher No</th>
+                                            <th>Voucher Type</th>
+                                            <th>Ledger (Dr)</th>
+                                            <th>Ledger (Cr)</th>
+                                            <th>Amount</th>
                                             <th>Narration</th>
-                                            <th>Created By</th>
-                                            <th>Created Date</th>
+                                            <th>Entry By</th>
+                                            <th>Entry Time</th>
                                             <th>Approved By</th>
                                             <th>Approved Date</th>
+                                            <th>Cheque No</th>
+                                            <th>Transaction Date</th>
+                                            <th>Transaction ID</th>
                                         </tr>
                                     </thead>
                                     
@@ -178,6 +153,8 @@
             processing: true, //Feature control the processing indicator.
             serverSide: true,
             responsive:true,
+            pageLength: 50,
+            lengthMenu: [[50, 100, 500, -1], [50, 100, 500, "All"]],
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'
             ],
@@ -200,6 +177,8 @@
     ////            $("#total_req_quote").html('(<i>'+response.recordsFiltered+'</i>)').css({"font-size": "14px;", "color": "red","background-color":"#fff"});
     //        }
         });
+        
+        
     }
     
     

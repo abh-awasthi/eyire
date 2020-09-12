@@ -187,11 +187,10 @@ class Account extends CI_Controller {
         }
     }
     
-    function voucherDetails(){
+    function dayBook(){
         $branchDeatils = $this->master_model->get_matser('branch_details', '*', array(), array('name','desc'));
-        $account = $this->master_model->get_matser('account_type', '*', array('active' => 1, 'parent_id != 0 '=> NULL), array('account_name', 'asc'));
         $this->load->view('include/header', array('title' => "Journal Voucher"));
-        $this->load->view('account/voucherDetails', array('branchDeatils' => $branchDeatils, 'account' => $account));
+        $this->load->view('account/daybook', array('branchDeatils' => $branchDeatils));
         $this->load->view('include/footer');
     }
     
@@ -207,12 +206,18 @@ class Account extends CI_Controller {
        
         $list = $this->account_model->getVocuherDetails($post);
         $data = array();
-        $sn =0;
+       // $sn =0;
+        $amount_sum = 0;
         foreach ($list as $voucherDetails) {
-            $sn++;
-            $row = $this->voucher_list_table_data($voucherDetails, $sn);
+           // $sn++;
+            $row = $this->voucher_list_table_data($voucherDetails);
+            $amount_sum += $voucherDetails->amount;
             $data[] = $row;
         }
+        if(!empty($list)){
+            $data[] = $this->addSumAmount($amount_sum);
+        }
+        
 
         $output = array(
             "draw" => $post['draw'],
@@ -272,27 +277,65 @@ class Account extends CI_Controller {
         return $post;
     }
     
-    function voucher_list_table_data($data, $no){
+    function voucher_list_table_data($data){
         $row = array();
         $row[] = "";
-        $row[] = $data->id;
+        $row[] = date('d/m/Y', strtotime($data->voucher_date));
         $row[] = $data->branch_name;
+        $row[] = sprintf( "%08d", $data->id);
+        if($data->type_id == 1){
+            $row[] = "Journa;";
+        } else if($data->type_id == 2){
+            $row[] = "Payment";
+        } else if($data->type_id == 3){
+            $row[] = "Received";
+        }
+        
         $row[] = $data->dr_account_name;
         $row[] = $data->cr_account_name;
-        $row[] = ($data->type_id = 1 )? 'Journal Voucher': 'Payment Voucher';
+        
         $row[] = $data->amount;
-        $row[] = date('Y-m-d', strtotime($data->voucher_date));
+        
         if($this->input->post('type') ==1){
             $row[] = "<button class='btn btn-md btn-primary' onclick ='approve_voucher(".$data->id.")'>Approve </button>";
         }
-        $row[] = $data->cheque_no;
-        $row[] = (!empty($data->transaction_date)) ? $data->transaction_id. " <br/><br/> <strong> ". date('Y-m-d', strtotime($data->transaction_date)). "</strong>": $data->transaction_id;
         $row[] = $data->narration;
         $row[] = $data->created_user;
-        $row[] = $data->create_date;
+        $row[] = date('d/m/Y H:i:s', strtotime($data->create_date));
         $row[] = $data->approved_user;
         $row[] = $data->approved_date;
-
+        $row[] = $data->cheque_no;
+        $row[] = (!empty($data->transaction_date)) ? date('d/m/Y', strtotime($data->transaction_date)):"";
+        $row[] = $data->transaction_id;
+        
+        return $row;
+    }
+    
+    function addSumAmount($amount){
+        $row = array();
+        $row[] = "";
+        $row[] = "";
+        $row[] = "";
+        $row[] = "";
+        $row[] ="";
+        
+        $row[] = "";
+        $row[] = "<strong>Total Amount</strong>";
+        
+        $row[] = "<strong>".$amount."</strong>";
+        
+        if($this->input->post('type') ==1){
+            $row[] = "";
+        }
+        $row[] = "";
+        $row[] = "";
+        $row[] = "";
+        $row[] = "";
+        $row[] = "";
+        $row[] = "";
+        $row[] = "";
+        $row[] = "";
+        
         return $row;
     }
     

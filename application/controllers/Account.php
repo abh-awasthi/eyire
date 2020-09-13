@@ -80,18 +80,22 @@ class Account extends CI_Controller {
        foreach ($account as $row) {
            $data = $this->getNodeData($parent_id);
        }
-       $treeView =array_values($data);
-       $html = '<ul id="myUL">';
-       for($i =0; $i < count($treeView); $i++){
-           
-           if(!empty($treeView[$i]['nodes'])){
-              $html .= $this->printNodes($treeView[$i], $i);
-           } else {
-               $html .= '<li style="color:#e47297">'.$treeView[$i]['account_name']. ' - '.$treeView[$i]['account_no'].' </li>';
-           }
-           
-       }
-       $html .= '</ul>';
+       $html = "";
+       if(!empty($data)){
+           $treeView =array_values($data);
+            $html = '<ul id="myUL">';
+            for($i =0; $i < count($treeView); $i++){
+
+                if(!empty($treeView[$i]['nodes'])){
+                   $html .= $this->printNodes($treeView[$i], $i);
+                } else {
+                    $html .= '<li style="color:#e47297">'.$treeView[$i]['account_name']. ' - '.$treeView[$i]['account_no'].' </li>';
+                }
+
+            }
+            $html .= '</ul>';
+        }
+       
       echo $html;
     }
     
@@ -139,7 +143,7 @@ class Account extends CI_Controller {
     }
     
     function processAddJournalVoucher(){
-        //log_message('info', __METHOD__. json_encode($_POST));
+        //log_message('info', __METHOD__. json_encode($_POST)); 
 //        $str = '{"voucher_type_id":"1","narration":"NNNNNN","voucher_date":"2020-09-10","cheque_number":"","branch_id":"1","transaction_id":"987788877777777","debit_account_id":"6","transaction_date":"","credit_account_id":"3","amount":"5000","label":"WEBUPLOAD"}';
 //        $_POST = json_decode($str, true);
         $this->form_validation->set_rules('voucher_date', 'Voucher Date', 'trim|required');
@@ -161,12 +165,8 @@ class Account extends CI_Controller {
                 'approved_by' => NULL, 'approved_date' => NULL);
             
             $drReceipt = array('cr_account_id' => $post['credit_account_id'],
-                'dr_account_id' => $post['debit_account_id'], 'is_same_branch' => 1);
+                'dr_account_id' => $post['debit_account_id'], 'is_same_branch' => 1, 'amount' => $post['amount']);
             
-            $transction_details =array(
-                'amount' => $post['amount']
-                
-            );
             
             if(!empty($post['transaction_date'])){
                 $transction_details['transaction_date'] = date('Y-m-d', strtotime($post['transaction_date']));
@@ -189,7 +189,7 @@ class Account extends CI_Controller {
     
     function dayBook(){
         $branchDeatils = $this->master_model->get_matser('branch_details', '*', array(), array('name','desc'));
-        $this->load->view('include/header', array('title' => "Journal Voucher"));
+        $this->load->view('include/header', array('title' => "Day Book"));
         $this->load->view('account/daybook', array('branchDeatils' => $branchDeatils));
         $this->load->view('include/footer');
     }
@@ -199,6 +199,10 @@ class Account extends CI_Controller {
        //$str = '{"draw":"1","columns":[{"data":"0","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"1","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"2","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"3","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"4","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"5","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"6","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"7","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"8","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"9","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"10","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}}],"order":[{"column":"0","dir":"asc"}],"start":"0","length":"10","search":{"value":"","regex":"false"},"getBranch":"getBranch"}';
        //$_POST = json_decode($str, true);
         $post = $this->_getDatatableData();
+        $branch_id =$this->input->post('branch_id');
+        if(!empty($branch_id)){
+            $post['where']['dr_branch_id'] = $branch_id;
+        }
         $post['select'] = "voucher_details.*, concat(approved.first_name,approved.last_name) as approved_user,concat(created.first_name,created.last_name) as created_user, voucher_receipt_entry.receipt_id, cr.account_no as cr_account_no, cr.account_name as cr_account_name, dr.account_no,"
                 . "transaction_id,transaction_date,cheque_no,amount, dr.account_name as dr_account_name,dr_branch.name as branch_name";
         $post['column_order'] = array('voucher_details.id', 'dr_branch.name');
@@ -242,10 +246,7 @@ class Account extends CI_Controller {
         
         $from_date = $this->input->post('from_date');
         $to_date = $this->input->post('to_date');
-        $branch_id =$this->input->post('branch_id');
-        $voucher_id = $this->input->post('voucher_id');
-        $credit_account_id = $this->input->post('credit_account_id');
-        $debit_account_id = $this->input->post('debit_account_id');
+        
         if(!empty($from_date)){
             $post['where']['voucher_details.voucher_date >= "'.date('Y-m-d', strtotime($from_date)).'"'] = NULL;
         }
@@ -254,25 +255,11 @@ class Account extends CI_Controller {
             $post['where']['voucher_details.voucher_date <= "'.date('Y-m-d', strtotime($to_date)).'"'] = NULL;
         }
         
-        if(!empty($branch_id)){
-            $post['where']['dr_branch_id'] = $branch_id;
-        }
-        
-        if(!empty($voucher_id)){
-            $post['where']['voucher_details.id'] = $voucher_id;
-        }
-        if(!empty($credit_account_id)){
-            $post['where']['credit_account_id'] = $credit_account_id;
-        }
-        
-        if(!empty($credit_account_id)){
-            $post['where']['debit_account_id'] = $debit_account_id;
-        }
-        
         if($this->input->post('type') ==1){
             $post['where']['approved_by IS NULL'] = NULL;
+        } else {
+            $post['where']['approved_by IS NOT NULL'] = NULL;
         }
-        
         
         return $post;
     }
@@ -284,7 +271,7 @@ class Account extends CI_Controller {
         $row[] = $data->branch_name;
         $row[] = sprintf( "%08d", $data->id);
         if($data->type_id == 1){
-            $row[] = "Journa;";
+            $row[] = "Journal";
         } else if($data->type_id == 2){
             $row[] = "Payment";
         } else if($data->type_id == 3){
@@ -356,11 +343,148 @@ class Account extends CI_Controller {
     function paymentVoucher(){
         $branchDeatils = $this->master_model->get_matser('branch_details', '*', array(), array('name','desc'));
         $account = $this->master_model->get_matser('account_type', '*', array('active' => 1, 'parent_id != 0 '=> NULL), array('account_name', 'asc'));
-        
-       // $is_admin = $this->ion_auth->is_admin();
                 
         $this->load->view('include/header', array('title' => "Payment Voucher"));
         $this->load->view('account/addPaymentVoucher', array('branchDeatils' => $branchDeatils, 'account' => $account));
+        $this->load->view('include/footer');
+    }
+    
+    function cashBook(){
+        $branchDeatils = $this->master_model->get_matser('branch_details', '*', array(), array('name','desc'));
+        $this->load->view('include/header', array('title' => "Cash Book"));
+        $this->load->view('account/cashBook', array('branchDeatils' => $branchDeatils));
+        $this->load->view('include/footer');
+    }
+    
+    function getCashBookReports(){
+       // log_message('info', __METHOD__. " ". json_encode($_POST, true)); exit();
+//        $str = '{"draw":"1","columns":[{"data":"0","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"1","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"2","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"3","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"4","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"5","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"6","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"7","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"8","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"9","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"10","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"11","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"12","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"13","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"14","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}}],"order":[{"column":"0","dir":"asc"}],"start":"0","length":"50","search":{"value":"","regex":"false"},"from_date":"13-09-2020","to_date":"13-09-2020","branch_id":"1","type":"3","account_type":"1"}';
+//        $_POST = json_decode($str, true);
+        $post = $this->_getDatatableData();
+        $at = $this->input->post('account_type');
+        $branch_id = $this->input->post('branch_id');
+        $post['where']['dr_branch_id ='.$branch_id.''] = NULL;
+        $post['where'][' ((dr.branch_id = '.$branch_id.' AND dr.account_type  = '.$this->input->post('account_type').') OR  (cr.branch_id = '.$branch_id.' AND cr.account_type  = '.$this->input->post('account_type').') ) '] =NULL;
+        
+        $post['select'] = "voucher_details.*, concat(approved.first_name,approved.last_name) as approved_user,concat(created.first_name,created.last_name) as created_user, voucher_receipt_entry.receipt_id, cr.account_no as cr_account_no, cr.account_name as cr_account_name, dr.account_no,"
+                . "transaction_id,transaction_date,cheque_no,amount, dr.account_name as dr_account_name, cr.account_type as cr_account_type, dr.account_type as dr_account_type, dr_branch.name as branch_name";
+        $post['column_order'] = array('voucher_details.id', 'dr_branch.name');
+        $post['column_search'] = array('voucher_details.id', 'dr_branch.name', 'cr.account_no','cr.account_name', 'dr.account_no', 'dr.account_name' );
+       
+        $list = $this->account_model->getVocuherDetails($post);
+        $data = array();
+        $credit_amount =0;
+        $debit_amount =0;
+        foreach ($list as $voucherDetails) {
+           // $sn++;
+            $row = $this->voucher_cashbook_table_data($voucherDetails);
+            
+            $data[] = $row['row'];
+            $credit_amount += $row['credit_amount'];
+            $debit_amount += $row['debit_amount'];
+        }
+        
+        $op_balance = $this->get_opening_balance($this->input->post('from_date'), $branch_id, $at);
+        $data[] = $this->get_footer_op_balance("Opening Balance", $op_balance, "");
+        $data[] = $this->get_footer_op_balance("Current Total", $debit_amount, $credit_amount);
+        $data[] = $this->get_footer_op_balance("Closing Balance", ($op_balance + $debit_amount -$credit_amount), "");
+        
+        
+        $output = array(
+            "draw" => $post['draw'],
+            "recordsTotal" => $this->account_model->count_voucher_list($post),
+            "recordsFiltered" => $this->account_model->count_voucher_list_filtered($post),
+            "data" => $data,
+            
+        );
+        
+        echo json_encode($output);
+    }
+    
+    function voucher_cashbook_table_data($data){
+        $account_type = $this->input->post('account_type');
+        $row = array();
+        $debit_amount =0;
+        $credit_amount =0;
+        $row[] = "";
+        $row[] = date('d/m/Y', strtotime($data->voucher_date));
+        $row[] = sprintf( "%08d", $data->id);
+        if($data->type_id == 1){
+            $row[] = "Journal";
+        } else if($data->type_id == 2){
+            $row[] = "Payment";
+        } else if($data->type_id == 3){
+            $row[] = "Received";
+        }
+        
+        if($data->dr_account_type == $account_type){
+            $row[] = $data->cr_account_name;
+        } else if($data->cr_account_type == $account_type){
+            $row[] = $data->dr_account_name;
+        }
+        
+        if($data->cr_account_type == $account_type){
+            $row[] = $data->amount;
+            $debit_amount = $data->amount;
+        } else {
+            $row[] = 0;
+        }
+        
+        if($data->dr_account_type == $account_type){
+            $row[] = $data->amount;
+            $credit_amount = $data->amount;
+        } else {
+            $row[] = 0;
+        }
+        
+        $row[] = $data->narration;
+        $row[] = $data->created_user;
+        $row[] = date('d/m/Y H:i:s', strtotime($data->create_date));
+        $row[] = $data->approved_user;
+        $row[] = $data->approved_date;
+        $row[] = $data->cheque_no;
+        $row[] = (!empty($data->transaction_date)) ? date('d/m/Y', strtotime($data->transaction_date)):"";
+        $row[] = $data->transaction_id;
+        
+        return array('row' => $row, 'debit_amount' => $debit_amount, 'credit_amount' => $credit_amount);
+    }
+    
+    function get_opening_balance($date_tmp, $branch_id, $at){
+        $date =date('Y-m-d', strtotime($date_tmp));
+        $op = $this->account_model->get_opening_balance('*', array('DATE(opening_balance.create_date)' => $date, 'account_type.account_type' => $at, 'account_type.branch_id' => $branch_id));
+        $op_balance = 0;
+        if(!empty($op)){
+            $op_balance = $op[0]['opening_balance'];
+        }
+        
+        return $op_balance;
+    }
+    
+    function get_footer_op_balance($b_type, $debit, $credit){
+        $row = array();
+        $row[] = "";
+        $row[] = "";
+        $row[] = "";
+        $row[] = "";
+        $row[] =  "<strong>".$b_type."</strong>";
+        $row[] =  "<strong>".$debit."</strong>";
+        $row[] =  "<strong>".$credit."</strong>";
+        $row[] = "";
+        $row[] = "";
+        $row[] = "";
+        $row[] = "";
+        $row[] = "";
+        $row[] = "";
+        $row[] = "";
+        $row[] = "";
+        
+        return $row;
+    }
+    
+    function bankBook(){
+        $branchDeatils = $this->master_model->get_matser('branch_details', '*', array(), array('name','desc'));
+        $this->load->view('include/header', array('title' => "Bank Book"));
+        $this->load->view('account/bankBook', array('branchDeatils' => $branchDeatils));
         $this->load->view('include/footer');
     }
 }

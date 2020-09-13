@@ -5,7 +5,7 @@
         <div class="block-header">
             <div class="row">
                 <div class="col-lg-7 col-md-6 col-sm-12">
-                    <h2>Approve Voucher</h2>
+                    <h2>Bank Book</h2>
 
                     <button class="btn btn-primary btn-icon mobile_menu" type="button"><i class="zmdi zmdi-sort-amount-desc"></i></button>
                 </div>
@@ -50,14 +50,6 @@
                                             </select>
                                         </div>
                                     </div>
-                                    
-                                    <div class="col-md-6 form-group form-float">
-                                        <div class="mb-3">
-                                            <label>Voucher ID</label>
-
-                                            <input type="text" class="form-control" value="" name="voucher_id" placeholder="Enter Voucher ID " id="voucher_id" >
-                                        </div>
-                                    </div>
 
                                     <div class="col-md-12">
                                         <center>
@@ -87,13 +79,11 @@
                                         <tr>
                                             <th></th>
                                             <th>Date</th>
-                                            <th>Branch</th>
                                             <th>Voucher No</th>
                                             <th>Voucher Type</th>
-                                            <th>Ledger (Dr)</th>
-                                            <th>Ledger (Cr)</th>
-                                            <th>Amount</th>
-                                            <th>Action</th>
+                                            <th>Ledger</th>
+                                            <th>Debit</th>
+                                            <th>Credit</th>
                                             <th>Narration</th>
                                             <th>Entry By</th>
                                             <th>Entry Time</th>
@@ -141,12 +131,28 @@
         time: false
     });
    
-    var table;
+
     function getVoucherDetails(){
         //Exportable table
         //var voucherlist;
-        if ($.fn.DataTable.isDataTable('.js-exportable')) {
-             $('.js-exportable').dataTable().fnClearTable();
+        var branch_id = $("#branch_id").val();
+        var from_date = $("#from_date").val();
+        var to_date = $("#to_date").val();
+        
+        if(from_date == ""){
+            alert('Select Voucher From Date');
+            return false;
+        }
+        if(to_date == ""){
+            alert('Select Voucher From Date');
+            return false;
+        }
+        
+        if(branch_id == ""){
+            alert("Please Select Branch");
+        } else {
+            if ($.fn.DataTable.isDataTable('.js-exportable')) {
+              $('.js-exportable').dataTable().fnClearTable();
               $('.js-exportable').dataTable().fnDestroy();
         }
         $('.js-exportable').DataTable({
@@ -160,9 +166,9 @@
                 'copy', 'csv', 'excel', 'pdf', 'print'
             ],
             ajax: {
-                url: base_url + "account/getVoucherDetails",
+                url: base_url + "account/getCashBookReports",
                 type: "POST",
-                data: {type:1}
+                data: {'from_date': $("#from_date").val(),'to_date': $('#to_date').val(), 'branch_id': $("#branch_id").val(), type:3, account_type:1}
             },
             //Set column definition initialisation properties.
             columnDefs: [
@@ -177,24 +183,10 @@
     ////            $("#total_req_quote").html('(<i>'+response.recordsFiltered+'</i>)').css({"font-size": "14px;", "color": "red","background-color":"#fff"});
     //        }
         });
+        }
         
         
-    }
-    
-    function approve_voucher(voucher_id){
-        $.ajax({
-           url:'<?php echo base_url();?>account/approvedVoucher/'+voucher_id,
-           success:function(response){
-              var data = jQuery.parseJSON(response);
-                if (data.status) {
-                    alert('Approved');
-                    location.reload();
-                    //table.ajax.reload(null, false); 
-                } else {
-                    alert('Update failed');
-                }
-           }
-        });
+        
     }
     
     

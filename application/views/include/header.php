@@ -336,6 +336,10 @@ var base_url = '<?php echo base_url();?>';
                     <?php }?>
                     <li><a href="<?php echo base_url();?>account/paymentVoucher">Payment Voucher</a></li>
                     <li><a href="<?php echo base_url();?>account/dayBook">Day Book</a></li>
+                    <li><a href="<?php echo base_url();?>account/cashBook">Cash Book</a></li>
+                    <li><a href="<?php echo base_url();?>account/bankBook">Bank Book</a></li>
+                    <li><a href="<?php echo base_url();?>account/rdplan">RD Plan</a></li>
+                    <li><a href="<?php echo base_url();?>account/rdplan">Daily Plan</a></li>
                 </ul>
             </li>
              <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-assignment"></i><span>Stock</span></a>

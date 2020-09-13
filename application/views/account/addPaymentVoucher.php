@@ -185,7 +185,7 @@ $(function () {
         array.forEach((item, index) => {
             
             if((item.branch_id == branch_id) && (Number(item.account_type) == 1 || Number(item.account_type) == 2)){
-                html += '<option value="' + index + '" >' + item.account_name + '</option>';
+                html += '<option value="' + item.id + '" >' + item.account_name + '</option>';
             }
             
         });

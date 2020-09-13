@@ -106,5 +106,14 @@ class Account_model extends CI_Model {
         $query = $this->db->get();
         return $query->num_rows();
     }
+    
+    function get_opening_balance($select, $where){
+        $this->db->select($select);
+        $this->db->where($where);
+        $this->db->from('opening_balance');
+        $this->db->join('account_type', 'account_id = account_type.id');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 
 }

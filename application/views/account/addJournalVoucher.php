@@ -188,7 +188,7 @@ $(function () {
         delete array[key];
         var html = '<option value=""  selected="">Select Credit Entry</option>';
         array.forEach((item, index) => {
-            html += '<option value="' + index + '" >' + item.account_name + '</option>';
+            html += '<option value="' + item.id + '" >' + item.account_name + '</option>';
         });
 
         $("#credit_account_id").html(html).change();

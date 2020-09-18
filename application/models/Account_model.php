@@ -107,13 +107,18 @@ class Account_model extends CI_Model {
         return $query->num_rows();
     }
     
-    function get_opening_balance($select, $where){
-        $this->db->select($select);
-        $this->db->where($where);
-        $this->db->from('opening_balance');
-        $this->db->join('account_type', 'account_id = account_type.id');
+    function get_opening_balance($post){
+        $this->db->select('ifNULL(sum(amount), 0) as amount', FALSE);
+        $this->db->from('voucher_details');
+        $this->db->join('voucher_receipt_entry', 'voucher_receipt_entry.voucher_id = voucher_details.id');
+        $this->db->join('account_type as cr', 'cr.id = cr_account_id');
+        $this->db->join('account_type as dr', 'dr.id = dr_account_id');
+        $this->db->where($post['where'], FALSE);
         $query = $this->db->get();
-        return $query->result_array();
+        return $query->result();
+
     }
+    
+    
 
 }

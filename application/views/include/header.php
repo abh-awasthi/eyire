@@ -335,6 +335,7 @@ var base_url = '<?php echo base_url();?>';
                     <li><a href="<?php echo base_url();?>account/approveVoucher">Approve Voucher</a></li>
                     <?php }?>
                     <li><a href="<?php echo base_url();?>account/paymentVoucher">Payment Voucher</a></li>
+                    <li><a href="<?php echo base_url();?>account/receivedVoucher">Received Voucher</a></li>
                     <li><a href="<?php echo base_url();?>account/dayBook">Day Book</a></li>
                     <li><a href="<?php echo base_url();?>account/cashBook">Cash Book</a></li>
                     <li><a href="<?php echo base_url();?>account/bankBook">Bank Book</a></li>

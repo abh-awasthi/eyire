@@ -171,7 +171,7 @@ class Account extends CI_Controller {
             if(!empty($post['transaction_date'])){
                 $transction_details['transaction_date'] = date('Y-m-d', strtotime($post['transaction_date']));
             }
-            if(!empty($post['cheque_no'])){
+            if(!empty($post['cheque_number'])){
                 $transction_details['cheque_no'] = $post['cheque_number'];
             }
             if(!empty($post['transaction_id'])){
@@ -358,8 +358,8 @@ class Account extends CI_Controller {
     
     function getCashBookReports(){
        // log_message('info', __METHOD__. " ". json_encode($_POST, true)); exit();
-//        $str = '{"draw":"1","columns":[{"data":"0","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"1","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"2","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"3","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"4","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"5","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"6","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"7","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"8","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"9","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"10","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"11","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"12","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"13","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"14","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}}],"order":[{"column":"0","dir":"asc"}],"start":"0","length":"50","search":{"value":"","regex":"false"},"from_date":"13-09-2020","to_date":"13-09-2020","branch_id":"1","type":"3","account_type":"1"}';
-//        $_POST = json_decode($str, true);
+        //$str = '{"draw":"1","columns":[{"data":"0","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"1","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"2","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"3","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"4","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"5","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"6","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"7","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"8","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"9","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"10","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"11","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"12","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"13","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"14","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}}],"order":[{"column":"0","dir":"asc"}],"start":"0","length":"50","search":{"value":"","regex":"false"},"from_date":"16-09-2020","to_date":"17-09-2020","branch_id":"1","type":"3","account_type":"2"}';
+        //$_POST = json_decode($str, true);
         $post = $this->_getDatatableData();
         $at = $this->input->post('account_type');
         $branch_id = $this->input->post('branch_id');
@@ -451,11 +451,15 @@ class Account extends CI_Controller {
     
     function get_opening_balance($date_tmp, $branch_id, $at){
         $date =date('Y-m-d', strtotime($date_tmp));
-        $op = $this->account_model->get_opening_balance('*', array('DATE(opening_balance.create_date)' => $date, 'account_type.account_type' => $at, 'account_type.branch_id' => $branch_id));
-        $op_balance = 0;
-        if(!empty($op)){
-            $op_balance = $op[0]['opening_balance'];
-        }
+        $r['length'] = -1;
+        $r['where'] = array('voucher_details.dr_branch_id' => $branch_id, 'dr.account_type' => $at, 'dr.branch_id' => $branch_id, 'voucher_date < "'.$date.'" '=> NULL);
+        $dr_data = $this->account_model->get_opening_balance($r);
+        
+        $cr['length'] = -1;
+        $cr['where'] = array('voucher_details.cr_branch_id' => $branch_id, 'cr.account_type' => $at, 'cr.branch_id' => $branch_id, 'voucher_date < "'.$date.'" '=> NULL);
+        $cr_data = $this->account_model->get_opening_balance($cr);
+
+        $op_balance = $dr_data[0]->amount- $cr_data[0]->amount;
         
         return $op_balance;
     }
@@ -485,6 +489,15 @@ class Account extends CI_Controller {
         $branchDeatils = $this->master_model->get_matser('branch_details', '*', array(), array('name','desc'));
         $this->load->view('include/header', array('title' => "Bank Book"));
         $this->load->view('account/bankBook', array('branchDeatils' => $branchDeatils));
+        $this->load->view('include/footer');
+    }
+    
+    function receivedVoucher(){
+        $branchDeatils = $this->master_model->get_matser('branch_details', '*', array(), array('name','desc'));
+        $account = $this->master_model->get_matser('account_type', '*', array('active' => 1, 'parent_id != 0 '=> NULL), array('account_name', 'asc'));
+                
+        $this->load->view('include/header', array('title' => "Payment Voucher"));
+        $this->load->view('account/addReceivedVoucher', array('branchDeatils' => $branchDeatils, 'account' => $account));
         $this->load->view('include/footer');
     }
 }

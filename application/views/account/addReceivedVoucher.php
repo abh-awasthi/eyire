@@ -3,7 +3,7 @@
         <div class="block-header">
             <div class="row">
                 <div class="col-lg-7 col-md-6 col-sm-12">
-                    <h2>Payment Voucher</h2>
+                    <h2>Received Voucher</h2>
 
                     <button class="btn btn-primary btn-icon mobile_menu" type="button"><i class="zmdi zmdi-sort-amount-desc"></i></button>
                 </div>
@@ -23,7 +23,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="card">
                         <div class="header">
-                            <h2><strong>Add Payment</strong> Voucher</h2>
+                            <h2><strong>Add Received</strong> Voucher</h2>
                         </div>
                         <div class="body">
                             <form id="addJournalVoucher" action="javascript:void(0)" method="POST" novalidate="novalidate">
@@ -35,7 +35,7 @@
                                             <select class="form-control show-tick ms search-select" name="voucher_type_id" data-placeholder="Select" id="voucher_type_id" required aria-required="true">
                                                 <option value=""  selected="">Select Voucher</option>
                                                    
-                                                <option value="2" selected="selected">Payment Voucher</option>  
+                                                <option value="3" selected="selected">Received Voucher</option>  
                                             </select>
                                         </div>
                                         <label id="error-voucher_type_id" class="removeDisplay" for="Branch Name">This field is required.</label>
@@ -99,10 +99,8 @@
                                         <div class="mb-3 ">
                                             <label>Debit Entry *</label>
                                             <select class="form-control show-tick ms search-select"  name="debit_account_id"  id="debit_account_id" required aria-required="true">
-                                                <option value=""  selected="">Select Debit</option>
-                                                <?php foreach ($account as $key => $value) { if(empty($value['account_type'])){ ?>
-                                                    <option value="<?php echo $value['id']; ?>" data-key='<?php echo $key; ?>' ><?php echo ucwords($value['account_name']); ?></option>
-                                                <?php } } ?>
+                                                <option value=""  selected="">Select Debit Entry</option>
+                                                
                                             </select>
 
                                         </div>
@@ -123,6 +121,9 @@
                                             <label>Credit Entry *</label>
                                             <select class="form-control show-tick ms search-select" name="credit_account_id" placeholder="Enter Credit Account" id="credit_account_id" required aria-required="true">
                                                 <option value=""  selected="">Select Credit Entry</option>
+                                                <?php foreach ($account as $key => $value) { if(empty($value['account_type'])){ ?>
+                                                    <option value="<?php echo $value['id']; ?>" data-key='<?php echo $key; ?>' ><?php echo ucwords($value['account_name']); ?></option>
+                                                <?php } } ?>
                                             </select>
 
 
@@ -177,20 +178,19 @@ $(function () {
 
     function credit_entry() {
         
-        //var key = $('#debit_account_id').find(':selected').attr('data-key');
         var branch_id = $("#branch_id").val();
         var array = JSON.parse('<?php echo json_encode($account, true); ?>');
-        //delete array[key];
-        var html = '<option value=""  selected="">Select Credit Entry</option>';
+        var html = '<option value=""  selected="">Select Debit Entry</option>';
         array.forEach((item, index) => {
-            
-            if((item.branch_id == branch_id) && (Number(item.account_type) == 1 || Number(item.account_type) == 2)){
+            console.log(branch_id);
+            console.log(item.account_type);
+            if((item.branch_id == branch_id) && Number(item.account_type) == 1 ){
                 html += '<option value="' + item.id + '" >' + item.account_name + '</option>';
             }
             
         });
 
-        $("#credit_account_id").html(html).change();
+        $("#debit_account_id").html(html).change();
 
 
     }

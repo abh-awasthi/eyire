@@ -1,5 +1,10 @@
+<!-- bootstrap-daterangepicker -->
+        <link href="http://247around-adminp-aws/css/daterangepicker.css" rel="stylesheet">
 <link href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.bootstrap4.min.css" rel="stylesheet" />
 <script src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"></script>
+<!-- bootstrap-daterangepicker -->
+        <script src="http://247around-adminp-aws/js/moment.min.js"></script>
+        <script src="http://247around-adminp-aws/js/daterangepicker.js"></script>
 <section class="content">
     <div class="body_scroll">
         <div class="block-header">
@@ -24,20 +29,19 @@
                                     
                                     <div class="col-md-6 form-group form-float">
                                         <div class="mb-3">
-                                            <label>Voucher From Date</label>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control datepicker" value="" name="from_date" placeholder="Enter Date" id="from_date">
+                                            <label>Voucher Date</label>
+                                            <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                                <i class="fa fa-calendar"></i>&nbsp;
+                                                <span></span> <i class="fa fa-caret-down"></i>
                                             </div>
+                                            <input type="hidden" class="form-control" value="<?php echo date('Y-m-d');?>" name="from_date" placeholder="Enter Date" id="from_date">
+                                            <input type="hidden" class="form-control" value="<?php echo date('Y-m-d');?>" name="to_date" placeholder="Enter Date" id="to_date">
+<!--                                            <div class="input-group">
+                                                
+                                            </div>-->
                                         </div>
                                     </div>
-                                    <div class="col-md-6 form-group form-float">
-                                        <div class="mb-3">
-                                            <label>Voucher To Date</label>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control datepicker " value="" name="to_date" placeholder="Enter Date" id="to_date">
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="col-md-6 form-group form-float">
                                         <div class="mb-3 ">
                                             <label>Branch *</label>
@@ -48,14 +52,6 @@
                                                     <option value="<?php echo $value['branch_id']; ?>" data-limit ='<?php echo $value['credit_limit_amount'] ?>'><?php echo $value['name']; ?></option>
                                                 <?php } ?>
                                             </select>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-md-6 form-group form-float">
-                                        <div class="mb-3">
-                                            <label>Voucher ID</label>
-
-                                            <input type="text" class="form-control" value="" name="voucher_id" placeholder="Enter Voucher ID " id="voucher_id" >
                                         </div>
                                     </div>
 
@@ -133,12 +129,13 @@
     
     });
 	
-		$('.datepicker').bootstrapMaterialDatePicker({
-        format: 'DD-MM-YYYY',
-        clearButton: true,
-        weekStart: 1,
-        time: false
-    });
+//    $('.datepicker').bootstrapMaterialDatePicker({
+//        format: 'DD-MM-YYYY',
+//        clearButton: true,
+//        weekStart: 1,
+//        time: false
+//    });
+   
    
 
     function getVoucherDetails(){
@@ -181,4 +178,33 @@
     }
     
     
+</script>
+<script type="text/javascript">
+$(function() {
+
+    var start = moment().subtract(0, 'days');
+    var end = moment();
+
+    function cb(start, end) {
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        $('#from_date').val(start.format('MMMM D, YYYY'));
+        $('#to_date').val(end.format('MMMM D, YYYY'));
+    }
+
+    $('#reportrange').daterangepicker({
+        startDate: start,
+        endDate: end,
+        ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, cb);
+
+    cb(start, end);
+
+});
 </script>

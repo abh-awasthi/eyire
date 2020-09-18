@@ -134,7 +134,7 @@
     
     });
 	
-		$('.datepicker').bootstrapMaterialDatePicker({
+    $('.datepicker').bootstrapMaterialDatePicker({
         format: 'DD-MM-YYYY',
         clearButton: true,
         weekStart: 1,
@@ -146,10 +146,12 @@
         //Exportable table
         //var voucherlist;
         if ($.fn.DataTable.isDataTable('.js-exportable')) {
-             $('.js-exportable').dataTable().fnClearTable();
-              $('.js-exportable').dataTable().fnDestroy();
+            $('.js-exportable').dataTable().fnClearTable();
+            $('.js-exportable').dataTable().fnDestroy();
+            table.dataTable().fnClearTable();
+            table.dataTable().fnDestroy();
         }
-        $('.js-exportable').DataTable({
+        table = $('.js-exportable').DataTable({
             dom: 'lBfrtip',
             processing: true, //Feature control the processing indicator.
             serverSide: true,
@@ -188,8 +190,8 @@
               var data = jQuery.parseJSON(response);
                 if (data.status) {
                     alert('Approved');
-                    location.reload();
-                    //table.ajax.reload(null, false); 
+                    //location.reload();
+                    table.ajax.reload(null, false); 
                 } else {
                     alert('Update failed');
                 }

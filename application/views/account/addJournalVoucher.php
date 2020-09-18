@@ -60,7 +60,7 @@
                                         <div class="mb-3">
                                             <label>Voucher Date *</label>
                                             <div class="input-group">
-                                                <input type="date" class="form-control" value="" name="voucher_date" min="<?php echo date('d-m-Y', strtotime('-31 days'))?>" max="<?php echo date('d-m-Y');?>" placeholder="Enter Date" id="voucher_date" required aria-required="true">
+                                                <input type="text" class="form-control datepicker" value="" name="voucher_date" min="<?php echo date('d-m-Y', strtotime('-31 days'))?>" max="<?php echo date('d-m-Y');?>" placeholder="Enter Date" id="voucher_date" required aria-required="true">
                                             </div>
                                         </div>
                                         <label id="error-voucher-date" class="removeDisplay" for="voucher date">This field is required.</label>
@@ -329,4 +329,11 @@ $(function () {
         });   
         
     }
+    
+    $('.datepicker').bootstrapMaterialDatePicker({
+        format: 'DD-MM-YYYY',
+        clearButton: true,
+        weekStart: 1,
+        time: false
+    });
 </script>

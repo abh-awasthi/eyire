@@ -1,9 +1,10 @@
 <!-- bootstrap-daterangepicker -->
-<link href="http://247around-adminp-aws/css/daterangepicker.css" rel="stylesheet">
+        <link href="<?php echo base_url();?>assets/css/daterangepicker.css" rel="stylesheet">
 <link href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.bootstrap4.min.css" rel="stylesheet" />
 <script src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"></script>
-<link href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.bootstrap4.min.css" rel="stylesheet" />
-<script src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"></script>
+<!-- bootstrap-daterangepicker -->
+        <script src="<?php echo base_url();?>assets/js/moment.min.js"></script>
+        <script src="<?php echo base_url();?>assets/js/daterangepicker.js"></script>
 <section class="content">
     <div class="body_scroll">
         <div class="block-header">

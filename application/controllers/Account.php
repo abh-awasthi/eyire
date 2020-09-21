@@ -162,7 +162,9 @@ class Account extends CI_Controller {
                 'narration' => ucwords(trim($post['narration'])), 
                 'type_id' => $post['voucher_type_id'],
                 'created_by' => $this->session->userdata('user_id'), 
-                'approved_by' => NULL, 'approved_date' => NULL);
+                'approved_by' => NULL, 
+                'approved_date' => NULL,
+                'is_approved' => 0);
             
             $drReceipt = array('cr_account_id' => $post['credit_account_id'],
                 'dr_account_id' => $post['debit_account_id'], 'is_same_branch' => 1, 'amount' => $post['amount']);
@@ -255,11 +257,9 @@ class Account extends CI_Controller {
             $post['where']['voucher_details.voucher_date <= "'.date('Y-m-d', strtotime($to_date)).'"'] = NULL;
         }
         
-        if($this->input->post('type') ==1){
-            $post['where']['approved_by IS NULL'] = NULL;
-        } else {
-            $post['where']['approved_by IS NOT NULL'] = NULL;
-        }
+        
+        $post['where']['is_approved'] = 1;
+        
         
         return $post;
     }
@@ -269,7 +269,7 @@ class Account extends CI_Controller {
         $row[] = "";
         $row[] = date('d/m/Y', strtotime($data->voucher_date));
         $row[] = $data->branch_name;
-        $row[] = sprintf( "%08d", $data->id);
+        $row[] = $data->id;
         if($data->type_id == 1){
             $row[] = "Journal";
         } else if($data->type_id == 2){
@@ -283,9 +283,6 @@ class Account extends CI_Controller {
         
         $row[] = $data->amount;
         
-        if($this->input->post('type') ==1){
-            $row[] = "<button class='btn btn-md btn-primary' onclick ='approve_voucher(".$data->id.")'>Approve </button>";
-        }
         $row[] = $data->narration;
         $row[] = $data->created_user;
         $row[] = date('d/m/Y H:i:s', strtotime($data->create_date));
@@ -334,9 +331,15 @@ class Account extends CI_Controller {
     
     function approvedVoucher($voucherID){
         if(!empty($voucherID)){
-            $this->master_model->update_row('voucher_details', array('approved_by' => $this->session->userdata('user_id'), 'approved_date' => date('Y-m-d H:i:s')), 
-                    array('id' => $voucherID));
-            echo json_encode(array('status' => true, 'message' => "Updated Successfully"));
+            $data = array('approved_by' => $this->session->userdata('user_id'), 'approved_date' => date('Y-m-d H:i:s'), 'is_approved' => 1);
+            $status =$this->account_model->approve_voucher_details($data,$voucherID );
+            
+            if($status){
+                echo json_encode(array('status' => true, 'message' => "Updated Successfully"));
+            } else {
+                echo json_encode(array('status' => false, 'message' => "Update Failed"));
+            }
+            
         }
     }
     
@@ -408,7 +411,7 @@ class Account extends CI_Controller {
         $credit_amount =0;
         $row[] = "";
         $row[] = date('d/m/Y', strtotime($data->voucher_date));
-        $row[] = sprintf( "%08d", $data->id);
+        $row[] = $data->id;
         if($data->type_id == 1){
             $row[] = "Journal";
         } else if($data->type_id == 2){
@@ -499,6 +502,126 @@ class Account extends CI_Controller {
         $this->load->view('include/header', array('title' => "Payment Voucher"));
         $this->load->view('account/addReceivedVoucher', array('branchDeatils' => $branchDeatils, 'account' => $account));
         $this->load->view('include/footer');
+    }
+    
+    function getUnApprovedVoucherDetails(){
+       // log_message('info', __METHOD__. " ". json_encode($_POST, true)); exit();
+//        $str = '{"draw":"1","columns":[{"data":"0","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"1","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"2","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"3","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"4","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"5","name":"","searchable":"true","orderable":"false","search":{"value":"","regex":"false"}},{"data":"6","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"7","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"8","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"9","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"10","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"11","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"12","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"13","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"14","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"15","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}},{"data":"16","name":"","searchable":"true","orderable":"true","search":{"value":"","regex":"false"}}],"order":[{"column":"0","dir":"asc"}],"start":"0","length":"50","search":{"value":"","regex":"false"},"type":"1"}';
+//        $_POST = json_decode($str, true);
+        $post = $this->_getUnApprovedDatatableData();
+        $branch_id =$this->input->post('branch_id');
+        if(!empty($branch_id)){
+            $post['where']['dr_branch_id'] = $branch_id;
+        }
+        $post['select'] = "voucher_details_unapproved.*, concat(approved.first_name,approved.last_name) as approved_user,concat(created.first_name,created.last_name) as created_user,"
+                . " voucher_receipt_entry_unapproved.receipt_id, cr.account_no as cr_account_no, cr.account_name as cr_account_name, dr.account_no,"
+                . "transaction_id,transaction_date,cheque_no,amount, dr.account_name as dr_account_name,dr_branch.name as branch_name";
+        $post['column_order'] = array('voucher_details_unapproved.is_approved', 'dr_branch.name');
+        $post['column_search'] = array('voucher_details_unapproved.id', 'dr_branch.name', 'cr.account_no','cr.account_name', 'dr.account_no', 'dr.account_name' );
+       
+        $list = $this->account_model->getUnApprovedVocuherDetails($post);
+        $data = array();
+       // $sn =0;
+        $amount_sum = 0;
+        foreach ($list as $voucherDetails) {
+           // $sn++;
+            $row = $this->unApproved_voucher_list_table_data($voucherDetails);
+            $amount_sum += $voucherDetails->amount;
+            $data[] = $row;
+        }
+        
+
+        $output = array(
+            "draw" => $post['draw'],
+            "recordsTotal" => $this->account_model->count_unapproved_voucher_list($post),
+            "recordsFiltered" => $this->account_model->count_unapproved_voucher_list_filtered($post),
+            "data" => $data,
+            
+        );
+        
+        echo json_encode($output);
+    }
+    
+    function unApproved_voucher_list_table_data($data){
+        $row = array();
+        $row[] = "";
+        $row[] = date('d/m/Y', strtotime($data->voucher_date));
+        $row[] = $data->branch_name;
+        $row[] = $data->id;
+        if($data->type_id == 1){
+            $row[] = "Journal";
+        } else if($data->type_id == 2){
+            $row[] = "Payment";
+        } else if($data->type_id == 3){
+            $row[] = "Received";
+        }
+        
+        $row[] = $data->dr_account_name;
+        $row[] = $data->cr_account_name;
+        
+        $row[] = $data->amount;
+        
+        if($data->is_approved == 0){
+            $row[] = "<button class='btn btn-sm btn-primary' onclick ='approve_voucher(".$data->id.")'>Approve</button><button class='btn btn-sm btn-danger' onclick ='reject_voucher(".$data->id.")'>Reject</button>";
+        } else if($data->is_approved ==1){
+            $row[] = "Approved";
+        } else if($data->is_approved ==2){
+            $row[] = "Cancelled";
+        }
+        $row[] = $data->narration;
+        $row[] = $data->created_user;
+        $row[] = date('d/m/Y H:i:s', strtotime($data->create_date));
+        $row[] = $data->approved_user;
+        $row[] = $data->approved_date;
+        $row[] = $data->cheque_no;
+        $row[] = (!empty($data->transaction_date)) ? date('d/m/Y', strtotime($data->transaction_date)):"";
+        $row[] = $data->transaction_id;
+        $row[] = $data->actual_voucher_id;
+        
+        return $row;
+    }
+    
+    function _getUnApprovedDatatableData(){
+        $post['length'] = $this->input->post('length');
+        $post['start'] = $this->input->post('start');
+        $search = $this->input->post('search');
+        $post['search']['value'] = $search['value'];
+        
+        $post['draw'] = $this->input->post('draw');
+        $post['type'] = $this->input->post('type');
+        $post['order'] = $this->input->post('order');
+        
+        $from_date = $this->input->post('from_date');
+        $to_date = $this->input->post('to_date');
+        
+        if(!empty($from_date)){
+            $post['where']['voucher_details_unapproved.voucher_date >= "'.date('Y-m-d', strtotime($from_date)).'"'] = NULL;
+        }
+        
+        if(!empty($to_date)){
+            $post['where']['voucher_details_unapproved.voucher_date <= "'.date('Y-m-d', strtotime($to_date)).'"'] = NULL;
+        }
+        
+        
+        //$post['where']['is_approved'] = 0;
+        
+        
+        return $post;
+    }
+    
+    function rejectVoucher($voucher_id){
+        if(!empty($voucher_id)){
+            $data = array('approved_by' => $this->session->userdata('user_id'), 'approved_date' => date('Y-m-d H:i:s'), 'is_approved' => 2);
+            $status =$this->master_model->update_row('voucher_details_unapproved', $data ,array('id' => $voucher_id, 'is_approved' => 0));
+            if($status){
+                echo json_encode(array('status' => TRUE, 'message' => 'Update Failed'));
+            } else {
+               echo json_encode(array('status' => false, 'message' => 'Update Failed')); 
+            }
+            
+        } else {
+            echo json_encode(array('status' => false, 'message' => 'Update Failed'));
+        }
     }
 }
 

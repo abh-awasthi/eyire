@@ -88,7 +88,7 @@
                                             <th></th>
                                             <th>Date</th>
                                             <th>Branch</th>
-                                            <th>Voucher No</th>
+                                            <th>TMP Voucher No</th>
                                             <th>Voucher Type</th>
                                             <th>Ledger (Dr)</th>
                                             <th>Ledger (Cr)</th>
@@ -102,6 +102,7 @@
                                             <th>Cheque No</th>
                                             <th>Transaction Date</th>
                                             <th>Transaction ID</th>
+                                            <th>Actual Voucher</th>
                                         </tr>
                                     </thead>
                                     
@@ -162,7 +163,7 @@
                 'copy', 'csv', 'excel', 'pdf', 'print'
             ],
             ajax: {
-                url: base_url + "account/getVoucherDetails",
+                url: base_url + "account/getUnApprovedVoucherDetails",
                 type: "POST",
                 data: {type:1}
             },
@@ -184,19 +185,39 @@
     }
     
     function approve_voucher(voucher_id){
-        $.ajax({
-           url:'<?php echo base_url();?>account/approvedVoucher/'+voucher_id,
-           success:function(response){
-              var data = jQuery.parseJSON(response);
-                if (data.status) {
-                    alert('Approved');
-                    //location.reload();
-                    table.ajax.reload(null, false); 
-                } else {
-                    alert('Update failed');
-                }
-           }
-        });
+        if (window.confirm("Are You Sure? Do You want To Approve ")) {
+            $.ajax({
+               url:'<?php echo base_url();?>account/approvedVoucher/'+voucher_id,
+               success:function(response){
+                  var data = jQuery.parseJSON(response);
+                    if (data.status) {
+                        alert('Approved');
+                        //location.reload();
+                        table.ajax.reload(null, false); 
+                    } else {
+                        alert('Update failed');
+                    }
+               }
+            });
+        }
+    }
+    
+    function reject_voucher(voucher_id){
+        if (window.confirm("Are You Sure? Do You want To Reject ")) {
+            $.ajax({
+               url:'<?php echo base_url();?>account/rejectVoucher/'+voucher_id,
+               success:function(response){
+                  var data = jQuery.parseJSON(response);
+                    if (data.status) {
+                        alert('Rejected');
+                        //location.reload();
+                        table.ajax.reload(null, false); 
+                    } else {
+                        alert('Update failed');
+                    }
+               }
+            });
+        }
     }
     
     

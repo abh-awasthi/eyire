@@ -25,6 +25,7 @@ class Master_model extends CI_Model {
     function update_row($table, $data, $where) {
         $this->db->where($where);
         $this->db->update($table, $data);
+        return $this->db->affected_rows();
     }
 
     function get_userDetails($select, $where = array(), $order_by = array()) {

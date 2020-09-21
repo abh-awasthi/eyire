@@ -62,7 +62,7 @@
                                         <div class="mb-3">
                                             <label>Cheque No. </label>
 
-                                            <input type="text" class="form-control" value="" name="cheque_number" placeholder="Enter Cheque Number" id="cheque_number" >
+                                            <input type="number" class="form-control" value="" name="cheque_number" placeholder="Enter Cheque Number" id="cheque_number" >
 
                                         </div>
                                         <label id="error-cheque_number" class="removeDisplay" for="cheque_number">This field is required.</label>

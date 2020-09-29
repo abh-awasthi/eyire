@@ -169,16 +169,16 @@ class Account extends CI_Controller {
             $drReceipt = array('cr_account_id' => $post['credit_account_id'],
                 'dr_account_id' => $post['debit_account_id'], 'is_same_branch' => 1, 'amount' => $post['amount']);
             
+            $transction_details['payment_mode'] = $post['paymentmode'];
             
-            if(!empty($post['transaction_date'])){
+            if($post['paymentmode'] == 1){
+                $transction_details['cheque_no'] = $post['cheque_number'];
+                $transction_details['cheque_date'] = date('Y-m-d', strtotime($post['cheque_date']));
+            } else {
+                $transction_details['transaction_id'] = $post['transaction_id'];
                 $transction_details['transaction_date'] = date('Y-m-d', strtotime($post['transaction_date']));
             }
-            if(!empty($post['cheque_number'])){
-                $transction_details['cheque_no'] = $post['cheque_number'];
-            }
-            if(!empty($post['transaction_id'])){
-                $transction_details['transaction_id'] = $post['transaction_id'];
-            }
+            
             
             $status = $this->account_model->insert_voucher($voucherDetails, $drReceipt, $transction_details);
             if($status){
@@ -499,7 +499,7 @@ class Account extends CI_Controller {
         $branchDeatils = $this->master_model->get_matser('branch_details', '*', array(), array('name','desc'));
         $account = $this->master_model->get_matser('account_type', '*', array('active' => 1, 'parent_id != 0 '=> NULL), array('account_name', 'asc'));
                 
-        $this->load->view('include/header', array('title' => "Payment Voucher"));
+        $this->load->view('include/header', array('title' => "Received Voucher"));
         $this->load->view('account/addReceivedVoucher', array('branchDeatils' => $branchDeatils, 'account' => $account));
         $this->load->view('include/footer');
     }

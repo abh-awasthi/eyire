@@ -284,6 +284,117 @@ ALTER TABLE `account_type` ADD `account_tye` INT(11) NULL AFTER `account_name`, 
 ALTER TABLE `users` ADD `is_member` INT(2) NOT NULL DEFAULT '0' AFTER `age`;
 ALTER TABLE `users` ADD `is_employee` INT(2) NOT NULL DEFAULT '0' AFTER `is_member`;
 
+--Abhay 21 Sept
+ALTER TABLE `voucher_details` ADD `is_approved` INT(11) NOT NULL DEFAULT '1' AFTER `approved_date`;
+--
+-- Table structure for table `voucher_details_unapproved`
+--
+
+CREATE TABLE `voucher_details_unapproved` (
+  `id` int NOT NULL,
+  `voucher_date` date NOT NULL,
+  `cr_branch_id` int NOT NULL,
+  `dr_branch_id` int NOT NULL,
+  `type_id` int NOT NULL,
+  `narration` varchar(256) DEFAULT NULL,
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` int NOT NULL,
+  `approved_by` int DEFAULT NULL,
+  `approved_date` timestamp NULL DEFAULT NULL,
+  `is_approved` int NOT NULL DEFAULT '0',
+  `actual_voucher_id` bigint DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `voucher_receipt_entry_unapproved`
+--
+
+CREATE TABLE `voucher_receipt_entry_unapproved` (
+  `receipt_id` int NOT NULL,
+  `voucher_id` int NOT NULL,
+  `cr_account_id` int NOT NULL,
+  `dr_account_id` int NOT NULL,
+  `amount` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `is_same_branch` int NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `voucher_transaction_details_unapproved`
+--
+
+CREATE TABLE `voucher_transaction_details_unapproved` (
+  `id` int NOT NULL,
+  `voucher_id` int NOT NULL,
+  `transaction_id` varchar(128) DEFAULT NULL,
+  `transaction_date` date DEFAULT NULL,
+  `cheque_no` varchar(128) DEFAULT NULL,
+  `total_amount` decimal(10,2) NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `voucher_details_unapproved`
+--
+ALTER TABLE `voucher_details_unapproved`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `dr_branch_id` (`dr_branch_id`);
+
+--
+-- Indexes for table `voucher_receipt_entry_unapproved`
+--
+ALTER TABLE `voucher_receipt_entry_unapproved`
+  ADD PRIMARY KEY (`receipt_id`),
+  ADD UNIQUE KEY `voucher_id` (`voucher_id`),
+  ADD KEY `cr_account_id` (`cr_account_id`),
+  ADD KEY `dr_account_id` (`dr_account_id`);
+
+--
+-- Indexes for table `voucher_transaction_details_unapproved`
+--
+ALTER TABLE `voucher_transaction_details_unapproved`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `voucher_details_unapproved`
+--
+ALTER TABLE `voucher_details_unapproved`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `voucher_receipt_entry_unapproved`
+--
+ALTER TABLE `voucher_receipt_entry_unapproved`
+  MODIFY `receipt_id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `voucher_transaction_details_unapproved`
+--
+ALTER TABLE `voucher_transaction_details_unapproved`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+--ABhay 29 Sept
+ALTER TABLE `voucher_transaction_details_unapproved` ADD `cheque_date` DATE NULL DEFAULT NULL AFTER `cheque_no`, ADD `cheque_submission_date` DATE NULL DEFAULT NULL AFTER `cheque_date`, ADD `cheque_approve_date` DATE NULL DEFAULT NULL AFTER `cheque_submission_date`;
+ALTER TABLE `voucher_transaction_details` ADD `cheque_date` DATE NULL DEFAULT NULL AFTER `cheque_no`, ADD `cheque_submission_date` DATE NULL DEFAULT NULL AFTER `cheque_date`, ADD `cheque_approve_date` DATE NULL DEFAULT NULL AFTER `cheque_submission_date`;
+ALTER TABLE `voucher_transaction_details_unapproved` ADD `payment_mode` INT NOT NULL AFTER `voucher_id`;
+ALTER TABLE `voucher_transaction_details` ADD `payment_mode` INT NOT NULL AFTER `voucher_id`;
+
 
 
 

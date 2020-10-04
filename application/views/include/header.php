@@ -332,7 +332,8 @@ var base_url = '<?php echo base_url();?>';
                 <ul class="ml-menu">
                     <li><a href="<?php echo base_url();?>account/addNewAccountType">Chart Of Account</a></li>
                     <?php if ($this->ion_auth->is_admin()){ ?><li><a href="<?php echo base_url();?>account/addJournalvoucher">Journal Voucher</a></li>
-                    <li><a href="<?php echo base_url();?>account/approveVoucher">Approve Voucher</a></li>
+                    <li><a href="<?php echo base_url();?>account/approveVoucher">Approve Voucher Paid By Online /Cash</a></li>
+                    <li><a href="<?php echo base_url();?>account/approveChequePaidVoucher">Approve Cheque Voucher</a></li>
                     <?php }?>
                     <li><a href="<?php echo base_url();?>account/paymentVoucher">Payment Voucher</a></li>
                     <li><a href="<?php echo base_url();?>account/receivedVoucher">Received Voucher</a></li>

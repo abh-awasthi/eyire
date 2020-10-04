@@ -82,9 +82,7 @@ class Account_model extends CI_Model {
         $this->db->group_by('voucher_details_unapproved.id');
         if (!empty($post['order'])) { // here order processing
             $this->db->order_by($post['column_order'][$post['order'][0]['column']], $post['order'][0]['dir']);
-        } else if (isset($this->order)) {
-//            $order = $this->order;
-//            $this->db->order_by(key($order), $order[key($order)]);
+        } else {
             $this->db->order_by('voucher_details_unapproved.is_approved', 'ASC');
         }
         

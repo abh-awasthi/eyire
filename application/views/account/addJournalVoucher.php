@@ -86,7 +86,7 @@
                                     <div class="col-md-6 form-group form-float">
                                         <div class="mb-3">
                                             <label>Amount Transfer *</label>
-                                            <input type="number" min="0" step="1"  class="form-control" value="" name="amount" placeholder="Enter Balance Amount" id="amount" required aria-required="true">
+                                            <input type="number" min="0" step="1"  class="form-control" onblur="displayInWords();" value="" max="999999999" name="amount" placeholder="Enter Transfered Amount" id="amount" required aria-required="true">
                                         </div>
                                         <label id="error-amount" class="removeDisplay" for="District">This field is required.</label>
                                     </div>
@@ -104,16 +104,16 @@
                                             <input type="radio" name="paymentmode" value="1" checked onchange="displayTransaction()"> &nbsp;&nbsp;Cash&nbsp;
                                             </label>
                                             <label class="radio-inline">
-                                            <input type="radio" name="paymentmode" value="2" onchange="displayTransaction()"> &nbsp;&nbsp;NetBanking&nbsp;&nbsp;
+                                            <input type="radio" name="paymentmode" value="2" onchange="displayTransaction()"> &nbsp;&nbsp;Cheque&nbsp;
                                             </label>
                                             <label class="radio-inline">
-                                            <input type="radio" name="paymentmode" value="3" onchange="displayTransaction()"> &nbsp;&nbsp;Google Pay&nbsp;&nbsp;
+                                            <input type="radio" name="paymentmode" value="3" onchange="displayTransaction()"> &nbsp;&nbsp;NEFT/ RTGS/ IMPS&nbsp;&nbsp;
                                             </label>
                                             <label class="radio-inline">
                                             <input type="radio" name="paymentmode" value="4" onchange="displayTransaction()"> &nbsp;&nbsp;UPI&nbsp;&nbsp;
                                             </label>
                                             <label class="radio-inline">
-                                            <input type="radio" name="paymentmode" value="5" onchange="displayTransaction()"> &nbsp;&nbsp;Credit/ Debit Card&nbsp;&nbsp;
+                                            <input type="radio" name="paymentmode" value="5" onchange="displayTransaction()"> &nbsp;&nbsp;Others&nbsp;&nbsp;
                                             </label>
                                         </div>
                                         <label id="error-payment_mode" class="removeDisplay" for="Narration">This field is required.</label>
@@ -148,6 +148,47 @@
                                             </div>
                                             <label id="error-cheque_date" class="removeDisplay" for="voucher date">This field is required.</label>
                                         </div>
+                                        <div class="col-md-6 form-group form-float">
+                                            <div class="mb-3">
+                                                <label>Bank Name</label>
+                                                <div class="input-group">
+                                                   <select class="form-control show-tick ms search-select" name="bank_id" placeholder="Select Bank Name" id="bank_id" required aria-required="true">
+                                                        <option value="0"  selected="">Select Bank Name</option>
+                                                        <?php foreach ($bank_name as  $value) { ?>
+                                                        <option value="<?php echo $value['id'];?>"><?php echo $value['bank_name'];?></option>
+                                                        <?php } ?>
+                                                  </select>
+                                                    
+                                                </div>
+                                            </div>
+                                            <label id="error-bank_name" class="removeDisplay" for="BankName">This field is required.</label>
+                                        </div>
+                                        
+                                        <div class="col-md-6 form-group form-float">
+                                            <div class="mb-3">
+                                                <label>Received By</label>
+                                                <div class="input-group">
+                                                   <select class="form-control show-tick ms search-select" name="received_by" placeholder="Select Users Name" id="received_by" required aria-required="true">
+                                                        <option value="0"  selected="">Select Received By</option>
+                                                        <?php foreach ($users as  $value) { ?>
+                                                        <option value="<?php echo $value['id'];?>"><?php echo $value['first_name']. " ".$value['last_name'];?></option>
+                                                        <?php } ?>
+                                                  </select>
+                                                    
+                                                </div>
+                                            </div>
+                                            <label id="error-received_by" class="removeDisplay" for="BankName">This field is required.</label>
+                                        </div>
+                                        <div class="col-md-12 form-group form-float">
+                                            <div class="mb-3">
+                                                <label>Amount In Words</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control display_in_words" value="" name="display_in_words" id="display_in_words" readonly="">
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        
                                     </div>
                                 </div>
                                 <div id="online" class="removeDisplay">
@@ -168,6 +209,110 @@
                                             </div>
                                             <label id="error-transaction-date" class="removeDisplay" for="voucher date">This field is required.</label>
                                         </div>
+                                        <div class="col-md-12 form-group form-float">
+                                            <div class="mb-3">
+                                                <label>Amount In Words</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control display_in_words" value="" name="display_in_words" id="display_in_words" readonly="">
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div id="cash" class="removeDisplay">
+                                    <div class="row clearfix">
+                                        <div class="col-md-6 form-group form-float">
+                                            <div class="mb-3">
+                                                <div class="table-responsive">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Value</th>
+                                            <th>No. of Note</th>
+                                            <th></th>
+                                            <th>Rupees</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">2000 * </th>
+                                            <td><input type="number" class="form-control" onblur="ruppes_set(this.id, 2000)" style="width: 100px;" name="two_thousand" id="two_thousand"></td>
+                                            <td>=</td>
+                                            <td id="two_thousand_text"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">500 * </th>
+                                            <td><input type="number" class="form-control" style="width: 100px;" onblur="ruppes_set(this.id, 500)" name="five_hundred" id="five_hundred"></td>
+                                            <td>=</td>
+                                            <td id="five_hundred_text"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">200 * </th>
+                                            <td><input type="number" class="form-control" style="width: 100px;" onblur="ruppes_set(this.id, 200)" name="two_hundred" id="two_hundred"></td>
+                                            <td>=</td>
+                                            <td id="two_hundred_text"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">100 * </th>
+                                            <td><input type="number" class="form-control" style="width: 100px;" onblur="ruppes_set(this.id, 100)" name="one_hundred" id="one_hundred"></td>
+                                            <td>=</td>
+                                            <td id="one_hundred_text"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">50 * </th>
+                                            <td><input type="number" class="form-control" style="width: 100px;" onblur="ruppes_set(this.id, 30)" name="fifty" id="fifty"></td>
+                                            <td>=</td>
+                                            <td id="fifty_text"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">20 * </th>
+                                            <td ><input type="number" class="form-control" style="width: 100px;" name="twenty" onblur="ruppes_set(this.id, 20)" id="twenty"></td>
+                                            <td>=</td>
+                                            <td id="twenty_text"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">10 * </th>
+                                            <td><input type="number" class="form-control" style="width: 100px;" onblur="ruppes_set(this.id, 10)" name="ten" id="ten"></td>
+                                            <td>=</td>
+                                            <td id="ten_text"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">5 * </th>
+                                            <td><input type="number" class="form-control" style="width: 100px;" name="five" onblur="ruppes_set(this.id, 5)" id="five"></td>
+                                            <td>=</td>
+                                            <td id="five_text"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2 * </th>
+                                            <td><input type="number" class="form-control" style="width: 100px;" name="two" id="two" onblur="ruppes_set(this.id, 2)"></td>
+                                            <td>=</td>
+                                            <td  id="two_text"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">1 * </th>
+                                            <td><input type="number" class="form-control" style="width: 100px;" name="one" id="one" onblur="ruppes_set(this.id, 1)"></td>
+                                            <td>=</td>
+                                            <td id="one_text"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Total</th>
+                                            <td></td>
+                                            <td></td>
+                                            <td id="total_amount"></td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <th colspan="4" id="total_in_words"></th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                                            </div>
+                                            <label id="error-cash" class="removeDisplay" for="transaction_id">Amount Transfered is not with total match.</label>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -234,8 +379,15 @@
             var transaction_date = $('#transaction_date').val();
             
             //alert(voucher_date);
-            const date1 = new Date(voucher_date);
+            var dateMomentObject = moment(voucher_date, "DD/MM/YYYY"); // 1st argument - string, 2nd argument - format
+            var dateObject = dateMomentObject.toDate(); // convert moment.js object to Date object
+
+
+
+            const date1 = new Date(dateObject.toString());
             const date2 = new Date();
+            
+            //console.log(date2);
             const diffTime = date2 - date1;
             const diffDays = (diffTime / (1000 * 60 * 60 * 24)); 
             
@@ -246,6 +398,7 @@
                 return false;
             }
             $('#error-voucher_type_id').addClass('removeDisplay');
+           // console.log(diffDays);
             if(diffDays > 31){
                 $('#error-voucher-date').removeClass('removeDisplay');
                 $('#error-voucher-date').addClass('error');
@@ -296,7 +449,7 @@
             
             $('#error-narration').addClass('removeDisplay');
             
-            if(paymentmode == 1){
+            if(paymentmode == 2){
                 if(cheque_number === ""){
                     $('#error-cheque_number').removeClass('removeDisplay');
                     $('#error-cheque_number').addClass('error');
@@ -309,10 +462,38 @@
                     return false;
                 }
                 
+                var bank_name = $('#bank_id').val();
+                var received_by = $("#received_by").val();
+                if(bank_name ==""){
+                    $('#error-bank_name').removeClass('removeDisplay');
+                    $('#error-bank_name').addClass('error');
+                    return false;
+                }
+                
+                if(received_by ==""){
+                    $('#error-received_by').removeClass('removeDisplay');
+                    $('#error-received_by').addClass('error');
+                    return false;
+                }
+                
                 $('#transaction_date').val('');
                 $('#transaction_id').val('');
                 
-            } else {
+            } if(paymentmode == 1){
+                var total_amount = $('#total_amount').text();
+                if(Number(amount) === Number(total_amount)){
+                    
+                } else {
+                    $('#error-cash').removeClass('removeDisplay');
+                    $('#error-cash').addClass('error');
+                    return false;
+                    
+                }
+                $('#transaction_date').val('');
+                $('#transaction_id').val('');
+                $('#cheque_number').val('');
+                $('#cheque_date').val('');
+            }else {
                 $('#cheque_number').val('');
                 $('#cheque_date').val('');
                 if(transaction_id === ""){
@@ -384,15 +565,57 @@
             time: false
         });
         $('#voucher_date').val('<?php echo date('d-m-Y'); ?>');
-         
+         displayTransaction();
          function displayTransaction(){
             var paymentmode = $("[name='paymentmode']:checked").val();
-            if(paymentmode == 1){
+            if(paymentmode == 2){
                 $("#online").addClass("removeDisplay");
+                $("#cash").addClass("removeDisplay");
                 $("#chequeDetails").removeClass("removeDisplay");
-            } else {
+                
+            } else if(paymentmode == 1){
+                $("#online").addClass("removeDisplay");
+                $("#cash").removeClass("removeDisplay");
+                $("#chequeDetails").addClass("removeDisplay");
+            }else {
                 $("#chequeDetails").addClass("removeDisplay");
                 $("#online").removeClass("removeDisplay");
+                $("#cash").addClass("removeDisplay");
             }
          }
+         
+         
+     function displayInWords(){
+        var number = $('#amount').val();
+        $.ajax({
+           url:'<?php echo base_url();?>account/displaywords/'+number,
+           success:function(response){
+              $('.display_in_words').val(response);
+                
+           }
+        });
+        
+    }
+    
+    function ruppes_set(id, note){
+       var number = $("#"+id).val();
+       var amount = Number(number) * Number(note);
+       $("#"+id+"_text").text(amount);
+       var total_amount = get_total_amount();
+       $("#total_amount").text(total_amount);
+       $.ajax({
+           url:'<?php echo base_url();?>account/displaywords/'+total_amount,
+           success:function(response){
+              $('#total_in_words').text(response);
+                
+           }
+        });
+    }
+    
+    function get_total_amount(){
+        return ((Number($("#two_thousand").val()) * 2000) + (Number($("#five_hundred").val()) * 500) +(Number($("#one_hundred").val()) * 100) + (Number($("#two_hundred").val()) * 200) 
+                + (Number($("#fifty").val()) * 50) + (Number($("#twenty").val()) * 20) + (Number($("#ten").val()) * 10) + (Number($("#five").val()) * 5) + (Number($("#two").val()) * 2) 
+                + (Number($("#one").val()) * 1));
+        
+    }
 </script>

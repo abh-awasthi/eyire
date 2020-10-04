@@ -5,7 +5,7 @@
         <div class="block-header">
             <div class="row">
                 <div class="col-lg-7 col-md-6 col-sm-12">
-                    <h2>Approve Voucher Paid By Online/ Cash</h2>
+                    <h2>Approve Voucher Paid By Cash</h2>
 
                     <button class="btn btn-primary btn-icon mobile_menu" type="button"><i class="zmdi zmdi-sort-amount-desc"></i></button>
                 </div>
@@ -92,30 +92,19 @@
                                             <th>Voucher Type</th>
                                             <th>Ledger (Dr)</th>
                                             <th>Ledger (Cr)</th>
-                                            <th>Payment Mode</th>
                                             <th>Amount</th>
-                                            <th>Action</th>
+                                            <th>Update</th>
+                                            <th>Reject</th>
                                             <th>Narration</th>
-                                            
-                                            <th>Transaction Date</th>
-                                            <th>Transaction ID</th>
-                                            <th>Actual Voucher</th>
+                                            <th>Cheque Number</th>
+                                            <th>Cheque Date</th>
+                                            <th>Cheque Submit Date</th>
+                                            <th>Cheque Clearance Date</th>
                                             <th>Entry By</th>
                                             <th>Entry Time</th>
-                                            
-                                            <th>2000</th>
-                                            <th>500 * </th>
-                                            <th>200 * </th>
-                                            <th>100 * </th>
-                                            <th>50 * </th>
-                                            <th>20 * </th>
-                                            <th>10 * </th>
-                                            <th>5 * </th>
-                                            <th>2 * </th>
-                                            <th>1 * </th>
-                                            
-                                            <th>Approved / Rejected By</th>
-                                            <th>Approved / Rejected Date</th>
+                                            <th>Actual Voucher</th>
+                                            <th>Approved By</th>
+                                            <th>Approved Date</th>
                                         </tr>
                                     </thead>
                                     
@@ -176,9 +165,9 @@
                 'copy', 'csv', 'excel', 'pdf', 'print'
             ],
             ajax: {
-                url: base_url + "account/getUnApprovedVoucherDetails",
+                url: base_url + "account/getUnApprovedChequePaidVoucherDetails",
                 type: "POST",
-                data: {type:1, payment_mode: '1'}
+                data: {type:1, payment_mode: 2}
             },
             //Set column definition initialisation properties.
             columnDefs: [
@@ -197,28 +186,30 @@
         
     }
     
-    function approve_voucher(voucher_id){
-        if (window.confirm("Are You Sure? Do You want To Approve ")) {
-            $.ajax({
-               url:'<?php echo base_url();?>account/approvedVoucher/'+voucher_id,
-               success:function(response){
-                  var data = jQuery.parseJSON(response);
-                    if (data.status) {
-                        alert('Approved');
-                        //location.reload();
-                        table.ajax.reload(null, false); 
-                    } else {
-                        alert('Update failed');
-                    }
-               }
-            });
-        }
-    }
+    
+//    function approve_voucher(voucher_id){
+//        if (window.confirm("Are You Sure? Do You want To Approve ")) {
+//            $.ajax({
+//               url:'<?php echo base_url();?>account/approvedVoucher/'+voucher_id,
+//               success:function(response){
+//                  var data = jQuery.parseJSON(response);
+//                    if (data.status) {
+//                        alert('Approved');
+//                        //location.reload();
+//                        table.ajax.reload(null, false); 
+//                    } else {
+//                        alert('Update failed');
+//                    }
+//               }
+//            });
+//        }
+//    }
     
     function reject_voucher(voucher_id){
         if (window.confirm("Are You Sure? Do You want To Reject ")) {
             $.ajax({
                url:'<?php echo base_url();?>account/rejectVoucher/'+voucher_id,
+               type: "POST",
                success:function(response){
                   var data = jQuery.parseJSON(response);
                     if (data.status) {
@@ -230,6 +221,56 @@
                     }
                }
             });
+        }
+    }
+    
+    function update_cheque_submission_date(voucher_id){
+        var date = $("#"+voucher_id).val();
+        if(date !=""){
+            if (window.confirm("Are You Sure? Do You want To Approve ")) {
+                $.ajax({
+                   url:'<?php echo base_url();?>account/updateChequeSubmissionDate/'+voucher_id,
+                   type: "POST",
+                   data:{date:date},
+                   success:function(response){
+                       var data = jQuery.parseJSON(response);
+                        if (data.status) {
+                            alert('Approved');
+                            //location.reload();
+                            table.ajax.reload(null, false); 
+                        } else {
+                            alert('Update failed');
+                        }
+                   }
+                });
+            }
+        } else {
+            alert("Please Enter Check Submission Date");
+        }
+    }
+    
+    function update_cheque_clearance_date(voucher_id){
+        var date = $("#"+voucher_id).val();
+        if(date !=""){
+            if (window.confirm("Are You Sure? Do You want To Approve ")) {
+                $.ajax({
+                   url:'<?php echo base_url();?>account/updateChequeClearanceDate/'+voucher_id,
+                   type: "POST",
+                   data:{date:date},
+                   success:function(response){
+                       var data = jQuery.parseJSON(response);
+                        if (data.status) {
+                            alert('Approved');
+                            //location.reload();
+                            table.ajax.reload(null, false); 
+                        } else {
+                            alert('Update failed');
+                        }
+                   }
+                });
+            }
+        } else {
+            alert("Please Enter Check Submission Date");
         }
     }
     
